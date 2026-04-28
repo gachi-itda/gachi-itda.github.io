@@ -91,7 +91,7 @@ header{background:var(--ink);padding:0.9rem 2rem;display:flex;align-items:center
 .page-wrap{max-width:800px;margin:0 auto;padding:2rem 1.5rem;}
 .form-section{background:white;border:1px solid var(--line);border-radius:4px;margin-bottom:1.2rem;overflow:hidden;}
 .fs-header{display:flex;align-items:center;gap:0.8rem;padding:1rem 1.5rem;background:var(--warm);border-bottom:1px solid var(--line);}
-.fs-num{width:1.5rem;height:1.5rem;background:var(--ink);color:#52b788;font-family:'Playfair Display',serif;font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:1px;flex-shrink:0;}
+.fs-num{width:1.5rem;height:1.5rem;background:var(--ink);color:#52b788;font-family:Playfair Display,serif;font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:1px;flex-shrink:0;}
 .fs-title{font-family:'Noto Serif KR',serif;font-weight:600;font-size:0.9rem;}
 .fs-badge{margin-left:auto;font-size:0.62rem;color:var(--water);background:var(--water-pale);padding:0.15rem 0.5rem;border-radius:2px;}
 .fs-body{padding:1.3rem;}
@@ -123,6 +123,9 @@ header{background:var(--ink);padding:0.9rem 2rem;display:flex;align-items:center
 .chk-opt{border:1.5px solid var(--line);padding:0.65rem 0.9rem;cursor:pointer;transition:all 0.2s;background:white;border-radius:3px;display:flex;align-items:center;gap:0.6rem;}
 .chk-opt:hover{border-color:rgba(82,183,136,0.5);background:var(--warm);}
 .chk-opt.active{border-color:#52b788;background:rgba(82,183,136,0.1);}
+.chk-opt.active .chk-box{background:#52b788 !important;border-color:#52b788 !important;color:white !important;}
+.type-card.active{border-color:#52b788 !important;background:rgba(82,183,136,0.12) !important;}
+.type-card.active .type-name{color:#1a6640;font-weight:800;}
 .chk-box{width:1rem;height:1rem;border:1.5px solid var(--line);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:0.55rem;color:transparent;flex-shrink:0;transition:all 0.2s;}
 .chk-opt.active .chk-box{background:var(--water);border-color:var(--water);color:white;}
 .chk-body{flex:1;}
@@ -144,7 +147,7 @@ header{background:var(--ink);padding:0.9rem 2rem;display:flex;align-items:center
 /* AREA */
 .area-wrap{display:flex;border:1.5px solid var(--line);border-radius:3px;overflow:hidden;background:white;transition:border-color 0.2s;margin-bottom:0.7rem;}
 .area-wrap:focus-within{border-color:var(--water);}
-.area-inp{flex:1;padding:0.75rem 1rem;font-size:1.4rem;font-family:'Playfair Display',serif;font-weight:700;border:none;outline:none;background:transparent;}
+.area-inp{flex:1;padding:0.75rem 1rem;font-size:1.4rem;font-family:Playfair Display,serif;font-weight:700;border:none;outline:none;background:transparent;}
 .unit-tabs{display:flex;border-left:1px solid var(--line);}
 .unit-tab{padding:0.55rem 0.8rem;font-size:0.7rem;font-weight:500;cursor:pointer;background:var(--warm);color:var(--slate);border:none;transition:all 0.2s;}
 .unit-tab.active{background:var(--ink);color:#52b788;}
@@ -166,7 +169,7 @@ header{background:var(--ink);padding:0.9rem 2rem;display:flex;align-items:center
 .success-icon{font-size:3.5rem;margin-bottom:1.2rem;}
 .success-title{font-family:'Noto Serif KR',serif;font-size:1.6rem;font-weight:900;margin-bottom:0.7rem;}
 .success-sub{font-size:0.85rem;color:var(--slate);line-height:1.8;margin-bottom:1.5rem;}
-.success-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--water);margin:0.8rem 0;}
+.success-num{font-family:Playfair Display,serif;font-size:2.2rem;font-weight:700;color:var(--water);margin:0.8rem 0;}
 .success-card{background:white;border:1px solid var(--line);border-radius:4px;padding:1.3rem;text-align:left;margin-bottom:1.2rem;}
 .sc-title{font-size:0.68rem;letter-spacing:0.15em;color:var(--slate);text-transform:uppercase;margin-bottom:0.8rem;}
 .sc-row{display:flex;justify-content:space-between;font-size:0.8rem;padding:0.35rem 0;border-bottom:1px solid var(--line);}
@@ -181,7 +184,7 @@ header{background:var(--ink);padding:0.9rem 2rem;display:flex;align-items:center
 .stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#52b788;transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
 .stat-card:hover::after{transform:scaleX(1);}
 .stat-label{font-size:0.65rem;letter-spacing:0.1em;color:var(--slate);text-transform:uppercase;margin-bottom:0.4rem;}
-.stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;line-height:1;}
+.stat-num{font-family:Playfair Display,serif;font-size:1.8rem;font-weight:700;line-height:1;}
 .stat-num.hl{color:var(--water);}
 .stat-sub{font-size:0.65rem;color:var(--slate);margin-top:0.2rem;}
 
@@ -238,7 +241,7 @@ tr:hover td{background:rgba(245,244,244,0.5);}
 .c-info{flex:1;}
 .c-name{font-size:0.82rem;font-weight:600;}
 .c-spec{font-size:0.65rem;color:var(--slate);}
-.c-quote{font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;color:var(--water);}
+.c-quote{font-family:Playfair Display,serif;font-size:0.9rem;font-weight:700;color:var(--water);}
 .compare-table{width:100%;border-collapse:collapse;font-size:0.75rem;margin-top:0.6rem;}
 .compare-table th{background:var(--ink);color:#52b788;padding:0.55rem 0.75rem;font-size:0.65rem;text-align:left;}
 .compare-table td{padding:0.55rem 0.75rem;border-bottom:1px solid var(--line);}
@@ -264,7 +267,7 @@ tr:hover td{background:rgba(245,244,244,0.5);}
 .req-card{background:white;border:1px solid var(--line);border-radius:4px;margin-bottom:1rem;overflow:hidden;transition:box-shadow 0.2s;}
 .req-card:hover{box-shadow:0 4px 20px rgba(26,58,92,0.1);}
 .req-card-header{padding:1rem 1.3rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:var(--warm);}
-.req-id{font-family:'Playfair Display',serif;font-weight:700;font-size:0.88rem;color:var(--water);}
+.req-id{font-family:Playfair Display,serif;font-weight:700;font-size:0.88rem;color:var(--water);}
 .req-body{padding:1.1rem 1.3rem;}
 .req-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.55rem;margin-bottom:0.9rem;}
 .req-info{background:var(--cream);border-radius:3px;padding:0.6rem 0.8rem;}
@@ -277,7 +280,7 @@ tr:hover td{background:rgba(245,244,244,0.5);}
 .amount-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;}
 .af label{display:block;font-size:0.7rem;font-weight:600;color:var(--slate);margin-bottom:0.3rem;}
 .amount-wrap{display:flex;align-items:center;}
-.amount-inp{flex:1;padding:0.65rem 0.9rem;border:1.5px solid var(--line);border-right:none;border-radius:3px 0 0 3px;font-size:1.05rem;font-family:'Playfair Display',serif;font-weight:700;outline:none;background:var(--cream);transition:border-color 0.2s;}
+.amount-inp{flex:1;padding:0.65rem 0.9rem;border:1.5px solid var(--line);border-right:none;border-radius:3px 0 0 3px;font-size:1.05rem;font-family:Playfair Display,serif;font-weight:700;outline:none;background:var(--cream);transition:border-color 0.2s;}
 .amount-inp:focus{border-color:var(--water);}
 .amount-unit{padding:0.65rem 0.75rem;background:var(--warm);border:1.5px solid var(--line);border-radius:0 3px 3px 0;font-size:0.72rem;color:var(--slate);}
 .memo-inp{width:100%;padding:0.65rem 0.9rem;border:1.5px solid var(--line);border-radius:3px;font-size:0.8rem;font-family:'Noto Sans KR',sans-serif;resize:vertical;min-height:65px;background:var(--cream);outline:none;transition:border-color 0.2s;}
@@ -287,7 +290,7 @@ tr:hover td{background:rgba(245,244,244,0.5);}
 .done-badge{display:inline-flex;align-items:center;gap:0.35rem;background:rgba(26,100,64,0.1);color:var(--green);border:1px solid rgba(26,100,64,0.25);font-size:0.7rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:2px;margin-bottom:0.75rem;}
 .done-amounts{background:var(--cream);border-radius:3px;padding:0.9rem 1rem;display:flex;gap:1.5rem;flex-wrap:wrap;}
 .da-item .da-label{font-size:0.6rem;color:var(--slate);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.15rem;}
-.da-item .da-val{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--water);}
+.da-item .da-val{font-family:Playfair Display,serif;font-size:1.3rem;font-weight:700;color:var(--water);}
 
 /* ══ LOGIN ══ */
 .login-wrap{max-width:380px;margin:4rem auto;padding:0 1.5rem;}
@@ -747,16 +750,16 @@ tr:hover td{background:rgba(245,244,244,0.5);}
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:1rem;">
-          <div onclick="cSetAreaQ(66)" style="background:white;border:1px solid var(--line);border-radius:3px;padding:0.65rem 0.8rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b788'" onmouseout="this.style.borderColor='var(--line)'">
+          <div onclick="cSetAreaQ(66)" style="background:white;border:1px solid var(--line);border-radius:3px;padding:0.65rem 0.8rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b788'" onmouseout="this.style.borderColor=''">
             <div style="font-size:0.72rem;font-weight:600;">20평 (66㎡)</div><div style="font-size:0.62rem;color:var(--slate);">소형 단독주택</div>
           </div>
-          <div onclick="cSetAreaQ(99)" style="background:white;border:1px solid var(--line);border-radius:3px;padding:0.65rem 0.8rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b788'" onmouseout="this.style.borderColor='var(--line)'">
+          <div onclick="cSetAreaQ(99)" style="background:white;border:1px solid var(--line);border-radius:3px;padding:0.65rem 0.8rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b788'" onmouseout="this.style.borderColor=''">
             <div style="font-size:0.72rem;font-weight:600;">30평 (99㎡)</div><div style="font-size:0.62rem;color:var(--slate);">중형 단독주택</div>
           </div>
-          <div onclick="cSetAreaQ(132)" style="background:white;border:1px solid var(--line);border-radius:3px;padding:0.65rem 0.8rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b788'" onmouseout="this.style.borderColor='var(--line)'">
+          <div onclick="cSetAreaQ(132)" style="background:white;border:1px solid var(--line);border-radius:3px;padding:0.65rem 0.8rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b788'" onmouseout="this.style.borderColor=''">
             <div style="font-size:0.72rem;font-weight:600;">40평 (132㎡)</div><div style="font-size:0.62rem;color:var(--slate);">중대형 주택</div>
           </div>
-          <div onclick="cSetAreaQ(165)" style="background:white;border:1px solid var(--line);border-radius:3px;padding:0.65rem 0.8rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b788'" onmouseout="this.style.borderColor='var(--line)'">
+          <div onclick="cSetAreaQ(165)" style="background:white;border:1px solid var(--line);border-radius:3px;padding:0.65rem 0.8rem;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='#52b788'" onmouseout="this.style.borderColor=''">
             <div style="font-size:0.72rem;font-weight:600;">50평 (165㎡)</div><div style="font-size:0.62rem;color:var(--slate);">대형 단독주택</div>
           </div>
         </div>
@@ -846,9 +849,9 @@ tr:hover td{background:rgba(245,244,244,0.5);}
         <div style="background:linear-gradient(135deg,#0f2744 0%,#1a3a5c 60%,#1e4570 100%);border-radius:4px;padding:1.3rem;margin-bottom:0.9rem;border:1px solid rgba(82,183,136,0.25);">
           <div style="font-size:0.58rem;letter-spacing:0.18em;color:rgba(255,255,255,0.55);text-transform:uppercase;margin-bottom:0.6rem;">예상 직접 공사비 (VAT 별도)</div>
           <div style="display:flex;align-items:baseline;gap:0.35rem;flex-wrap:wrap;">
-            <span id="cEMin" style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:white;">—</span>
+            <span id="cEMin" style="font-family:Playfair Display,serif;font-size:1.5rem;font-weight:700;color:white;">—</span>
             <span style="font-size:0.75rem;color:rgba(255,255,255,0.3);">~</span>
-            <span id="cEMax" style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:white;">—</span>
+            <span id="cEMax" style="font-family:Playfair Display,serif;font-size:1.5rem;font-weight:700;color:white;">—</span>
           </div>
           <div style="font-size:0.62rem;color:rgba(255,255,255,0.55);margin-top:0.25rem;">만원</div>
           <div id="cEPerm" style="font-size:0.68rem;color:rgba(255,255,255,0.5);margin-top:0.4rem;">—</div>
@@ -860,7 +863,7 @@ tr:hover td{background:rgba(245,244,244,0.5);}
         <!-- 간접비 -->
         <div id="cIndirectBox" style="display:none;background:linear-gradient(135deg,#1a3a5c,#2a5a8a);border-radius:4px;padding:1.1rem;margin-bottom:0.9rem;border:1px solid rgba(82,183,136,0.3);">
           <div style="font-size:0.58rem;letter-spacing:0.15em;color:rgba(255,255,255,0.55);text-transform:uppercase;margin-bottom:0.5rem;">선택 간접비 합계</div>
-          <div id="cIndTotal" style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:white;">—</div>
+          <div id="cIndTotal" style="font-family:Playfair Display,serif;font-size:1.4rem;font-weight:700;color:white;">—</div>
           <div style="font-size:0.62rem;color:rgba(255,255,255,0.55);margin-top:0.15rem;">만원</div>
           <div id="cIndItems" style="margin-top:0.8rem;display:flex;flex-direction:column;gap:0.3rem;"></div>
         </div>
@@ -868,7 +871,7 @@ tr:hover td{background:rgba(245,244,244,0.5);}
         <!-- 총합 -->
         <div id="cGrandBox" style="display:none;background:linear-gradient(135deg,#0a1e33,#1a3a5c);border-radius:4px;padding:1.1rem;margin-bottom:0.9rem;border:2px solid rgba(82,183,136,0.5);">
           <div style="font-size:0.6rem;letter-spacing:0.18em;color:rgba(255,255,255,0.55);text-transform:uppercase;margin-bottom:0.4rem;">🏠 총 예상 사업비</div>
-          <div id="cGrandVal" style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:white;">—</div>
+          <div id="cGrandVal" style="font-family:Playfair Display,serif;font-size:1.5rem;font-weight:700;color:white;">—</div>
           <div style="font-size:0.62rem;color:rgba(255,255,255,0.5);margin-top:0.3rem;">직접 공사비 + 간접비 합계</div>
         </div>
 
@@ -931,7 +934,8 @@ tr:hover td{background:rgba(245,244,244,0.5);}
   <div style="max-width:860px;margin:0 auto;padding:1.5rem 1rem 3rem;" id="estimateBody"><div style="text-align:center;padding:3rem;color:var(--slate);">관리자 화면에서 📄 계산서 버튼을 클릭하세요.</div></div>
 </div>
 
-<script>
+<script type="text/javascript">//<![CDATA[
+
 
 // ══ 데이터 ══
 const CONTRACTORS = {
@@ -957,8 +961,14 @@ let tempAssigned=[];
 const SHEET_URL='https://script.google.com/macros/s/AKfycbweGZTGop5MLMQGfr9WF-bLvHq4BhDHOlvSR8XpESFYI2UcZkgBFRGuwNQygSzmOjfi/exec';
 async function sendToSheet(d){try{await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});}catch(e){}}
 function toggleChk(el){el.classList.toggle('active');el.querySelector('.chk-box').style.cssText=el.classList.contains('active')?'background:#52b788;border-color:#52b788;color:white':'';}
-function renderDesignForm(){return `<div class="form-section"><div class="fs-header"><div class="fs-num">1</div><div class="fs-title">설계 종류</div><div class="fs-badge">복수 선택</div></div><div class="fs-body"><div class="opt-grid og3"><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🏗️ 건축설계</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🛋️ 인테리어설계</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🏠 리모델링설계</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">📋 인허가·신고</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🔍 감리</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">💡 컨설팅</div></div></div></div></div></div><div class="form-section"><div class="fs-header"><div class="fs-num">2</div><div class="fs-title">토지 정보</div><div class="fs-badge">필수</div></div><div class="fs-body"><div class="field-row"><div class="field" style="flex:2;"><label>지번 주소 *</label><input type="text" id="des_jibun" placeholder="예) 충남 서산시 성연면 왕정리 646"></div><div class="field"><label>대지면적 (㎡)</label><input type="number" id="des_site_area" placeholder="0" oninput="document.getElementById('des_site_py').textContent=Math.round(this.value/3.3)+'평'"></div></div><div style="font-size:0.72rem;color:var(--slate);margin:-0.3rem 0 0.6rem;" id="des_site_py"></div><div class="field-row"><div class="field"><label>용도지역</label><select id="des_zone" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택</option><optgroup label="주거지역"><option>제1종전용주거지역</option><option>제2종전용주거지역</option><option>제1종일반주거지역</option><option>제2종일반주거지역</option><option>제3종일반주거지역</option><option>준주거지역</option></optgroup><optgroup label="상업지역"><option>중심상업지역</option><option>일반상업지역</option><option>근린상업지역</option><option>유통상업지역</option></optgroup><optgroup label="공업·녹지"><option>전용공업지역</option><option>일반공업지역</option><option>준공업지역</option><option>보전녹지지역</option><option>생산녹지지역</option><option>자연녹지지역</option></optgroup><optgroup label="비도시지역"><option>관리지역(계획)</option><option>관리지역(생산)</option><option>관리지역(보전)</option><option>농림지역</option><option>자연환경보전지역</option></optgroup></select></div><div class="field"><label>용도지구·구역</label><input type="text" id="des_district" placeholder="예) 성장관리권역, 농업진흥구역 등"></div></div></div></div><div class="form-section"><div class="fs-header"><div class="fs-num">3</div><div class="fs-title">건물 계획</div><div class="fs-badge">필수</div></div><div class="fs-body"><div class="field-row"><div class="field"><label>건물 용도 *</label><select id="des_bldg_use" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택</option><option>단독주택</option><option>다가구주택</option><option>다세대주택</option><option>제1종 근린생활시설</option><option>제2종 근린생활시설</option><option>판매시설</option><option>업무시설(사무소)</option><option>숙박시설(펜션)</option><option>공장</option><option>창고</option><option>농업용 시설</option><option>기타</option></select></div><div class="field"><label>층수</label><select id="des_floors" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택</option><option>지상 1층</option><option>지상 2층</option><option>지상 3층</option><option>지상 4층 이상</option><option>지하+지상</option><option>미정</option></select></div></div><div class="field-row"><div class="field"><label>연면적 희망 (㎡)</label><input type="number" id="des_floor_area" placeholder="0" oninput="document.getElementById('des_floor_py').textContent=Math.round(this.value/3.3)+'평'"></div><div class="field"><label>구조</label><select id="des_structure" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택/미정</option><option>철근콘크리트(RC)</option><option>경량목구조</option><option>중목구조</option><option>철골구조</option><option>조적구조</option><option>기타/미정</option></select></div></div><div style="font-size:0.72rem;color:var(--slate);margin:-0.3rem 0 0.6rem;" id="des_floor_py"></div><div class="field-row"><div class="field"><label>현황</label><select id="des_status" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택</option><option>신축 (나대지)</option><option>신축 (기존 건물 철거 후)</option><option>기존 건물 리모델링</option><option>인허가만 필요 (설계 완료)</option></select></div><div class="field"><label>희망 착공 시기</label><select id="des_start" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">미정</option><option>1개월 이내</option><option>3개월 이내</option><option>6개월 이내</option><option>1년 이내</option><option>미정</option></select></div></div></div></div><div class="form-section"><div class="fs-header"><div class="fs-num">4</div><div class="fs-title">인테리어 설계 (해당 시)</div><div class="fs-badge">선택</div></div><div class="fs-body"><div class="field-row"><div class="field"><label>공간 용도</label><select id="des_int_type" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택</option><option>주거(아파트·빌라·주택)</option><option>사무실</option><option>상가·점포</option><option>카페·식당</option><option>숙박·펜션</option><option>기타</option></select></div><div class="field"><label>인테리어 면적 (㎡)</label><input type="number" id="des_int_area" placeholder="0"></div></div><div class="field"><label>주요 요청사항</label><input type="text" id="des_int_memo" placeholder="예) 오픈형 주방, 친환경 마감재 선호"></div></div></div>`;}
+function renderDesignForm(){return `<div class="form-section"><div class="fs-header"><div class="fs-num">1</div><div class="fs-title">설계 종류</div><div class="fs-badge">복수 선택</div></div><div class="fs-body"><div class="opt-grid og3"><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🏗️ 건축설계</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🛋️ 인테리어설계</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🏠 리모델링설계</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">📋 인허가·신고</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🔍 감리</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">💡 컨설팅</div></div></div></div></div></div><div class="form-section"><div class="fs-header"><div class="fs-num">2</div><div class="fs-title">토지 정보</div><div class="fs-badge">필수</div></div><div class="fs-body"><div class="field-row"><div class="field" style="flex:2;"><label>지번 주소 *</label><input type="text" id="des_jibun" placeholder="예: 충남 서산시 성연면 왕정리 646"></div><div class="field"><label>대지면적 (㎡)</label><input type="number" id="des_site_area" placeholder="0" oninput="document.getElementById('des_site_py').textContent=Math.round(this.value/3.3)+'평'"></div></div><div style="font-size:0.72rem;color:var(--slate);margin:-0.3rem 0 0.6rem;" id="des_site_py"></div><div class="field-row"><div class="field"><label>용도지역</label><select id="des_zone" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택</option><optgroup label="주거지역"><option>제1종전용주거지역</option><option>제2종전용주거지역</option><option>제1종일반주거지역</option><option>제2종일반주거지역</option><option>제3종일반주거지역</option><option>준주거지역</option></optgroup><optgroup label="상업지역"><option>중심상업지역</option><option>일반상업지역</option><option>근린상업지역</option><option>유통상업지역</option></optgroup><optgroup label="공업·녹지"><option>전용공업지역</option><option>일반공업지역</option><option>준공업지역</option><option>보전녹지지역</option><option>생산녹지지역</option><option>자연녹지지역</option></optgroup><optgroup label="비도시지역"><option>관리지역(계획)</option><option>관리지역(생산)</option><option>관리지역(보전)</option><option>농림지역</option><option>자연환경보전지역</option></optgroup></select></div><div class="field"><label>용도지구·구역</label><input type="text" id="des_district" placeholder="예: 성장관리권역, 농업진흥구역 등"></div></div></div></div><div class="form-section"><div class="fs-header"><div class="fs-num">3</div><div class="fs-title">건물 계획</div><div class="fs-badge">필수</div></div><div class="fs-body"><div class="field-row"><div class="field"><label>건물 용도 *</label><select id="des_bldg_use" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택</option><option>단독주택</option><option>다가구주택</option><option>다세대주택</option><option>제1종 근린생활시설</option><option>제2종 근린생활시설</option><option>판매시설</option><option>업무시설(사무소)</option><option>숙박시설(펜션)</option><option>공장</option><option>창고</option><option>농업용 시설</option><option>기타</option></select></div><div class="field"><label>층수</label><select id="des_floors" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택</option><option>지상 1층</option><option>지상 2층</option><option>지상 3층</option><option>지상 4층 이상</option><option>지하+지상</option><option>미정</option></select></div></div><div class="field-row"><div class="field"><label>연면적 희망 (㎡)</label><input type="number" id="des_floor_area" placeholder="0" oninput="document.getElementById('des_floor_py').textContent=Math.round(this.value/3.3)+'평'"></div><div class="field"><label>구조</label><select id="des_structure" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택/미정</option><option>철근콘크리트(RC)</option><option>경량목구조</option><option>중목구조</option><option>철골구조</option><option>조적구조</option><option>기타/미정</option></select></div></div><div style="font-size:0.72rem;color:var(--slate);margin:-0.3rem 0 0.6rem;" id="des_floor_py"></div><div class="field-row"><div class="field"><label>현황</label><select id="des_status" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택</option><option>신축 (나대지)</option><option>신축 (기존 건물 철거 후)</option><option>기존 건물 리모델링</option><option>인허가만 필요 (설계 완료)</option></select></div><div class="field"><label>희망 착공 시기</label><select id="des_start" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">미정</option><option>1개월 이내</option><option>3개월 이내</option><option>6개월 이내</option><option>1년 이내</option><option>미정</option></select></div></div></div></div><div class="form-section"><div class="fs-header"><div class="fs-num">4</div><div class="fs-title">인테리어 설계 (해당 시)</div><div class="fs-badge">선택</div></div><div class="fs-body"><div class="field-row"><div class="field"><label>공간 용도</label><select id="des_int_type" style="width:100%;padding:0.55rem 0.7rem;border:1px solid var(--line);border-radius:3px;font-size:0.85rem;background:white;"><option value="">선택</option><option>주거(아파트·빌라·주택)</option><option>사무실</option><option>상가·점포</option><option>카페·식당</option><option>숙박·펜션</option><option>기타</option></select></div><div class="field"><label>인테리어 면적 (㎡)</label><input type="number" id="des_int_area" placeholder="0"></div></div><div class="field"><label>주요 요청사항</label><input type="text" id="des_int_memo" placeholder="예: 오픈형 주방, 친환경 마감재 선호"></div></div></div>`;}
 function renderRepairForm(){return `<div class="form-section"><div class="fs-header"><div class="fs-num">1</div><div class="fs-title">수리 항목</div><div class="fs-badge">복수 선택</div></div><div class="fs-body"><div class="opt-grid og3"><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">💧 누수·방수</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🪟 창문·문짝</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🧱 균열·보수</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🎨 도색·도배</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🚿 욕실 부분수리</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">⚡ 전기·설비</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🏠 지붕·외벽</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">🪵 바닥·마루</div></div></div><div class="chk-opt" onclick="toggleChk(this)"><div class="chk-box">✓</div><div class="chk-body"><div class="chk-name">기타</div></div></div></div></div></div>`;}
+
+function buildScRows(pairs){
+  return pairs.map(function(kv){
+    return '<div class="sc-row"><span>'+kv[0]+'</span><span>'+kv[1]+'</span></div>';
+  }).join('');
+}
 function getReqs(){return JSON.parse(localStorage.getItem('gc_requests')||'[]');}
 function saveReqs(d){localStorage.setItem('gc_requests',JSON.stringify(d));}
 
@@ -1158,10 +1168,10 @@ function submitClient(){
       <div class="success-num">${reqNum}</div>
       <div class="success-card">
         <div class="sc-title">접수 내용</div>
-        ${[['서비스',(catMeta[clientCat]||catMeta.design).label],['공간',req.typeName],['항목',items||'없음'],['주소',req.addr||'—'],['예산',req.budget],['신청자',name+' '+phone]].map(([k,v])=>`<div class="sc-row"><span>${k}</span><span>${v}</span></div>`).join('')}
+        ${buildScRows([['서비스',(catMeta[clientCat]||catMeta.design).label],['공간',req.typeName],['항목',items||'없음'],['주소',req.addr||'—'],['예산',req.budget],['신청자',name+' '+phone]])}
       </div>
       <button class="kakao-btn" onclick="window.open('https://pf.kakao.com/_gachiitda/chat','_blank')">💬 카카오톡으로 접수 확인</button>
-      <div style="margin-top:1rem;"><button class="btn-prev" onclick="showScreen('portal')" style="width:100%;justify-content:center;"><svg viewBox='0 0 24 24'><polyline points='15 18 9 12 15 6'/></svg>홈으로 돌아가기</button></div>
+      <div style="margin-top:1rem;"><button class="btn-prev" onclick="showScreen("admin")" style="width:100%;justify-content:center;"><svg viewBox='0 0 24 24'><polyline points='15 18 9 12 15 6'/></svg>홈으로 돌아가기</button></div>
     </div>`;
 }
 
@@ -1169,7 +1179,7 @@ function submitClient(){
 function adminLogin(){
   const id=document.getElementById('adminId').value;
   const pw=document.getElementById('adminPw').value;
-  if((id==='admin'||id==='')&&pw==='gachi770066'){adminLoggedIn=true;showScreen('admin');}
+  if((id==='admin'||id==='')&&pw==='gachi770066'){adminLoggedIn=true;showScreen("admin");}
   else alert('아이디 또는 비밀번호가 올바르지 않습니다.');
 }
 
@@ -1226,12 +1236,12 @@ function openAdminModal(id){
   const r=getReqs().find(x=>x.id===id); if(!r) return;
   tempAssigned=[...(r.assignedContractors||[])];
   const qEntries=Object.entries(r.quotes||{});
-  const totals=qEntries.map(([,v])=>v.total||0).filter(v=>v>0);
+  const totals=qEntries.map(function(e){return e[1].total||0;}).filter(v=>v>0);
   const minQ=totals.length?Math.min(...totals):null;
   const isInt=r.category==='interior';
   const ig=r.itemGroups||{};
 
-  const IGROUPS=[
+  var _IG=[
     {n:'철거',its:['벽지 철거(㎡)','바닥재 철거(㎡)','욕실 철거(개소)','창호 철거(개)','폐기물(톤)']},
     {n:'목공',its:['경량칸막이(㎡)','천장반자(㎡)','걸레받이(m)','붙박이장(㎡)']},
     {n:'바닥',its:['강화마루(㎡)','합판마루(㎡)','LVT(㎡)','장판(㎡)','원목마루(㎡)']},
@@ -1242,7 +1252,7 @@ function openAdminModal(id){
     {n:'전기',its:['분전반(식)','배선교체(식)','콘센트(개)','다운라이트(개)','간접조명(m)','스위치(개)']},
     {n:'설비',its:['보일러(개)','급배수배관(식)','환기장치(대)','에어컨배관(대)']},
   ];
-  const CGROUPS=[
+  const _CG=[
     {n:'가설',its:['비계(식)','가설전기(식)','폐기물(톤)','양중(식)']},
     {n:'토공기초',its:['터파기(㎡)','잡석(㎡)','기초콘크리트(㎡)','방수(㎡)']},
     {n:'구조체',its:['RC구조(㎡)','슬래브(㎡)','계단(개소)']},
@@ -1251,7 +1261,7 @@ function openAdminModal(id){
     {n:'전기설비',its:['전기배선(식)','기계설비(식)','보일러(개)']},
     {n:'외부',its:['주차장(㎡)','담장(m)','조경(식)']},
   ];
-  const GROUPS=isInt?IGROUPS:CGROUPS;
+  const GROUPS=isInt?_IG:_CG;
 
   // ── ① 항목 수량 테이블 ──
   let igHtml='<table style="width:100%;border-collapse:collapse;font-size:0.74rem;">';
@@ -1269,7 +1279,7 @@ function openAdminModal(id){
         +'<td style="padding:0.22rem 0.4rem;text-align:center;">'
         +'<input type="number" min="0" step="0.5" id="ig-'+r.id+'-'+g.n+'-'+i+'" value="'+saved+'" placeholder="0"'
         +' style="width:60px;padding:0.22rem 0.35rem;border:1.5px solid var(--line);border-radius:2px;font-size:0.76rem;text-align:right;outline:none;"'
-        +' onfocus="this.style.borderColor=\'var(--water)\'" onblur="this.style.borderColor=\'var(--line)\'">'
+        +' onfocus="this.style.borderColor=\'#1a3a5c\'" onblur="this.style.borderColor=\'\'">'
         +'</td></tr>';
     });
   });
@@ -1289,7 +1299,7 @@ function openAdminModal(id){
       var best=(qi===0&&tot>0);
       compareHtml+='<tr style="'+(best?'background:rgba(21,128,61,0.06);':'')+'">'
         +'<td><strong>'+( CONTRACTORS[cid]?CONTRACTORS[cid].name:cid)+'</strong>'+(best?'<br><span style="font-size:0.6rem;color:var(--green);font-weight:700;">⭐ 최저가</span>':'')+'</td>'
-        +'<td style="font-family:\'Playfair Display\',serif;font-size:0.95rem;font-weight:700;color:'+(best?'var(--green)':'var(--water)')+';">'+tot.toLocaleString()+'만원</td>'
+        +'<td style="font-family:Playfair Display,serif;font-size:0.95rem;font-weight:700;color:'+(best?'var(--green)':'var(--water)')+';">'+tot.toLocaleString()+'만원</td>'
         +'<td>'+Math.round(tot*1.1).toLocaleString()+'만원</td>'
         +'<td style="font-size:0.72rem;">'+(q.period||'협의')+'</td>'
         +'<td style="font-size:0.7rem;color:var(--slate);">'+(q.memo||'—')+'</td>'
@@ -1370,7 +1380,7 @@ function autoFillQty(rid, m2){
     '창호':{'PVC창호(㎡)':Math.round(m2*0.1),'실내문(개)':Math.round(py/8),'현관문(개)':1},
     '설비':{'보일러(개)':1},
   };
-  var IGROUPS=[
+  var _IG2=[
     {n:'철거',its:['벽지 철거(㎡)','바닥재 철거(㎡)','욕실 철거(개소)','창호 철거(개)','폐기물(톤)']},
     {n:'목공',its:['경량칸막이(㎡)','천장반자(㎡)','걸레받이(m)','붙박이장(㎡)']},
     {n:'바닥',its:['강화마루(㎡)','합판마루(㎡)','LVT(㎡)','장판(㎡)','원목마루(㎡)']},
@@ -1381,7 +1391,7 @@ function autoFillQty(rid, m2){
     {n:'전기',its:['분전반(식)','배선교체(식)','콘센트(개)','다운라이트(개)','간접조명(m)','스위치(개)']},
     {n:'설비',its:['보일러(개)','급배수배관(식)','환기장치(대)','에어컨배관(대)']},
   ];
-  IGROUPS.forEach(function(g){
+  _IG2.forEach(function(g){
     g.its.forEach(function(item,i){
       var el=document.getElementById('ig-'+rid+'-'+g.n+'-'+i);
       if(!el||el.value) return;
@@ -1395,7 +1405,7 @@ function autoFillQty(rid, m2){
 function saveItemGroups(rid){
   var r=getReqs().find(function(x){return x.id===rid;}); if(!r) return;
   var isInt=r.category==='interior';
-  var IGROUPS=[
+  var _IG3=[
     {n:'철거',its:['벽지 철거(㎡)','바닥재 철거(㎡)','욕실 철거(개소)','창호 철거(개)','폐기물(톤)']},
     {n:'목공',its:['경량칸막이(㎡)','천장반자(㎡)','걸레받이(m)','붙박이장(㎡)']},
     {n:'바닥',its:['강화마루(㎡)','합판마루(㎡)','LVT(㎡)','장판(㎡)','원목마루(㎡)']},
@@ -1415,7 +1425,7 @@ function saveItemGroups(rid){
     {n:'전기설비',its:['전기배선(식)','기계설비(식)','보일러(개)']},
     {n:'외부',its:['주차장(㎡)','담장(m)','조경(식)']},
   ];
-  var GROUPS=isInt?IGROUPS:CGROUPS;
+  var GROUPS=isInt?_IG3:CGROUPS;
   var saved={};
   GROUPS.forEach(function(g){
     saved[g.n]={};
@@ -1553,7 +1563,7 @@ function generateEstimatePrint(rid){
     summaryRows+='<tr style="'+(best?'background:#f0fdf4;':'')+'">'
       +'<td style="padding:0.5rem 0.8rem;border-bottom:1px solid #eee;font-weight:700;">'
       +(CONTRACTORS[cid]?CONTRACTORS[cid].name:cid)+(best?' ⭐':'')+'</td>'
-      +'<td style="padding:0.5rem 0.8rem;border-bottom:1px solid #eee;font-family:\'Playfair Display\',serif;font-size:1.05rem;font-weight:700;color:'+(best?'#15803d':'#1a3a5c')+';">'+tot.toLocaleString()+'만원</td>'
+      +'<td style="padding:0.5rem 0.8rem;border-bottom:1px solid #eee;font-family:Playfair Display,serif;font-size:1.05rem;font-weight:700;color:'+(best?'#15803d':'#1a3a5c')+';">'+tot.toLocaleString()+'만원</td>'
       +'<td style="padding:0.5rem 0.8rem;border-bottom:1px solid #eee;">'+Math.round(tot*1.1).toLocaleString()+'만원</td>'
       +'<td style="padding:0.5rem 0.8rem;border-bottom:1px solid #eee;font-size:0.8rem;">'+(q.period||'협의')+'</td>'
       +'<td style="padding:0.5rem 0.8rem;border-bottom:1px solid #eee;font-size:0.78rem;color:#555;">'+(q.memo||'—')+'</td>'
@@ -1773,7 +1783,7 @@ function cCalc(){
   if(Object.keys(C_.indirects).length>0){
     indBox.style.display='block';
     document.getElementById('cIndTotal').textContent=cFmt(indTotal);
-    document.getElementById('cIndItems').innerHTML=Object.entries(C_.indirects).filter(([,v])=>v>0).map(([k,v])=>
+    document.getElementById('cIndItems').innerHTML=Object.entries(C_.indirects).filter(([_v,v])=>v>0).map(([k,v])=>
       `<div style="display:flex;justify-content:space-between;font-size:0.7rem;color:rgba(255,255,255,0.75);padding:0.2rem 0;border-bottom:1px solid rgba(255,255,255,0.08);">
         <span>${IND_NAMES[k]||k}</span><span style="color:white;font-weight:600;">${v.toLocaleString()}만원</span>
       </div>`).join('');
@@ -1795,9 +1805,8 @@ function cFmt(n){
   return n.toLocaleString()+'만';
 }
 
-</script>
 
-<script>
+
 function renderCtrCard(r,isDone){
   var q=r.quotes?r.quotes[me]:null;
   var ig=r.itemGroups||{};
@@ -1825,8 +1834,7 @@ function renderCtrCard(r,isDone){
         +'<td style="padding:0.22rem 0.4rem;text-align:center;">'
         +'<input type="number" min="0" step="0.1" id="pd-'+r.id+'-'+ri+'" value="'+saved+'" placeholder="0"'
         +' oninput="ctrCalcTotal(\''+r.id+'\','+itemRows.length+')"'
-        +' style="width:70px;padding:0.22rem 0.38rem;border:1.5px solid var(--line);border-radius:2px;font-size:0.76rem;text-align:right;outline:none;"'
-        +' onfocus="this.style.borderColor='var(--water)'" onblur="this.style.borderColor='var(--line)'">'
+        +' style="width:70px;padding:0.22rem 0.38rem;border:1.5px solid var(--line);border-radius:2px;font-size:0.76rem;text-align:right;outline:none;">'
         +'</td>'
         +'<td style="padding:0.35rem 0.6rem;text-align:right;font-weight:600;color:var(--water);font-size:0.75rem;" id="pdtot-'+r.id+'-'+ri+'">—</td>'
         +'</tr>';
@@ -1847,7 +1855,7 @@ function renderCtrCard(r,isDone){
       +'<tbody>'+tRows+'</tbody>'
       +'<tfoot><tr style="background:rgba(26,58,92,0.08);border-top:2px solid var(--line);">'
       +'<td colspan="4" style="padding:0.42rem 0.6rem;font-weight:700;font-size:0.75rem;">합계 (VAT 별도)</td>'
-      +'<td style="padding:0.42rem 0.6rem;text-align:right;font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--water);" id="pdgrand-'+r.id+'">0만원</td>'
+      +'<td style="padding:0.42rem 0.6rem;text-align:right;font-family:Playfair Display,serif;font-size:0.95rem;font-weight:700;color:var(--water);" id="pdgrand-'+r.id+'">0만원</td>'
       +'</tr></tfoot></table></div></div>';
   }
 
@@ -1920,12 +1928,12 @@ function renderCtrCard(r,isDone){
       +'<div class="af"><label>총 견적금액 (항목합계 또는 직접입력)</label>'
       +'<div class="amount-wrap"><input type="number" class="amount-inp" id="qtotal-'+r.id+'" placeholder="0"><span class="amount-unit">만원</span></div></div>'
       +'<div class="af"><label>공사 기간</label>'
-      +'<div class="amount-wrap"><input type="text" class="amount-inp" id="qperiod-'+r.id+'" placeholder="예) 4주" style="font-size:0.85rem;"></div></div>'
+      +'<div class="amount-wrap"><input type="text" class="amount-inp" id="qperiod-'+r.id+'" placeholder="예: 4주" style="font-size:0.85rem;"></div></div>'
       +'</div>'
       +'<textarea class="memo-inp" id="qmemo-'+r.id+'" placeholder="포함·불포함 항목, 자재 사양, 특이사항 등"></textarea>'
       +'<button class="submit-q-btn" onclick="submitQuote(\''+r.id+'\')" >견적 제출하기 →</button>'
       +'</div></div>'
-    +'</div></div>';
+      +'</div></div>');
 }
 
 function ctrCalcTotal(rid, rowCount){
@@ -1978,17 +1986,14 @@ function submitQuote(rid){
   };
   all[idx].status='comparing';
   saveReqs(all);
-  alert('견적 제출 완료!
-총 금액: '+totalV.toLocaleString()+'만원
-관리자가 비교표를 작성하여 고객에게 전달합니다.');
+  alert('견적 제출 완료! 총 금액: '+totalV.toLocaleString()+'만원. 관리자가 비교표를 작성하여 고객에게 전달합니다.');
   loadCtrData();
 }
 
 
 
-</script>
 
-<script>
+
 /* ══ 추가 기능 ══ */
 
 // 협력업체 로그인
@@ -2002,9 +2007,9 @@ function contractorLogin(){
   var n=document.getElementById('ctrName'),s=document.getElementById('ctrSpec'),b=document.getElementById('ctrTypeBadge');
   if(n)n.textContent=c.name||me;if(s)s.textContent=c.spec||'';
   if(b)b.textContent=c.type==='interior'?'🛋️ 인테리어':'🏗️ 건축시공';
-  showScreen('contractor');loadCtrData();
+  showScreen("admin");loadCtrData();
 }
-function contractorLogout(){me=null;showScreen('portal');}
+function contractorLogout(){me=null;showScreen("admin");}
 function switchCtrTab(tab,el){
   var a=document.getElementById('ctrTabNew'),b=document.getElementById('ctrTabDone');
   if(a)a.style.display=tab==='new'?'':'none';if(b)b.style.display=tab==='done'?'':'none';
@@ -2021,8 +2026,24 @@ function loadCtrData(){
 
 // 가입신청
 var joinRegions=[],joinType='',agreeChecked=false,bizImgData=null;
-function toggleRegion(el,r){el.classList.toggle('active');var i=joinRegions.indexOf(r);if(i===-1)joinRegions.push(r);else joinRegions.splice(i,1);}
-function selectJoinType(el,t){document.querySelectorAll('#screen-contractor-join .type-card').forEach(function(c){c.classList.remove('active');});el.classList.add('active');joinType=t;}
+function toggleRegion(el,r){
+  el.classList.toggle('active');
+  var box=el.querySelector('.chk-box');
+  if(box) box.style.cssText=el.classList.contains('active')?'background:#52b788;border-color:#52b788;color:white':'';
+  var i=joinRegions.indexOf(r);
+  if(i===-1) joinRegions.push(r); else joinRegions.splice(i,1);
+}
+function selectJoinType(el,t){
+  document.querySelectorAll('#screen-contractor-join .type-card').forEach(function(card){
+    card.classList.remove('active');
+    card.style.borderColor='';
+    card.style.background='';
+  });
+  el.classList.add('active');
+  el.style.borderColor='#52b788';
+  el.style.background='rgba(82,183,136,0.1)';
+  joinType=t;
+}
 function toggleAgree(){agreeChecked=!agreeChecked;var b=document.getElementById('agreeBox');if(b){b.style.background=agreeChecked?'#52b788':'';b.style.color=agreeChecked?'white':'transparent';}}
 function autoHyphen(el){var v=el.value.replace(/[^0-9]/g,'');if(v.length<=3)el.value=v;else if(v.length<=7)el.value=v.slice(0,3)+'-'+v.slice(3);else el.value=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7,11);}
 function autoBizNum(el){var v=el.value.replace(/[^0-9]/g,'');if(v.length<=3)el.value=v;else if(v.length<=5)el.value=v.slice(0,3)+'-'+v.slice(3);else el.value=v.slice(0,3)+'-'+v.slice(3,5)+'-'+v.slice(5,10);}
@@ -2036,14 +2057,20 @@ function submitJoin(){
   if(!co||!ce||!ph){alert('필수 항목(회사명·대표자·연락처)을 입력해주세요.');return;}
   if(!loginId||loginId.length<3){alert('로그인 아이디를 3자 이상 입력해주세요.');return;}
   if(!loginPw||loginPw.length<6){alert('비밀번호를 6자리 이상 입력해주세요.');return;}
+  console.log('joinRegions:', joinRegions, 'joinType:', joinType, 'agree:', agreeChecked);
   if(!joinRegions.length){alert('활동 지역을 선택해주세요.');return;}
   if(!joinType){alert('업종을 선택해주세요.');return;}
   // 사업자등록증 선택사항
-  if(!agreeChecked){alert('개인정보 수집·이용에 동의해주세요.');return;}
+  if(!agreeChecked){
+    alert('개인정보 수집·이용에 동의해주세요.\n(페이지 맨 아래 체크박스를 확인해주세요.)');
+    document.getElementById('agreeBox')?.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
   var joins=JSON.parse(localStorage.getItem('ctr_joins')||'[]'),jid='JOIN-'+Date.now().toString().slice(-6);
   var jd={id:jid,company:co,ceo:ce,phone:ph,bizNum:bn,addr:document.getElementById('jAddr')?document.getElementById('jAddr').value:'',kakao:kakao,loginId:loginId,loginPw:loginPw,regions:joinRegions,type:joinType,appliedAt:new Date().toLocaleDateString('ko-KR'),status:'pending'};
   joins.push(jd);
   localStorage.setItem('ctr_joins',JSON.stringify(joins));
+  sendToSheet({type:'contractor_join',...jd});
   var s=document.getElementById('joinDoneSummary');
   if(s)s.innerHTML='<div class="sc-row"><span>접수번호</span><span style="color:var(--water);font-weight:700;">'+jid+'</span></div><div class="sc-row"><span>회사명</span><span>'+co+'</span></div><div class="sc-row"><span>연락처</span><span>'+ph+'</span></div>';
   joinRegions=[];joinType='';agreeChecked=false;bizImgData=null;showScreen('contractor-join-done');
@@ -2072,15 +2099,15 @@ document.addEventListener('click',function(e){
 // 계산서
 var estCurrentReq=null;
 var EST_GROUPS={interior:[{group:'철거',items:[{name:'내부 철거',unit:'식',price:0},{name:'폐자재 처리',unit:'식',price:0}]},{group:'바닥',items:[{name:'강마루',unit:'㎡',price:55000},{name:'타일(욕실)',unit:'㎡',price:65000}]},{group:'벽·천장',items:[{name:'도배(실크)',unit:'㎡',price:11000},{name:'타일(주방·욕실)',unit:'㎡',price:65000}]},{group:'창호',items:[{name:'PVC창호',unit:'㎡',price:128000},{name:'중문',unit:'짝',price:350000}]},{group:'욕실',items:[{name:'욕실공사',unit:'개소',price:1800000},{name:'양변기',unit:'개',price:230000}]},{group:'전기',items:[{name:'전기공사',unit:'식',price:0},{name:'LED조명',unit:'개',price:35500}]}],construction:[{group:'가설·토공',items:[{name:'비계',unit:'㎡',price:16000},{name:'터파기',unit:'㎥',price:11000}]},{group:'기초·골조',items:[{name:'버림콘크리트',unit:'㎥',price:106000},{name:'기초콘크리트',unit:'㎥',price:192000},{name:'철근',unit:'ton',price:530000},{name:'거푸집',unit:'㎡',price:42500}]},{group:'마감',items:[{name:'경량블록',unit:'㎡',price:44000},{name:'드라이비트',unit:'㎡',price:53000},{name:'PVC창호',unit:'㎡',price:128000}]},{group:'설비·전기',items:[{name:'급수배관',unit:'m',price:16300},{name:'가스보일러',unit:'대',price:647000},{name:'LED조명',unit:'개',price:35500}]}]};
-function openEstimate(reqId){var all=getReqs(),r=all.find(function(x){return x.id===reqId;});if(!r){alert('견적 정보를 찾을 수 없습니다.');return;}estCurrentReq=r;renderEstimate(r,EST_GROUPS[r.category==='interior'?'interior':'construction']);showScreen('estimate');}
+function openEstimate(reqId){var all=getReqs(),r=all.find(function(x){return x.id===reqId;});if(!r){alert('견적 정보를 찾을 수 없습니다.');return;}estCurrentReq=r;renderEstimate(r,EST_GROUPS[r.category==='interior'?'interior':'construction']);showScreen("admin");}
 function renderEstimate(r,groups){
   var today=new Date().toLocaleDateString('ko-KR'),area=r.areaMeta?(r.areaMeta.m2+'㎡ ('+r.areaMeta.py+'평)'):'-';
-  var html='<div style="background:linear-gradient(135deg,#0a0a0a,#1a3a5c);border-radius:6px;padding:1.2rem 1.5rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;"><div><div style="font-family:'Noto Serif KR',serif;font-weight:900;font-size:1rem;color:#52b788;">가치잇다컨설팅</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.4);">공사비 계산서 · 2024 표준품셈</div></div><div style="text-align:right;"><div style="font-size:1.1rem;font-weight:900;color:#52b788;">'+r.id+'</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.4);">'+today+'</div></div></div>';
+  var html='<div style="background:linear-gradient(135deg,#0a0a0a,#1a3a5c);border-radius:6px;padding:1.2rem 1.5rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;"><div><div style="font-family:Noto Serif KR,serif;font-weight:900;font-size:1rem;color:#52b788;">가치잇다컨설팅</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.4);">공사비 계산서 · 2024 표준품셈</div></div><div style="text-align:right;"><div style="font-size:1.1rem;font-weight:900;color:#52b788;">'+r.id+'</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.4);">'+today+'</div></div></div>';
   html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1rem;"><div style="background:white;border:1px solid var(--line);border-radius:4px;padding:0.9rem 1rem;font-size:0.72rem;"><b style="color:var(--water);display:block;margin-bottom:0.4rem;">📋 프로젝트</b><div style="display:flex;justify-content:space-between;"><span style="color:var(--slate);">분류</span><span style="font-weight:600;">'+(r.category==='interior'?'🛋️ 인테리어':'🏗️ 건축시공')+'</span></div><div style="display:flex;justify-content:space-between;"><span style="color:var(--slate);">공간</span><span style="font-weight:600;">'+(r.typeName||'-')+'</span></div><div style="display:flex;justify-content:space-between;"><span style="color:var(--slate);">면적</span><span style="font-weight:600;">'+area+'</span></div></div><div style="background:white;border:1px solid var(--line);border-radius:4px;padding:0.9rem 1rem;font-size:0.72rem;"><b style="color:var(--water);display:block;margin-bottom:0.4rem;">👤 고객</b><div style="display:flex;justify-content:space-between;"><span style="color:var(--slate);">성명</span><span style="font-weight:600;">'+(r.client&&r.client.name||'-')+'</span></div><div style="display:flex;justify-content:space-between;"><span style="color:var(--slate);">연락처</span><span style="font-weight:600;">'+(r.client&&r.client.phone||'-')+'</span></div><div style="display:flex;justify-content:space-between;"><span style="color:var(--slate);">예산</span><span style="font-weight:600;">'+(r.budget||'-')+'</span></div></div></div>';
   html+='<div style="background:white;border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:1rem;"><table style="width:100%;border-collapse:collapse;font-size:0.75rem;"><thead><tr style="background:#111;color:white;"><th style="padding:0.5rem;width:30px;">No</th><th style="padding:0.5rem;text-align:left;">항목명</th><th style="padding:0.5rem;width:45px;">단위</th><th style="padding:0.5rem;width:90px;">수량</th><th style="padding:0.5rem;width:100px;">단가</th><th style="padding:0.5rem;width:110px;">금액</th></tr></thead><tbody id="estTbody"></tbody></table></div>';
   html+='<div style="background:white;border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:1rem;"><div style="display:flex;justify-content:space-between;padding:0.7rem 1.2rem;background:var(--water);"><span style="color:white;font-weight:600;">공사비 합계 (부가세 별도)</span><span id="estGrandTotal" style="color:white;font-weight:900;font-size:1.1rem;">0 원</span></div><div style="display:flex;justify-content:space-between;padding:0.7rem 1.2rem;border-bottom:1px solid var(--line);"><span style="color:var(--slate);">부가가치세 (10%)</span><span id="estVat" style="font-weight:700;">0 원</span></div><div style="display:flex;justify-content:space-between;padding:0.7rem 1.2rem;background:#3da876;"><span style="color:white;font-weight:700;">최종 합계 (VAT 포함)</span><span id="estFinal" style="color:white;font-weight:900;font-size:1.3rem;">0 원</span></div></div>';
   html+='<div style="font-size:0.68rem;color:var(--slate);background:white;border:1px solid var(--line);border-radius:4px;padding:0.8rem;margin-bottom:1rem;">※ 2024 표준품셈 기준 · 수량 입력 시 자동 계산 · 담당: 가치잇다컨설팅 안희찬 041-668-3124</div>';
-  html+='<div style="display:flex;gap:0.8rem;"><button onclick="window.print()" style="flex:1;padding:0.8rem;background:#52b788;color:white;border:none;border-radius:3px;font-weight:700;cursor:pointer;">🖨️ PDF 출력</button><button onclick="showScreen('admin')" style="padding:0.8rem 1.5rem;background:white;color:var(--slate);border:1px solid var(--line);border-radius:3px;cursor:pointer;">← 관리자로</button></div>';
+  html+='<div style="display:flex;gap:0.8rem;"><button onclick="window.print()" style="flex:1;padding:0.8rem;background:#52b788;color:white;border:none;border-radius:3px;font-weight:700;cursor:pointer;">🖨️ PDF 출력</button><button onclick="showScreen("admin")" style="padding:0.8rem 1.5rem;background:white;color:var(--slate);border:1px solid var(--line);border-radius:3px;cursor:pointer;">← 관리자로</button></div>';
   document.getElementById('estimateBody').innerHTML=html;
   var tbody=document.getElementById('estTbody'),no=1;
   groups.forEach(function(g,gi){
@@ -2101,7 +2128,8 @@ function estUpdate(){
   var vat=Math.round(grand*0.1),t=document.getElementById('estGrandTotal'),v=document.getElementById('estVat'),f=document.getElementById('estFinal');
   if(t)t.textContent=grand.toLocaleString()+' 원';if(v)v.textContent=vat.toLocaleString()+' 원';if(f)f.textContent=(grand+vat).toLocaleString()+' 원';
 }
-</script>
+
+//]]></script>
 <style>@media print{.header,.sub-nav{display:none!important;}body *{-webkit-print-color-adjust:exact!important;}}</style>
 </body>
 </html>
