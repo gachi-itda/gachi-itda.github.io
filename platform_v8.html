@@ -961,9 +961,11 @@ let tempAssigned=[];
 const SHEET_URL='https://script.google.com/macros/s/AKfycbxNtFJYq6dBtdcPGdSZPBSysoA2ePeYoe3gMNiPBAisVoGqzwAjR4PiiEpI4H0jLizn/exec';
 async function sendToSheet(d){
   try{
-    var form=new FormData();
-    form.append('data',JSON.stringify(d));
-    await fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:form});
+    var params=Object.keys(d).map(function(k){
+      return encodeURIComponent(k)+'='+encodeURIComponent(typeof d[k]==='object'?JSON.stringify(d[k]):d[k]);
+    }).join('&');
+    var img=new Image();
+    img.src=SHEET_URL+'?'+params+'&t='+Date.now();
   }catch(e){}
 }
 function toggleChk(el){el.classList.toggle('active');el.querySelector('.chk-box').style.cssText=el.classList.contains('active')?'background:#52b788;border-color:#52b788;color:white':'';}
