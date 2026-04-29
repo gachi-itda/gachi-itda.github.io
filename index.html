@@ -656,24 +656,19 @@ footer {
 .partner-empty { text-align: center; padding: 3rem 1rem; background: white; border-radius: 8px; border: 1px solid var(--line); }
 .btn-partner-apply { display: inline-block; padding: 0.75rem 1.8rem; background: var(--ink); color: white; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: 700; transition: background 0.2s; }
 .btn-partner-apply:hover { background: #333; }
-.partner-card { background: white; border-radius: 8px; border: 1px solid var(--line); padding: 1.4rem; display: flex; flex-direction: column; gap: 0.8rem; transition: transform 0.2s, box-shadow 0.2s; }
-.partner-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
-.partner-card-top { display: flex; align-items: center; gap: 0.8rem; }
-.partner-avatar { width: 48px; height: 48px; border-radius: 8px; background: linear-gradient(135deg,#1a3a5c,#52b788); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
-.partner-name { font-weight: 800; font-size: 0.95rem; color: var(--ink); }
-.partner-ceo { font-size: 0.72rem; color: var(--slate); margin-top: 0.15rem; }
-.partner-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.partner-tag { font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 20px; border: 1px solid var(--line); color: var(--slate); }
+.partner-card { background: white; border-radius: 6px; border: 1px solid var(--line); padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.8rem; transition: box-shadow 0.2s; }
+.partner-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.08); }
+.partner-avatar { width: 36px; height: 36px; border-radius: 6px; background: linear-gradient(135deg,#1a3a5c,#52b788); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.partner-name { font-weight: 700; font-size: 0.85rem; color: var(--ink); }
+.partner-ceo { display: none; }
+.partner-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.2rem; }
+.partner-tag { font-size: 0.62rem; font-weight: 700; padding: 0.15rem 0.45rem; border-radius: 20px; border: 1px solid var(--line); color: var(--slate); }
 .partner-tag.type { background: rgba(82,183,136,0.1); border-color: #52b788; color: #1a6640; }
-.partner-tag.region { background: rgba(26,58,92,0.08); border-color: rgba(26,58,92,0.3); color: var(--water); }
-.partner-regions { font-size: 0.75rem; color: var(--slate); }
-.partner-contact { display: flex; gap: 0.5rem; margin-top: 0.2rem; }
-.partner-btn { flex: 1; padding: 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; cursor: pointer; border: 1.5px solid var(--line); background: white; font-family: inherit; transition: all 0.2s; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.3rem; }
-.partner-btn.kakao { background: #FEE500; border-color: #FEE500; color: #3C1E1E; }
-.partner-btn.kakao:hover { background: #f0d800; }
-.partner-btn.phone:hover { border-color: #52b788; color: #52b788; }
-.partner-grid-layout { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
-.partner-recruiting { grid-column: 1/-1; text-align: center; padding: 2rem; background: rgba(82,183,136,0.05); border: 2px dashed rgba(82,183,136,0.3); border-radius: 8px; }
+.partner-tag.region { display: none; }
+.partner-regions { display: none; }
+.partner-contact { display: none; }
+.partner-grid-layout { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.7rem; }
+.partner-recruiting { grid-column: 1/-1; text-align: center; padding: 1.5rem; background: rgba(82,183,136,0.05); border: 2px dashed rgba(82,183,136,0.3); border-radius: 8px; }
 @media(max-width:768px){ .partner-grid-layout { grid-template-columns: 1fr 1fr; } }
 @media(max-width:480px){ .partner-grid-layout { grid-template-columns: 1fr; } }
 
@@ -1146,10 +1141,11 @@ footer {
     <div class="partner-search">
       <div class="partner-filters">
         <button class="pf-btn active" onclick="filterPartners(this,'all')">전체</button>
-        <button class="pf-btn" onclick="filterPartners(this,'design')">📐 설계</button>
+        <button class="pf-btn" onclick="filterPartners(this,'architect')">📐 건축사</button>
+        <button class="pf-btn" onclick="filterPartners(this,'civil')">🗺️ 토목</button>
         <button class="pf-btn" onclick="filterPartners(this,'construction')">🏗️ 시공</button>
         <button class="pf-btn" onclick="filterPartners(this,'interior')">🛋️ 인테리어</button>
-        <button class="pf-btn" onclick="filterPartners(this,'repair')">🔧 집수리</button>
+        <button class="pf-btn" onclick="filterPartners(this,'repair')">🏠 집수리</button>
       </div>
       <div id="partnerGrid">
         <div class="partner-grid-layout" id="partnerList"></div>
@@ -1397,8 +1393,8 @@ function filterGallery(btn, tag) {
 let allPartners = [];
 let currentPartnerFilter = 'all';
 
-const typeLabels = { design:'설계', construction:'시공', interior:'인테리어', repair:'집수리', both:'인테리어+시공', architect:'건축사사무소', civil:'토목설계', realestate:'공인중개사', legal:'법무사' };
-const typeIcons  = { design:'📐', construction:'🏗️', interior:'🛋️', repair:'🔧', both:'⭐', architect:'📐', civil:'🗺️', realestate:'🏢', legal:'⚖️' };
+const typeLabels = { architect:'건축사사무소', civil:'토목설계', legal:'법무사', realestate:'공인중개사', construction:'건축시공', interior:'인테리어', electric:'전기공사', plumbing:'설비공사', repair:'집수리업체', both:'인테리어+시공' };
+const typeIcons  = { architect:'📐', civil:'🗺️', legal:'⚖️', realestate:'🏢', construction:'🏗️', interior:'🛋️', electric:'⚡', plumbing:'🔧', repair:'🏠', both:'⭐' };
 
 async function loadPartners() {
   try {
@@ -1434,20 +1430,12 @@ function renderPartners() {
 
   list.innerHTML = filtered.map(p => `
     <div class="partner-card">
-      <div class="partner-card-top">
-        <div class="partner-avatar">${typeIcons[p.type]||'🏢'}</div>
-        <div>
-          <div class="partner-name">${p.company}</div>
-          <div class="partner-ceo">대표 ${p.ceo}</div>
+      <div class="partner-avatar">${typeIcons[p.type]||'🏢'}</div>
+      <div>
+        <div class="partner-name">${p.company}</div>
+        <div class="partner-tags">
+          <span class="partner-tag type">${typeLabels[p.type]||p.type}</span>
         </div>
-      </div>
-      <div class="partner-tags">
-        <span class="partner-tag type">${typeIcons[p.type]||''} ${typeLabels[p.type]||p.type}</span>
-        ${(p.regions||'').split(',').map(r=>`<span class="partner-tag region">📍${r.trim()}</span>`).join('')}
-      </div>
-      <div class="partner-contact">
-        ${p.kakao ? `<a class="partner-btn kakao" href="https://open.kakao.com/o/${p.kakao}" target="_blank">💬 카카오톡</a>` : ''}
-        ${p.phone ? `<a class="partner-btn phone" href="tel:${p.phone}">📞 ${p.phone}</a>` : ''}
       </div>
     </div>
   `).join('');
