@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>단독주택단지 개발 사업수지표 — 가치잇다컨설팅</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:     #111111;
+  --water:   #1a3a5c;
+  --water-l: #4a8ab5;
+  --water-p: rgba(26,58,92,0.10);
+  --gold:    #52b788;
+  --gold-l:  #d4f0e4;
+  --cream:   #f4f4f4;
+  --slate:   #6b7280;
+  --line:    rgba(26,58,92,0.18);
+  --white:   #ffffff;
+  --red:     #e74c3c;
+  --navy:    #1a3a5c;
+  --navy2:   #122840;
+  --teal:    #52b788;
+  --bg:      #f4f4f4;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--cream);color:var(--ink);font-size:14px;line-height:1.6;}
+
+/* ── 헤더 ── */
+.hd{background:#111111;color:#fff;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.35);}
+.hd-title{font-size:1rem;font-weight:700;letter-spacing:-0.3px;}
+.hd-sub{font-size:0.72rem;opacity:0.65;margin-top:0.1rem;}
+.hd-btns{display:flex;gap:0.5rem;}
+.btn{padding:0.4rem 1rem;border-radius:5px;font-size:0.78rem;font-weight:700;cursor:pointer;border:none;font-family:inherit;}
+.btn-pdf{background:#fff;color:var(--water);}
+.btn-reset{background:rgba(255,255,255,0.15);color:#fff;}
+
+/* ── 레이아웃 ── */
+.wrap{max-width:900px;margin:0 auto;padding:1.5rem 1rem 4rem;}
+
+/* ── 섹션 카드 ── */
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.card-title{font-size:0.88rem;font-weight:700;color:var(--water);padding-bottom:0.6rem;margin-bottom:1rem;border-bottom:2px solid var(--water);display:flex;align-items:center;gap:0.5rem;}
+.card-title .num{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--gold);color:#fff;border-radius:50%;font-size:0.68rem;font-weight:700;flex-shrink:0;}
+
+/* ── 그리드 입력 ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.7rem;}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.7rem;}
+.field label{font-size:0.72rem;color:var(--slate);display:block;margin-bottom:0.25rem;font-weight:500;}
+.field label em{font-style:normal;color:var(--gold);font-size:0.68rem;}
+.field input,.field select{
+  width:100%;padding:0.45rem 0.6rem;
+  border:1.5px solid #c8d0dc;border-radius:5px;
+  font-size:0.83rem;font-family:inherit;
+  background:#eef1f5;color:var(--ink);
+  transition:all 0.15s;
+}
+.field input:focus,.field select:focus{outline:none;border-color:var(--water);background:#fff;}
+.field input.filled{background:#fff;border-color:#7ab8d8;}
+.field input.required-empty{border-color:#fbbf24;background:#fffbeb;}
+.field .unit{font-size:0.7rem;color:var(--slate);margin-top:0.2rem;}
+.field .hint{font-size:0.7rem;color:var(--teal);margin-top:0.2rem;}
+.field .warn{font-size:0.7rem;color:var(--red);margin-top:0.2rem;}
+
+/* 쌍입력(㎡+평) */
+.twin{display:flex;gap:0.35rem;align-items:center;}
+.twin input{flex:1;}
+.twin span{font-size:0.72rem;color:var(--slate);flex-shrink:0;}
+
+/* ── 구분선 소제목 ── */
+.sub-head{font-size:0.75rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:0.5px;padding:0.5rem 0 0.3rem;border-top:1px dashed #d1d5db;margin-top:0.6rem;margin-bottom:0.4rem;}
+.sub-head:first-of-type{border-top:none;margin-top:0;}
+
+/* ── 미리보기 요약 ── */
+.preview{background:linear-gradient(135deg,#eef4fc,#f0f9f4);border:1.5px solid #c8daea;border-radius:8px;padding:1rem 1.2rem;margin-bottom:1rem;display:none;}
+.preview-title{font-size:0.78rem;font-weight:700;color:var(--navy);margin-bottom:0.7rem;}
+.preview-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;}
+.pv-item{background:rgba(255,255,255,0.7);border-radius:6px;padding:0.55rem 0.7rem;}
+.pv-label{font-size:0.68rem;color:var(--slate);margin-bottom:0.15rem;}
+.pv-value{font-size:0.9rem;font-weight:700;}
+.pv-total{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;border-top:2px solid var(--water);padding-top:0.6rem;margin-top:0.2rem;}
+.pv-total .lbl{font-size:0.8rem;font-weight:700;color:var(--water);}
+.pv-total .val{font-size:1.1rem;font-weight:700;color:var(--water);}
+
+/* ── 결과 패널 ── */
+.result{display:none;}
+.result-header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:10px;padding:1.4rem 1.5rem;margin-bottom:1rem;}
+.result-header h2{font-size:0.85rem;opacity:0.7;font-weight:400;margin-bottom:0.8rem;}
+.result-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.15);}
+.res-box{background:rgba(255,255,255,0.1);border-radius:6px;padding:0.65rem 0.8rem;}
+.res-box .lbl{font-size:0.68rem;opacity:0.7;margin-bottom:0.2rem;}
+.res-box .val{font-size:0.95rem;font-weight:700;}
+.result-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.res-main .lbl{font-size:0.72rem;opacity:0.7;margin-bottom:0.2rem;}
+.res-main .val{font-size:1.5rem;font-weight:700;}
+
+/* 수지표 테이블 */
+.fs-table{width:100%;border-collapse:collapse;font-size:0.8rem;}
+.fs-table th{background:#f4f6f9;padding:0.45rem 0.7rem;text-align:left;font-weight:700;color:var(--navy);border-bottom:2px solid var(--navy);}
+.fs-table th:last-child,.fs-table td:last-child{text-align:right;}
+.fs-table th:nth-child(2),.fs-table td:nth-child(2){text-align:right;}
+.fs-table th:nth-child(3),.fs-table td:nth-child(3){text-align:right;}
+.fs-table tr.group td{background:#f8faff;font-weight:700;border-top:2px solid;padding:0.5rem 0.7rem;}
+.fs-table tr.group.land td{border-color:var(--water);color:var(--water);}
+.fs-table tr.group.const td{border-color:#2d6a4f;color:#2d6a4f;}
+.fs-table tr.group.indirect td{border-color:#7c5cbf;color:#7c5cbf;}
+.fs-table tr.group.revenue td{border-color:#c8840a;color:#c8840a;}
+.fs-table tr.item td{padding:0.35rem 0.7rem 0.35rem 1.4rem;border-bottom:1px solid #f0f0f0;color:var(--slate);}
+.fs-table tr.item td:first-child::before{content:'└ ';}
+.fs-table tr.total td{background:var(--water);color:#fff;font-weight:700;font-size:0.88rem;padding:0.6rem 0.7rem;}
+.fs-table tr.profit-row td{background:#f0faf4;color:#166534;font-weight:700;padding:0.55rem 0.7rem;border-top:2px solid #52b788;}
+.fs-table tr.loss-row td{background:#fef2f2;color:#dc2626;font-weight:700;padding:0.55rem 0.7rem;border-top:2px solid #dc2626;}
+
+/* 판정 배지 */
+.verdict{border-radius:8px;padding:0.85rem 1.1rem;font-size:0.88rem;font-weight:700;text-align:center;margin-top:0.8rem;}
+.verdict.good{background:rgba(82,183,136,0.12);color:#166534;}
+.verdict.mid{background:rgba(251,191,36,0.15);color:#92400e;}
+.verdict.bad{background:rgba(239,68,68,0.1);color:#991b1b;}
+.verdict.fail{background:rgba(239,68,68,0.18);color:#7f1d1d;}
+
+/* 손익분기 박스 */
+.bep-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.6rem;margin-top:0.8rem;}
+.bep-box{background:#f8faff;border-radius:6px;padding:0.65rem 0.8rem;text-align:center;}
+.bep-box .lbl{font-size:0.68rem;color:var(--slate);margin-bottom:0.2rem;}
+.bep-box .val{font-size:0.95rem;font-weight:700;color:var(--water);}
+
+/* 면책 */
+.disclaimer{font-size:0.7rem;color:var(--slate);text-align:center;margin-top:0.8rem;line-height:1.7;}
+
+/* 토글 */
+.toggle-row{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;}
+.toggle-row label{font-size:0.78rem;color:var(--slate);cursor:pointer;}
+.toggle-row input[type=checkbox]{accent-color:var(--navy);width:14px;height:14px;cursor:pointer;}
+.toggle-body{display:none;}
+.toggle-body.open{display:block;}
+
+/* 결과확인 버튼 (sticky) */
+.sticky-btn-wrap{position:sticky;bottom:0;background:linear-gradient(to top,var(--bg) 70%,transparent);padding:0.8rem 0 0;text-align:center;}
+.btn-calc{background:var(--water);color:#fff;padding:0.65rem 2.5rem;border-radius:25px;font-size:0.88rem;font-weight:700;border:none;cursor:pointer;box-shadow:0 3px 10px rgba(26,58,92,0.3);font-family:inherit;}
+.btn-calc:hover{background:#122840;}
+
+/* print */
+@media print{
+  .hd .hd-btns,.sticky-btn-wrap{display:none!important;}
+  body{background:#fff;font-size:12px;}
+  .card,.result{break-inside:avoid;box-shadow:none;}
+  .result{display:block!important;}
+  .wrap{padding:0;}
+  .hd{position:static;background:#111!important;color:#fff;border-bottom:none;padding:0.6rem 1rem;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .hd-title{color:#fff;font-size:1rem;}
+  .hd-sub{color:rgba(255,255,255,0.5);}
+  .preview{display:none!important;}
+  .result-header{background:#1a3a5c!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .fs-table tr.group td,.fs-table tr.total td,.fs-table tr.profit-row td,.fs-table tr.loss-row td{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .print-info{display:block!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="hd">
+  <!-- 좌측: 로고 + 전화번호 -->
+  <div style="display:flex;align-items:center;gap:0.7rem;">
+    <div style="width:36px;height:36px;background:rgba(82,183,136,0.15);border:1px solid rgba(82,183,136,0.3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif KR',serif;font-weight:900;font-size:0.95rem;color:#52b788;letter-spacing:-0.05em;flex-shrink:0;">가치</div>
+    <div style="line-height:1.3;">
+      <div style="font-family:'Noto Serif KR',serif;font-weight:900;font-size:0.92rem;color:#fff;">
+        가치<span style="color:#52b788;">잇다</span><span style="font-size:0.78em;font-weight:400;opacity:0.7;color:#fff;">컨설팅</span>
+      </div>
+      <div style="font-size:0.68rem;color:rgba(255,255,255,0.45);letter-spacing:0.03em;">
+        <a href="tel:0416683124" style="color:rgba(255,255,255,0.45);text-decoration:none;">041-668-3124</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 중앙: 페이지 제목 -->
+  <div style="font-family:'Noto Serif KR',serif;font-size:1.15rem;font-weight:700;color:#fff;letter-spacing:-0.02em;position:absolute;left:50%;transform:translateX(-50%);">
+    부동산 개발 사업수지표
+  </div>
+
+  <!-- 우측: 버튼 -->
+  <div class="hd-btns">
+    <button class="btn btn-reset" onclick="resetAll()">초기화</button>
+    <button class="btn btn-pdf" onclick="window.print()">🖨 PDF 출력</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ① 기본 정보 -->
+<div class="card">
+  <div class="card-title"><span class="num">1</span>기본 정보</div>
+  <div class="grid-2">
+    <div class="field">
+      <label>프로젝트명</label>
+      <input id="i-proj" type="text" placeholder="예) 서산시 OO지구 단독주택단지" oninput="fc(this)">
+    </div>
+    <div class="field">
+      <label>소재지</label>
+      <input id="i-loc" type="text" placeholder="예) 충남 서산시 지곡면 환성리 111" oninput="fc(this)">
+    </div>
+    <div class="field">
+      <label>건물 유형</label>
+      <select id="i-type" onchange="onTypeChange()">
+        <option value="house" selected>단독주택 단지</option>
+        <option value="multi">다가구주택</option>
+        <option value="apt">다세대주택</option>
+        <option value="complex">근생+주거 복합</option>
+        <option value="commercial">근린생활시설</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>사업 방향</label>
+      <select id="i-biz" onchange="onBizChange()">
+        <option value="sell">분양 (전체 매각)</option>
+        <option value="rent">임대 (보유 수익)</option>
+        <option value="mixed">분양+임대 혼합</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>검토일</label>
+      <input id="i-date" type="date">
+    </div>
+    <div class="field">
+      <label>검토자</label>
+      <input id="i-reviewer" type="text" value="가치잇다컨설팅" oninput="fc(this)">
+    </div>
+  </div>
+</div>
+
+<!-- ② 토지 정보 -->
+<div class="card">
+  <div class="card-title"><span class="num">2</span>토지 정보</div>
+
+  <div class="sub-head">용도지역</div>
+  <div class="grid-2">
+    <div class="field">
+      <label>용도지역 <span style="font-size:0.68rem;color:var(--teal);">선택 시 건폐율·용적률 자동입력</span></label>
+      <select id="i-zone" onchange="onZoneChange()">
+        <option value="">— 선택 —</option>
+        <optgroup label="주거지역">
+          <option value="1jeon">제1종전용주거 (건폐율 50% / 용적률 100%)</option>
+          <option value="2jeon">제2종전용주거 (건폐율 50% / 용적률 150%)</option>
+          <option value="1il">제1종일반주거 (건폐율 60% / 용적률 200%)</option>
+          <option value="2il">제2종일반주거 (건폐율 60% / 용적률 250%)</option>
+          <option value="3il">제3종일반주거 (건폐율 50% / 용적률 300%)</option>
+          <option value="jun">준주거 (건폐율 70% / 용적률 500%)</option>
+        </optgroup>
+        <optgroup label="상업지역">
+          <option value="jungsim">중심상업 (건폐율 90% / 용적률 1500%)</option>
+          <option value="ilban_com">일반상업 (건폐율 80% / 용적률 1300%)</option>
+          <option value="gunsim">근린상업 (건폐율 70% / 용적률 900%)</option>
+          <option value="yurak">유통상업 (건폐율 80% / 용적률 1100%)</option>
+        </optgroup>
+        <optgroup label="공업지역">
+          <option value="jeon_ind">전용공업 (건폐율 70% / 용적률 300%)</option>
+          <option value="il_ind">일반공업 (건폐율 70% / 용적률 350%)</option>
+          <option value="jun_ind">준공업 (건폐율 70% / 용적률 400%)</option>
+        </optgroup>
+        <optgroup label="녹지·관리지역">
+          <option value="bonjeon">보전녹지 (건폐율 20% / 용적률 80%)</option>
+          <option value="sengsan">생산녹지 (건폐율 20% / 용적률 100%)</option>
+          <option value="jayeon">자연녹지 (건폐율 20% / 용적률 100%)</option>
+          <option value="bonjeon_mgr">보전관리 (건폐율 20% / 용적률 80%)</option>
+          <option value="sengsan_mgr">생산관리 (건폐율 20% / 용적률 80%)</option>
+          <option value="gyehoek" selected>계획관리 (건폐율 40% / 용적률 100%)</option>
+          <option value="nongrim">농림 (건폐율 20% / 용적률 80%)</option>
+        </optgroup>
+      </select>
+      <div class="hint" id="zone-note" style="display:none;">서산시 도시계획 조례 [제2063호, 2025.12.10.] 기준</div>
+    </div>
+    <div class="grid-2" style="gap:0.5rem;">
+      <div class="field">
+        <label>건폐율 (%)</label>
+        <input id="i-bcr" type="number" value="40" oninput="calc();fc(this)">
+      </div>
+      <div class="field">
+        <label>용적률 (%)</label>
+        <input id="i-far" type="number" value="100" oninput="calc();fc(this)">
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-head">토지 면적</div>
+  <div class="grid-3">
+    <div class="field">
+      <label>대지면적 <em>필수</em></label>
+      <div class="twin">
+        <input id="i-area-m2" type="number" placeholder="㎡" oninput="syncArea('m2')">
+        <span>㎡</span>
+        <input id="i-area-py" type="number" placeholder="평" oninput="syncArea('py')">
+        <span>평</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>필지수</label>
+      <input id="i-lots" type="number" value="1" min="1" oninput="calc();fc(this)">
+      <div class="unit">합필·분할 계획 필지 수</div>
+    </div>
+    <div class="field">
+      <label>동수(단지수)</label>
+      <input id="i-blocks" type="number" value="1" min="1" oninput="calc();fc(this)">
+      <div class="unit">건물 동 수</div>
+    </div>
+  </div>
+
+  <div class="sub-head">토지 취득 비용</div>
+  <div class="grid-3">
+    <div class="field">
+      <label>토지 평단가 (만원/평) <em>입력 시 합계 자동산출</em></label>
+      <input id="i-land-py" type="number" placeholder="예) 50" oninput="syncLandPrice()">
+    </div>
+    <div class="field">
+      <label>토지 매입가 합계 (만원) <em>필수</em></label>
+      <input id="i-land-price" type="text" placeholder="콤마 자동입력" oninput="onLandPriceInput(this)">
+    </div>
+    <div class="field">
+      <label>기타 부대비용 (만원)</label>
+      <input id="i-land-etc" type="number" value="0" oninput="calc();fc(this)">
+      <div class="unit">등기비·측량비 등</div>
+    </div>
+    <div class="field">
+      <label>취득세율 (%)</label>
+      <input id="i-acq" type="number" value="4.0" step="0.1" oninput="calc();fc(this)">
+    </div>
+    <div class="field">
+      <label>중개수수료율 (%)</label>
+      <input id="i-broker" type="number" value="0.5" step="0.1" oninput="calc();fc(this)">
+    </div>
+  </div>
+</div>
+
+<!-- ③ 건물 규모 -->
+<div class="card">
+  <div class="card-title"><span class="num">3</span>건물 규모계획</div>
+  <div class="grid-4">
+    <div class="field">
+      <label>지상층수</label>
+      <input id="i-floors" type="number" value="2" oninput="calc();fc(this)">
+    </div>
+    <div class="field">
+      <label>지하층수</label>
+      <input id="i-bfloors" type="number" value="0" oninput="calc();fc(this)">
+    </div>
+    <div class="field">
+      <label>필지당 세대수</label>
+      <input id="i-units" type="number" placeholder="예) 4" oninput="calc();fc(this)">
+    </div>
+    <div class="field">
+      <label>필지당 전용면적</label>
+      <div class="twin">
+        <input id="i-unit-m2" type="number" placeholder="㎡" oninput="syncUnitArea('m2')">
+        <span>㎡</span>
+        <input id="i-unit-py" type="number" placeholder="평" oninput="syncUnitArea('py')">
+        <span>평</span>
+      </div>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-top:0.7rem;">
+    <div class="field">
+      <label>실 연면적 (㎡) <span style="font-size:0.68rem;color:var(--teal);">미입력 시 자동산정</span></label>
+      <input id="i-gfa" type="number" placeholder="자동산정" oninput="calc();fc(this)">
+      <div class="hint" id="gfa-auto"></div>
+    </div>
+    <div class="field">
+      <label>공사비 단가 (만원/㎡)</label>
+      <div style="display:flex;gap:0.4rem;">
+        <select id="i-const-sel" onchange="onConstSel()" style="width:60%;">
+          <option value="70">70만원/㎡ (단독 경량목구조·소형)</option>
+          <option value="80">80만원/㎡ (단독 일반 RC·중급)</option>
+          <option value="90">90만원/㎡ (단독 고급마감)</option>
+          <option value="100">100만원/㎡ (단독 고급+지하층)</option>
+          <option value="custom">직접입력</option>
+        </select>
+        <input id="i-const-custom" type="number" placeholder="단가" style="width:40%;display:none;" oninput="calc();fc(this)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ 수입 추정 -->
+<div class="card" id="card-revenue">
+  <div class="card-title"><span class="num">4</span>수입 추정</div>
+  <div id="rev-calc-note" style="font-size:0.72rem;color:var(--navy);background:rgba(26,58,92,0.06);padding:0.4rem 0.7rem;border-radius:5px;margin-bottom:0.8rem;display:none;"></div>
+
+  <!-- 분양 -->
+  <div id="rev-sell" style="display:block;">
+    <div class="sub-head" style="border-top:none;margin-top:0;">분양 수입</div>
+    <div class="grid-3">
+      <div class="field">
+        <label>분양가 (만원/평) <em>필수 직접 입력</em></label>
+        <input id="i-sell-price" type="number" placeholder="예) 650" oninput="calc();fc(this)">
+        <div id="sell-price-note" class="hint"></div>
+      </div>
+      <div class="field">
+        <label>분양률 (%)</label>
+        <input id="i-sell-rate" type="number" value="100" oninput="calc();fc(this)">
+      </div>
+      <div class="field">
+        <label>분양수입 (자동산출)</label>
+        <input id="i-sell-income" type="text" readonly style="background:#f0f9f4;border-color:#a7d7b8;color:#166534;font-weight:700;">
+      </div>
+    </div>
+  </div>
+
+  <!-- 임대 -->
+  <div id="rev-rent" style="display:none;">
+    <div class="sub-head">임대 수입 (연간)</div>
+    <div class="grid-4">
+      <div class="field">
+        <label>필지당 보증금 (만원)</label>
+        <input id="i-deposit" type="number" placeholder="2000" oninput="calc();fc(this)">
+      </div>
+      <div class="field">
+        <label>필지당 월세 (만원)</label>
+        <input id="i-monthly" type="number" placeholder="50" oninput="calc();fc(this)">
+      </div>
+      <div class="field">
+        <label>전월세 전환율 (%)</label>
+        <input id="i-conv" type="number" value="6.0" step="0.1" oninput="calc();fc(this)">
+      </div>
+      <div class="field">
+        <label>연간 임대수입 (자동산출)</label>
+        <input id="i-rent-income" type="text" readonly style="background:#f0f9f4;border-color:#a7d7b8;color:#166534;font-weight:700;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ 간접비 -->
+<div class="card">
+  <div class="card-title"><span class="num">5</span>간접비 설정</div>
+
+  <div class="sub-head" style="border-top:none;margin-top:0;">설계·인허가</div>
+  <div class="grid-3">
+    <div class="field">
+      <label>설계·감리비율 (%) <span style="font-size:0.68rem;color:var(--slate);">공사비 기준</span></label>
+      <input id="i-design" type="number" value="6" step="0.5" oninput="calc();fc(this)">
+    </div>
+    <div class="field">
+      <label>인허가·측량비 (만원)</label>
+      <input id="i-permit" type="number" value="400" oninput="calc();fc(this)">
+    </div>
+    <div class="field">
+      <label>기반시설부담금 (만원)</label>
+      <input id="i-infra" type="number" value="0" oninput="calc();fc(this)">
+      <div class="unit">개발부담금·기반시설 등</div>
+    </div>
+  </div>
+
+  <div class="sub-head">판매비</div>
+  <div class="grid-3">
+    <div class="field">
+      <label>분양·광고비율 (%) <span style="font-size:0.68rem;color:var(--slate);">분양수입 기준</span></label>
+      <input id="i-sales" type="number" value="2" step="0.5" oninput="calc();fc(this)">
+    </div>
+    <div class="field">
+      <label>모델하우스 (만원)</label>
+      <input id="i-model" type="number" value="0" oninput="calc();fc(this)">
+    </div>
+  </div>
+
+  <div class="sub-head">금융비용</div>
+  <div class="grid-4">
+    <div class="field">
+      <label>대출금액 (만원)</label>
+      <input id="i-loan" type="number" placeholder="0" oninput="calc();fc(this)">
+      <div class="unit">토지비+공사비 중 대출 부분</div>
+    </div>
+    <div class="field">
+      <label>연이자율 (%)</label>
+      <input id="i-rate" type="number" value="5.0" step="0.1" oninput="calc();fc(this)">
+    </div>
+    <div class="field">
+      <label>대출기간 (개월)</label>
+      <input id="i-period" type="number" value="12" oninput="calc();fc(this)">
+      <div class="unit">착공~준공+분양 완료까지</div>
+    </div>
+    <div class="field">
+      <label>금융비용 (자동산출)</label>
+      <input id="i-finance-calc" type="text" readonly style="background:#f0f9f4;border-color:#a7d7b8;color:#166534;font-weight:700;">
+      <div class="unit">= 대출금 × 이자율 × 기간/12</div>
+    </div>
+  </div>
+
+  <div class="sub-head">기타</div>
+  <div class="grid-3">
+    <div class="field">
+      <label>예비비율 (%) <span style="font-size:0.68rem;color:var(--slate);">공사비 기준</span></label>
+      <input id="i-reserve" type="number" value="5" step="0.5" oninput="calc();fc(this)">
+    </div>
+    <div class="field">
+      <label>기타 비용 (만원)</label>
+      <input id="i-etc" type="number" value="0" oninput="calc();fc(this)">
+    </div>
+    <div class="field">
+      <label>자기자본 (만원) <span style="font-size:0.68rem;color:var(--slate);">ROE 계산용</span></label>
+      <input id="i-equity" type="number" placeholder="0" oninput="calc();fc(this)">
+    </div>
+  </div>
+</div>
+
+<!-- 미리보기 (사업비 요약) -->
+<div class="preview" id="preview">
+  <div class="preview-title">💰 사업비 미리보기</div>
+  <div class="preview-grid">
+    <div class="pv-item">
+      <div class="pv-label">① 토지구입비</div>
+      <div class="pv-value" id="pv-land" style="color:#1a3a5c;"></div>
+    </div>
+    <div class="pv-item">
+      <div class="pv-label">② 건축공사비</div>
+      <div class="pv-value" id="pv-const" style="color:#2d6a4f;"></div>
+    </div>
+    <div class="pv-item">
+      <div class="pv-label">③ 간접비</div>
+      <div class="pv-value" id="pv-indirect" style="color:#7c5cbf;"></div>
+    </div>
+    <div class="pv-total">
+      <div class="lbl">총 사업비 합계</div>
+      <div class="val" id="pv-total"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 결과 확인 버튼 -->
+<div class="sticky-btn-wrap">
+  <button class="btn-calc" onclick="showResult()">📊 사업성 검토 결과 확인</button>
+</div>
+
+<!-- 결과 패널 -->
+<div class="result" id="result-panel">
+
+  <!-- 인쇄용 프로젝트 정보 (화면에서는 숨김) -->
+  <div class="print-info" style="display:none;background:#f8faff;border:1px solid #d0dcea;border-radius:8px;padding:0.8rem 1.2rem;margin-bottom:1rem;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;font-size:0.8rem;">
+      <div><span style="color:#6b7280;">프로젝트 </span><strong id="pi-proj"></strong></div>
+      <div><span style="color:#6b7280;">소재지 </span><strong id="pi-loc"></strong></div>
+      <div><span style="color:#6b7280;">건물유형 </span><strong id="pi-type"></strong></div>
+      <div><span style="color:#6b7280;">검토일 </span><strong id="pi-date"></strong></div>
+      <div><span style="color:#6b7280;">검토자 </span><strong id="pi-reviewer"></strong></div>
+      <div><span style="color:#6b7280;">대지면적 </span><strong id="pi-area"></strong></div>
+    </div>
+  </div>
+
+  <!-- 요약 헤더 -->
+  <div class="result-header">
+    <h2>📊 사업성 검토 결과</h2>
+    <div class="result-3col">
+      <div class="res-box">
+        <div class="lbl">① 토지구입비</div>
+        <div class="val" id="r-land" style="color:#7ab8d8;"></div>
+      </div>
+      <div class="res-box">
+        <div class="lbl">② 건축공사비</div>
+        <div class="val" id="r-const" style="color:#74c69d;"></div>
+      </div>
+      <div class="res-box">
+        <div class="lbl">③ 간접비</div>
+        <div class="val" id="r-indirect" style="color:#c3adff;"></div>
+      </div>
+    </div>
+    <div class="result-2col">
+      <div class="res-main">
+        <div class="lbl">총 사업비</div>
+        <div class="val" id="r-total-cost" style="color:#7ab8d8;"></div>
+      </div>
+      <div class="res-main">
+        <div class="lbl">총 수입</div>
+        <div class="val" id="r-total-income" style="color:#52b788;"></div>
+      </div>
+      <div class="res-main">
+        <div class="lbl">총 사업이익</div>
+        <div class="val" id="r-profit"></div>
+      </div>
+      <div class="res-main">
+        <div class="lbl">사업수익률</div>
+        <div class="val" id="r-rate"></div>
+      </div>
+    </div>
+    <div id="r-roe-row" style="display:none;border-top:1px solid rgba(255,255,255,0.15);margin-top:1rem;padding-top:0.8rem;">
+      <div style="font-size:0.72rem;opacity:0.7;margin-bottom:0.2rem;">자기자본수익률 (ROE)</div>
+      <div id="r-roe" style="font-size:1.2rem;font-weight:700;color:#fbbf24;"></div>
+    </div>
+  </div>
+
+  <!-- 수지표 -->
+  <div class="card">
+    <div class="card-title"><span class="num" style="background:var(--gold);">📋</span>사업 수지표 상세 (단독주택단지)</div>
+    <table class="fs-table">
+      <thead>
+        <tr>
+          <th style="width:45%;">항목</th>
+          <th>금액 (만원)</th>
+          <th>구성비</th>
+        </tr>
+      </thead>
+      <tbody id="fs-tbody"></tbody>
+      <tfoot>
+        <tr class="total">
+          <td>총 사업비 합계</td>
+          <td id="fs-total-cost"></td>
+          <td>100%</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- 손익분기 -->
+    <div class="bep-grid">
+      <div class="bep-box">
+        <div class="lbl">손익분기 분양가</div>
+        <div class="val" id="r-bep"></div>
+      </div>
+      <div class="bep-box">
+        <div class="lbl">시세 대비 안전마진</div>
+        <div class="val" id="r-margin"></div>
+      </div>
+      <div class="bep-box">
+        <div class="lbl">㎡당 총 사업비</div>
+        <div class="val" id="r-cost-m2"></div>
+      </div>
+    </div>
+
+    <div class="verdict" id="r-verdict"></div>
+    <div class="disclaimer">
+      본 검토서는 참고용이며 입력값에 따라 결과가 달라집니다. 실제 투자 결정 시 전문가 상담을 병행하시기 바랍니다.<br>
+      가치잇다컨설팅 · <a href="tel:0416683124" style="color:inherit;">041-668-3124</a>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ── 용도지역 테이블 (서산시 조례 2025.12.10) ──
+var ZONE = {
+  '1jeon':{bcr:50,far:100},'2jeon':{bcr:50,far:150},
+  '1il':{bcr:60,far:200},'2il':{bcr:60,far:250},'3il':{bcr:50,far:300},
+  'jun':{bcr:70,far:500},'jungsim':{bcr:90,far:1500},
+  'ilban_com':{bcr:80,far:1300},'gunsim':{bcr:70,far:900},'yurak':{bcr:80,far:1100},
+  'jeon_ind':{bcr:70,far:300},'il_ind':{bcr:70,far:350},'jun_ind':{bcr:70,far:400},
+  'bonjeon':{bcr:20,far:80},'sengsan':{bcr:20,far:100},'jayeon':{bcr:20,far:100},
+  'bonjeon_mgr':{bcr:20,far:80},'sengsan_mgr':{bcr:20,far:80},
+  'gyehoek':{bcr:40,far:100},'nongrim':{bcr:20,far:80}
+};
+
+// 초기화
+document.getElementById('i-date').value = new Date().toISOString().slice(0,10);
+onZoneChange(); // 기본값 계획관리 적용
+
+// ── 유틸 ──
+function N(id){ return parseFloat(document.getElementById(id).value)||0; }
+function S(id){ return document.getElementById(id).value||''; }
+function fmt(v){ return Math.round(v).toLocaleString(); }
+function fc(el){ el.classList.toggle('filled', el.value !== ''); }
+
+// ── 면적 동기화 ──
+function syncArea(from){
+  var m2=document.getElementById('i-area-m2'), py=document.getElementById('i-area-py');
+  if(from==='m2'){ var v=parseFloat(m2.value)||0; py.value=v>0?Math.round(v/3.3058*10)/10:''; }
+  else { var v=parseFloat(py.value)||0; m2.value=v>0?Math.round(v*3.3058*10)/10:''; }
+  fc(m2); fc(py); calc();
+}
+function syncUnitArea(from){
+  var m2=document.getElementById('i-unit-m2'), py=document.getElementById('i-unit-py');
+  if(from==='m2'){ var v=parseFloat(m2.value)||0; py.value=v>0?Math.round(v/3.3058*10)/10:''; }
+  else { var v=parseFloat(py.value)||0; m2.value=v>0?Math.round(v*3.3058*10)/10:''; }
+  fc(m2); fc(py); calc();
+}
+
+// ── 토지매입가 ──
+function syncLandPrice(){
+  var py=N('i-land-py'), areaPy=parseFloat(document.getElementById('i-area-py').value)||0;
+  if(py>0 && areaPy>0){
+    var total=Math.round(py*areaPy);
+    var el=document.getElementById('i-land-price');
+    el.value=total.toLocaleString(); el.classList.add('filled');
+  }
+  calc();
+}
+function onLandPriceInput(el){
+  var raw=el.value.replace(/,/g,''), num=parseFloat(raw);
+  if(!isNaN(num)&&num>0){ el.value=Math.floor(num).toLocaleString(); el.classList.add('filled'); }
+  else { el.classList.remove('filled'); }
+  calc();
+}
+function getLandPrice(){ return parseFloat(document.getElementById('i-land-price').value.replace(/,/g,''))||0; }
+
+// ── 용도지역 ──
+function onZoneChange(){
+  var z=ZONE[S('i-zone')];
+  if(!z) return;
+  document.getElementById('i-bcr').value=z.bcr;
+  document.getElementById('i-far').value=z.far;
+  document.getElementById('zone-note').style.display='block';
+  ['i-bcr','i-far'].forEach(function(id){ document.getElementById(id).classList.add('filled'); });
+  calc();
+}
+
+// ── 사업방향 ──
+function onBizChange(){
+  var v=S('i-biz');
+  document.getElementById('rev-sell').style.display=(v==='sell'||v==='mixed')?'block':'none';
+  document.getElementById('rev-rent').style.display=(v==='rent'||v==='mixed')?'block':'none';
+  calc();
+}
+
+// ── 건물유형 ──
+function onTypeChange(){ calc(); }
+
+// ── 공사비 단가 ──
+function onConstSel(){
+  var sel=S('i-const-sel')||'80', custom=document.getElementById('i-const-custom');
+  custom.style.display=sel==='custom'?'inline-block':'none';
+  calc();
+}
+function getConstUnit(){
+  var sel=S('i-const-sel');
+  return sel==='custom'?N('i-const-custom'):parseFloat(sel)||75;
+}
+
+// ── 금융비용 토글 ──
+
+
+// ── 핵심 계산 ──
+function calc(){
+  var landPrice = getLandPrice();
+  var area      = N('i-area-m2');
+  var bcr       = N('i-bcr');
+  var far       = N('i-far');
+  var lots      = N('i-lots')||1;
+  var blocks    = N('i-blocks')||1;
+  var floors    = N('i-floors')||1;
+  var bfloors   = N('i-bfloors')||0;
+  var unitM2    = N('i-unit-m2');
+  var unitsPerBlock = N('i-units')||lots; // 동당 세대수, 미입력 시 필지수 사용
+  var totalUnits = unitsPerBlock * blocks;
+
+  // 연면적 — 직접입력 우선, 없으면 자동산정
+  var gfaInput = N('i-gfa');
+  var gfa;
+  if(gfaInput>0){
+    gfa=gfaInput;
+    document.getElementById('gfa-auto').textContent='';
+  } else if(area>0){
+    var bldgArea = area*bcr/100;
+    gfa = bldgArea*(floors+bfloors)*blocks;
+    document.getElementById('gfa-auto').textContent =
+      '자동산정: '+Math.round(bldgArea)+'㎡ × '+(floors+bfloors)+'층 × '+blocks+'동 = '+Math.round(gfa)+'㎡';
+  } else { gfa=0; }
+
+  // ① 토지구입비
+  var acqTax    = landPrice * N('i-acq') / 100;
+  var brokerFee = landPrice * N('i-broker') / 100;
+  var landEtc   = N('i-land-etc');
+  var landTotal = landPrice + acqTax + brokerFee + landEtc;
+
+  // ② 건축공사비
+  var constUnit  = getConstUnit();
+  var constTotal = gfa * constUnit;
+
+  // ③ 간접비
+  var designFee  = constTotal * N('i-design') / 100;
+  var permitFee  = N('i-permit');
+  var infraFee   = N('i-infra');
+  var bizType    = S('i-biz');
+  var sellPricePerPy = N('i-sell-price');
+  var sellRate   = N('i-sell-rate')||100;
+  var effUnitPy  = unitM2 > 0 ? unitM2/3.3058 : (gfa>0&&totalUnits>0 ? gfa/totalUnits/3.3058 : 0);
+  var sellIncome = effUnitPy * sellPricePerPy * totalUnits * (sellRate/100);
+  var salesFee   = (bizType==='sell'||bizType==='mixed') ? sellIncome * N('i-sales') / 100 : 0;
+  var modelFee   = N('i-model');
+  var reserveFee = constTotal * N('i-reserve') / 100;
+  var etcFee     = N('i-etc');
+
+  // 금융비용 (대출금 × 연이자율 × 기간/12)
+  var financeFee = N('i-loan') * N('i-rate') / 100 * (N('i-period') / 12);
+  var fcEl = document.getElementById('i-finance-calc');
+  if(fcEl) fcEl.value = financeFee > 0 ? fmt(financeFee)+'만원' : '';
+
+  var indirectTotal = designFee + permitFee + infraFee + salesFee + modelFee + financeFee + reserveFee + etcFee;
+  var totalCost = landTotal + constTotal + indirectTotal;
+
+  // 수입
+  var deposit=N('i-deposit'), monthly=N('i-monthly'), conv=N('i-conv')||6;
+  var rentIncome = (deposit*conv/100 + monthly*12) * totalUnits;
+  var totalIncome = 0;
+  if(bizType==='sell') totalIncome=sellIncome;
+  else if(bizType==='rent') totalIncome=rentIncome;
+  else totalIncome=sellIncome+rentIncome;
+
+  // 자동산출 표시
+  document.getElementById('i-sell-income').value = sellIncome>0 ? fmt(sellIncome)+'만원' : '';
+  document.getElementById('i-rent-income').value = rentIncome>0 ? fmt(rentIncome)+'만원' : '';
+
+  // 수입계산 기준 안내
+  var note = document.getElementById('rev-calc-note');
+  if(totalUnits>0||effUnitPy>0){
+    note.style.display='block';
+    note.textContent='수입 계산 기준: 총 '+totalUnits+'세대(필지)'
+      +(effUnitPy>0?' × '+(effUnitPy*3.3058).toFixed(1)+'㎡('+effUnitPy.toFixed(1)+'평)/필지':'')
+      +(sellPricePerPy>0?' × 분양가 '+sellPricePerPy+'만원/평':'');
+  } else { note.style.display='none'; }
+
+  // 손익분기
+  var totalExclArea = totalUnits * (unitM2>0?unitM2:(gfa/Math.max(totalUnits,1)));
+  var bepPerM2  = totalExclArea>0 ? totalCost/totalExclArea : 0;
+  var bepPerPy  = bepPerM2 * 3.3058;
+  var margin    = sellPricePerPy>0 ? sellPricePerPy-bepPerPy : null;
+
+  // 분양가 안내
+  var spNote = document.getElementById('sell-price-note');
+  if(spNote){
+    if(sellPricePerPy<=0){
+      spNote.textContent='⚠ 분양가를 입력해야 수입이 계산됩니다';
+      spNote.className='warn';
+    } else if(bepPerPy>0){
+      var diff=sellPricePerPy-bepPerPy;
+      if(diff>=0){ spNote.textContent='✅ 손익분기('+fmt(Math.round(bepPerPy))+'만원/평) 대비 +'+fmt(Math.round(diff))+'만원/평 여유'; spNote.className='hint'; }
+      else { spNote.textContent='🔴 손익분기('+fmt(Math.round(bepPerPy))+'만원/평) 미달 — '+fmt(Math.round(Math.abs(diff)))+'만원/평 부족'; spNote.className='warn'; }
+    }
+  }
+
+  // 미리보기 업데이트
+  if(area>0 && landPrice>0){
+    document.getElementById('preview').style.display='block';
+    document.getElementById('pv-land').textContent    = fmt(landTotal)+'만원';
+    document.getElementById('pv-const').textContent   = fmt(constTotal)+'만원';
+    document.getElementById('pv-indirect').textContent= fmt(indirectTotal)+'만원';
+    document.getElementById('pv-total').textContent   = fmt(totalCost)+'만원';
+  }
+
+  // 전역 저장
+  window._R = { landPrice,acqTax,brokerFee,landEtc,landTotal,
+    gfa,constUnit,constTotal,
+    designFee,permitFee,infraFee,salesFee,modelFee,financeFee,reserveFee,etcFee,indirectTotal,
+    totalCost,totalIncome,sellIncome,rentIncome,
+    bizType,sellPricePerPy,sellRate,totalUnits,effUnitPy,
+    bepPerPy,margin,area,lots,blocks };
+}
+
+// ── 결과 표시 ──
+function showResult(){
+  calc();
+  var R=window._R;
+  if(!R||!R.area||!R.landPrice){
+    alert('대지면적과 토지 매입가를 먼저 입력하세요.');
+    return;
+  }
+
+  var profit     = R.totalIncome - R.totalCost;
+  var profitRate = R.totalCost>0 ? profit/R.totalCost*100 : 0;
+  var equity     = N('i-equity');
+  var roe        = equity>0 ? profit/equity*100 : null;
+
+  // 인쇄용 프로젝트 정보
+  var typeMap={'house':'단독주택단지','multi':'다가구주택','apt':'다세대주택','complex':'근생+주거복합','commercial':'근린생활시설'};
+  document.getElementById('pi-proj').textContent     = S('i-proj')||'—';
+  document.getElementById('pi-loc').textContent      = S('i-loc')||'—';
+  document.getElementById('pi-type').textContent     = typeMap[S('i-type')]||S('i-type');
+  document.getElementById('pi-date').textContent     = S('i-date')||'—';
+  document.getElementById('pi-reviewer').textContent = S('i-reviewer')||'—';
+  document.getElementById('pi-area').textContent     = N('i-area-m2')+'㎡ ('+N('i-area-py')+'평)';
+
+  // 요약
+  document.getElementById('r-land').textContent    = fmt(R.landTotal)+'만원';
+  document.getElementById('r-const').textContent   = fmt(R.constTotal)+'만원';
+  document.getElementById('r-indirect').textContent= fmt(R.indirectTotal)+'만원';
+  document.getElementById('r-total-cost').textContent  = fmt(R.totalCost)+'만원';
+  document.getElementById('r-total-income').textContent= fmt(R.totalIncome)+'만원';
+
+  var pEl=document.getElementById('r-profit');
+  pEl.textContent=(profit>=0?'+':'')+fmt(profit)+'만원';
+  pEl.style.color=profit>=0?'#52b788':'#ef4444';
+
+  var rEl=document.getElementById('r-rate');
+  rEl.textContent=profitRate.toFixed(1)+'%';
+  rEl.style.color=profitRate>=20?'#52b788':profitRate>=10?'#fbbf24':'#ef4444';
+
+  if(roe!==null){
+    document.getElementById('r-roe-row').style.display='block';
+    document.getElementById('r-roe').textContent=roe.toFixed(1)+'%';
+  }
+
+  // 수지표
+  var groups=[
+    { label:'① 토지구입비', cls:'land', total:R.landTotal,
+      items:[['토지 매입가',R.landPrice],['취득세',R.acqTax],['중개수수료',R.brokerFee],['기타 부대비용',R.landEtc]] },
+    { label:'② 건축공사비', cls:'const', total:R.constTotal,
+      items:[['공사비 ('+Math.round(R.gfa)+'㎡ × '+R.constUnit+'만원/㎡)',R.constTotal]] },
+    { label:'③ 간접비', cls:'indirect', total:R.indirectTotal,
+      items:[['설계·감리비',R.designFee],['인허가·측량비',R.permitFee],['기반시설부담금',R.infraFee],
+             ['분양·광고비',R.salesFee],['모델하우스',R.modelFee],['금융비용(PF)',R.financeFee],['예비비',R.reserveFee],['기타',R.etcFee]] }
+  ];
+
+  var tb=document.getElementById('fs-tbody');
+  tb.innerHTML='';
+  groups.forEach(function(g){
+    var pct=R.totalCost>0?(g.total/R.totalCost*100).toFixed(1)+'%':'—';
+    tb.innerHTML+='<tr class="group '+g.cls+'"><td>'+g.label+'</td><td>'+fmt(g.total)+'만원</td><td>'+pct+'</td></tr>';
+    g.items.forEach(function(it){
+      if(!it[1]) return;
+      var ip=R.totalCost>0?(it[1]/R.totalCost*100).toFixed(1)+'%':'—';
+      tb.innerHTML+='<tr class="item"><td>'+it[0]+'</td><td>'+fmt(it[1])+'</td><td>'+ip+'</td></tr>';
+    });
+  });
+
+  // 수입행
+  if(R.totalIncome>0){
+    var bizLabel=R.bizType==='sell'?'분양 수입':R.bizType==='rent'?'임대 수입(연간)':'분양+임대 수입';
+    tb.innerHTML+='<tr class="group revenue"><td>매출 — '+bizLabel+'</td><td>'+fmt(R.totalIncome)+'만원</td><td></td></tr>';
+  }
+
+  var profitCls=profit>=0?'profit-row':'loss-row';
+  tb.innerHTML+='<tr class="'+profitCls+'"><td>사업이익 (매출 − 총사업비)</td><td>'+(profit>=0?'+':'')+fmt(profit)+'만원</td><td>수익률 '+profitRate.toFixed(1)+'%</td></tr>';
+
+  document.getElementById('fs-total-cost').textContent=fmt(R.totalCost)+'만원';
+
+  // 손익분기
+  document.getElementById('r-bep').textContent   = R.bepPerPy>0 ? fmt(Math.round(R.bepPerPy))+'만원/평' : '—';
+  document.getElementById('r-cost-m2').textContent= R.gfa>0 ? fmt(Math.round(R.totalCost/R.gfa))+'만원/㎡' : '—';
+  var mEl=document.getElementById('r-margin');
+  if(R.margin!==null){
+    mEl.textContent=(R.margin>=0?'+':'')+fmt(Math.round(R.margin))+'만원/평';
+    mEl.style.color=R.margin>=0?'#166534':'#dc2626';
+  } else { mEl.textContent='—'; }
+
+  // 판정
+  var vEl=document.getElementById('r-verdict');
+  if(profitRate>=20){ vEl.className='verdict good'; vEl.textContent='✅ 사업성 양호 — 수익률 '+profitRate.toFixed(1)+'% (목표 20% 이상 달성)'; }
+  else if(profitRate>=10){ vEl.className='verdict mid'; vEl.textContent='⚠️ 사업성 보통 — 수익률 '+profitRate.toFixed(1)+'% (15~20% 수준 검토 권장)'; }
+  else if(profitRate>=0){ vEl.className='verdict bad'; vEl.textContent='🔴 사업성 미흡 — 수익률 '+profitRate.toFixed(1)+'%  (토지가격·공사비 재검토 필요)'; }
+  else { vEl.className='verdict fail'; vEl.textContent='❌ 사업성 불가 — 손실 예상 '+fmt(Math.abs(profit))+'만원 (사업 재구성 필요)'; }
+
+  var panel=document.getElementById('result-panel');
+  panel.style.display='block';
+  setTimeout(function(){ panel.scrollIntoView({behavior:'smooth',block:'start'}); },100);
+}
+
+// ── 초기화 ──
+function resetAll(){
+  if(!confirm('모든 입력값을 초기화하시겠습니까?')) return;
+  document.querySelectorAll('input[type=number],input[type=text]').forEach(function(el){
+    if(el.id==='i-reviewer') el.value='가치잇다컨설팅';
+    else if(['i-acq','i-broker'].includes(el.id)) el.value=el.id==='i-acq'?'4.0':'0.5';
+    else if(['i-floors','i-blocks','i-lots'].includes(el.id)) el.value='1';
+    else if(el.id==='i-bfloors') el.value='0';
+    else if(el.id==='i-design') el.value='6';
+    else if(el.id==='i-permit') el.value='400';
+    else if(el.id==='i-sales') el.value='2';
+    else if(el.id==='i-reserve') el.value='5';
+    else if(el.id==='i-sell-rate') el.value='100';
+    else if(el.id==='i-conv') el.value='6.0';
+    else if(el.id==='i-rate') el.value='5.0';
+    else if(el.id==='i-period') el.value='12';
+    else el.value='';
+    el.classList.remove('filled','required-empty');
+  });
+  document.getElementById('i-date').value=new Date().toISOString().slice(0,10);
+  document.getElementById('preview').style.display='none';
+  document.getElementById('result-panel').style.display='none';
+  document.getElementById('gfa-auto').textContent='';
+  document.getElementById('zone-note').style.display='none';
+  onZoneChange();
+}
+</script>
+</body>
+</html>
