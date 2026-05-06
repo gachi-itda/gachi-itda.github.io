@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부동산 개발 사업수지표 — 가치잇다컨설팅</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════
+   부동산 개발 사업수지표
+   Concept: Dark Architectural / 4-Step Wizard
+   Index.html 동일 디자인 시스템
+══════════════════════════════════════════════ */
+:root {
+  --black:    #080808;
+  --off-black:#111114;
+  --dark-card:#18181c;
+  --dark-card2:#1e1e24;
+  --white:    #ffffff;
+  --off-white:#f8f8f6;
+  --warm:     #f2f0eb;
+  --ink:      #1a1a1c;
+  --mid:      #6b6b6e;
+  --accent:   #2d6a4f;
+  --accent-l: #40916c;
+  --accent-x: #52b788;
+  --gold:     #c9a84c;
+  --red:      #d94f3d;
+  --blue:     #4a8ab5;
+  --purple:   #8b7ec8;
+  --line-d:   rgba(255,255,255,0.08);
+  --line-d2:  rgba(255,255,255,0.04);
+  --line:     rgba(0,0,0,0.07);
+  --r-sm: 10px; --r-md: 16px; --r-lg: 22px; --r-xl: 30px; --r-pill: 999px;
+  --sh: 0 2px 16px rgba(0,0,0,0.25), 0 0 0 0.5px rgba(255,255,255,0.05);
+  --sh-float: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(255,255,255,0.06);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
+body{
+  font-family:-apple-system,'Noto Sans KR',sans-serif;
+  background:var(--off-black);
+  color:rgba(255,255,255,0.85);
+  min-height:100vh;
+  font-size:14px;line-height:1.6;
+}
+
+/* ── LOCK OVERLAY ── */
+#lock-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(8,8,8,0.96);
+  backdrop-filter:blur(24px);
+  display:flex;align-items:center;justify-content:center;padding:1rem;
+}
+.lock-box{
+  background:var(--dark-card);
+  border:0.5px solid var(--line-d);
+  border-radius:var(--r-xl);
+  padding:3rem 2.5rem;width:100%;max-width:500px;
+  box-shadow:var(--sh-float);
+  max-height:90vh;overflow-y:auto;
+}
+.lock-logo{display:flex;align-items:center;gap:0.7rem;margin-bottom:2rem;}
+.lock-logo-mark{
+  width:40px;height:40px;background:var(--accent);
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-family:'Noto Serif KR',serif;font-weight:900;font-size:0.68rem;color:#fff;
+}
+.lock-logo-name{font-family:'Noto Serif KR',serif;font-weight:900;font-size:1rem;color:#fff;letter-spacing:-0.01em;}
+.lock-logo-name span{color:var(--accent-x);}
+.lock-logo-sub{font-size:0.5rem;color:rgba(255,255,255,0.28);letter-spacing:0.1em;}
+.lock-eyebrow{
+  font-size:0.6rem;font-weight:700;letter-spacing:0.2em;
+  color:var(--accent-x);text-transform:uppercase;
+  margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;
+}
+.lock-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent-x);}
+.lock-title{
+  font-family:'Noto Serif KR',serif;font-weight:900;font-size:1.6rem;
+  color:#fff;letter-spacing:-0.02em;margin-bottom:0.5rem;
+}
+.lock-desc{font-size:0.78rem;color:rgba(255,255,255,0.35);line-height:1.85;margin-bottom:2rem;}
+.lock-field{margin-bottom:1rem;}
+.lock-field label{display:block;font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:0.4rem;letter-spacing:0.05em;}
+.lock-field input{
+  width:100%;padding:0.7rem 1rem;
+  background:rgba(255,255,255,0.06);
+  border:0.5px solid var(--line-d);
+  border-radius:var(--r-sm);
+  font-size:0.88rem;font-family:inherit;color:#fff;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.lock-field input::placeholder{color:rgba(255,255,255,0.2);}
+.lock-field input:focus{outline:none;border-color:rgba(82,183,136,0.5);box-shadow:0 0 0 3px rgba(82,183,136,0.1);}
+.lock-err{color:#f87171;font-size:0.72rem;margin-top:0.3rem;display:none;}
+.lock-interest{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem;}
+.lock-interest-btn{
+  padding:0.38rem 0.9rem;border:0.5px solid var(--line-d);border-radius:var(--r-pill);
+  background:rgba(255,255,255,0.04);font-size:0.74rem;font-weight:600;
+  cursor:pointer;font-family:inherit;color:rgba(255,255,255,0.5);transition:all 0.15s;
+}
+.lock-interest-btn.selected,.lock-interest-btn:hover{
+  border-color:rgba(82,183,136,0.4);background:rgba(82,183,136,0.1);color:var(--accent-x);
+}
+.lock-agree-wrap{
+  background:rgba(255,255,255,0.04);border:0.5px solid var(--line-d);
+  border-radius:var(--r-sm);padding:0.9rem 1rem;margin-top:1rem;
+}
+.lock-agree-wrap label{display:flex;align-items:flex-start;gap:0.6rem;cursor:pointer;}
+.lock-agree-wrap input[type=checkbox]{margin-top:2px;accent-color:var(--accent-x);width:15px;height:15px;flex-shrink:0;}
+.lock-agree-txt{font-size:0.73rem;color:rgba(255,255,255,0.4);line-height:1.65;}
+.lock-agree-txt strong{color:rgba(255,255,255,0.65);}
+.lock-btn{
+  width:100%;padding:1rem;margin-top:1.5rem;
+  background:var(--accent);color:#fff;
+  border:none;border-radius:var(--r-pill);
+  font-size:0.95rem;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:background 0.2s,transform 0.2s var(--ease),box-shadow 0.2s;
+}
+.lock-btn:hover{background:var(--accent-l);transform:scale(1.02);box-shadow:0 8px 28px rgba(45,106,79,0.3);}
+.lock-notice{font-size:0.68rem;color:rgba(255,255,255,0.2);text-align:center;margin-top:1rem;line-height:1.7;}
+
+/* ── HEADER ── */
+.hd{
+  background:rgba(8,8,8,0.92);
+  padding:0 2rem;height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:0.5px solid var(--line-d);
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(24px) saturate(180%);
+}
+.hd-logo{display:flex;align-items:center;gap:0.6rem;cursor:pointer;flex-shrink:0;}
+.hd-logo:hover{opacity:0.8;}
+.hd-logo-mark{
+  width:32px;height:32px;background:var(--accent);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-family:'Noto Serif KR',serif;font-weight:900;font-size:0.58rem;color:#fff;
+}
+.hd-logo-text{line-height:1.2;}
+.hd-logo-name{font-family:'Noto Serif KR',serif;font-weight:900;font-size:0.88rem;color:#fff;letter-spacing:-0.01em;}
+.hd-logo-name span{color:var(--accent-x);}
+.hd-logo-consulting{font-size:0.7em;font-weight:400;opacity:0.55;}
+.hd-logo-sub{font-size:0.44rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;}
+.hd-center{
+  font-family:'Noto Serif KR',serif;font-weight:900;
+  font-size:0.95rem;color:rgba(255,255,255,0.8);letter-spacing:-0.01em;
+}
+.hd-right{display:flex;align-items:center;gap:0.6rem;flex-shrink:0;}
+.hd-tel{text-align:right;font-size:0.68rem;color:rgba(255,255,255,0.25);line-height:1.6;}
+.hd-tel strong{color:rgba(255,255,255,0.6);font-size:0.76rem;}
+.hd-btn{
+  background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);
+  border:0.5px solid var(--line-d);padding:0.38rem 0.9rem;
+  border-radius:var(--r-pill);font-size:0.72rem;font-weight:600;
+  cursor:pointer;font-family:inherit;
+  transition:background 0.2s,color 0.2s,transform 0.2s var(--ease);
+}
+.hd-btn:hover{background:rgba(255,255,255,0.13);color:#fff;transform:scale(1.03);}
+.hd-btn-accent{background:var(--accent);color:#fff;border-color:var(--accent);}
+.hd-btn-accent:hover{background:var(--accent-l);}
+@media(max-width:768px){
+  .hd{padding:0 1rem;height:52px;}
+  .hd-tel,.hd-center{display:none;}
+  .hd-logo-sub{display:none;}
+}
+
+/* ══════════════════════════════════════════════
+   STEP WIZARD NAV
+══════════════════════════════════════════════ */
+.wizard-nav{
+  background:rgba(8,8,8,0.85);
+  border-bottom:0.5px solid var(--line-d);
+  backdrop-filter:blur(16px);
+  position:sticky;top:58px;z-index:90;
+}
+.wizard-steps{
+  max-width:860px;margin:0 auto;
+  display:flex;align-items:center;
+  height:60px;padding:0 2rem;gap:0;
+}
+.ws{
+  flex:1;display:flex;align-items:center;gap:0.6rem;
+  padding:0 0.5rem;cursor:pointer;
+  opacity:0.35;transition:opacity 0.3s var(--ease);
+  position:relative;
+}
+.ws.active{opacity:1;}
+.ws.done{opacity:0.65;}
+.ws.done:hover,.ws:hover{opacity:0.8;}
+.ws-num{
+  width:32px;height:32px;flex-shrink:0;
+  border-radius:50%;border:1.5px solid rgba(255,255,255,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.72rem;font-weight:800;color:rgba(255,255,255,0.5);
+  transition:all 0.3s;
+}
+.ws.active .ws-num{
+  background:var(--accent);border-color:var(--accent);
+  color:#fff;box-shadow:0 4px 14px rgba(45,106,79,0.4);
+}
+.ws.done .ws-num{
+  background:rgba(82,183,136,0.15);border-color:rgba(82,183,136,0.3);
+  color:var(--accent-x);
+}
+.ws-text{display:flex;flex-direction:column;}
+.ws-label{font-size:0.62rem;color:rgba(255,255,255,0.3);font-weight:500;letter-spacing:0.05em;}
+.ws.active .ws-label{color:var(--accent-x);}
+.ws-title{font-size:0.8rem;font-weight:700;color:rgba(255,255,255,0.6);}
+.ws.active .ws-title{color:#fff;}
+.ws-arrow{
+  flex-shrink:0;font-size:0.55rem;
+  color:rgba(255,255,255,0.15);margin:0 0.2rem;
+}
+/* active step 하단 라인 */
+.ws::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;
+  height:2px;background:var(--accent);
+  transform:scaleX(0);transition:transform 0.3s var(--ease);
+}
+.ws.active::after{transform:scaleX(1);}
+@media(max-width:640px){
+  .ws-text{display:none;}
+  .wizard-steps{justify-content:center;gap:0.5rem;}
+  .ws{flex:none;}
+  .ws-arrow{display:none;}
+}
+
+/* ══════════════════════════════════════════════
+   STEP SCREENS
+══════════════════════════════════════════════ */
+.step-screen{display:none;}
+.step-screen.active{display:block;animation:fadeUp 0.4s var(--ease) both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── STEP HERO (공통 상단) ── */
+.step-hero{
+  padding:3.5rem 2rem 2.5rem;text-align:center;
+  position:relative;overflow:hidden;
+}
+.step-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 30%, rgba(45,106,79,0.12) 0%, transparent 70%);
+}
+.step-eyebrow{
+  font-size:0.58rem;font-weight:700;letter-spacing:0.22em;
+  color:var(--accent-x);text-transform:uppercase;margin-bottom:0.7rem;
+  display:flex;align-items:center;justify-content:center;gap:0.5rem;position:relative;
+}
+.step-eyebrow::before,.step-eyebrow::after{content:'';width:24px;height:1px;background:var(--accent-x);}
+.step-h1{
+  font-family:'Noto Serif KR',serif;font-weight:900;
+  font-size:clamp(1.5rem,3vw,2.2rem);
+  color:#fff;letter-spacing:-0.025em;margin-bottom:0.5rem;position:relative;
+}
+.step-desc{font-size:0.82rem;color:rgba(255,255,255,0.35);line-height:1.8;position:relative;font-weight:300;}
+
+/* ── CONTENT WRAP ── */
+.step-body{max-width:860px;margin:0 auto;padding:0 1.5rem 4rem;}
+
+/* ── DARK CARD ── */
+.d-card{
+  background:var(--dark-card);
+  border:0.5px solid var(--line-d);
+  border-radius:var(--r-lg);
+  padding:2rem;margin-bottom:1rem;
+  box-shadow:var(--sh);
+}
+.d-card-hd{
+  display:flex;align-items:center;gap:0.7rem;
+  margin-bottom:1.4rem;padding-bottom:1rem;
+  border-bottom:0.5px solid var(--line-d);
+}
+.d-card-icon{font-size:1rem;width:2rem;height:2rem;background:rgba(82,183,136,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.d-card-title{font-weight:700;font-size:0.9rem;color:#fff;letter-spacing:-0.01em;}
+.d-card-sub{font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:0.1rem;}
+.d-card-badge{
+  margin-left:auto;font-size:0.6rem;padding:0.18rem 0.6rem;border-radius:var(--r-pill);
+  font-weight:700;background:rgba(82,183,136,0.1);color:var(--accent-x);
+  border:0.5px solid rgba(82,183,136,0.2);
+}
+.d-card-badge.opt{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.35);border-color:var(--line-d);}
+
+/* ── FORM ELEMENTS (dark) ── */
+.f-group{margin-bottom:1rem;}
+.f-group:last-child{margin-bottom:0;}
+.f-label{display:block;font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:0.4rem;letter-spacing:0.04em;}
+.f-label em{color:rgba(82,183,136,0.7);font-style:normal;font-size:0.65rem;margin-left:0.3rem;}
+.f-inp,.f-sel,.f-ta{
+  width:100%;padding:0.65rem 1rem;
+  background:rgba(255,255,255,0.05);
+  border:0.5px solid var(--line-d);
+  border-radius:var(--r-sm);
+  font-size:0.85rem;font-family:inherit;color:#fff;
+  transition:border-color 0.2s,box-shadow 0.2s,background 0.2s;
+}
+.f-inp::placeholder,.f-ta::placeholder{color:rgba(255,255,255,0.18);}
+.f-inp:focus,.f-sel:focus,.f-ta:focus{
+  outline:none;border-color:rgba(82,183,136,0.5);
+  box-shadow:0 0 0 3px rgba(82,183,136,0.08);
+  background:rgba(255,255,255,0.07);
+}
+.f-inp.filled{border-color:rgba(82,183,136,0.25);background:rgba(82,183,136,0.04);}
+.f-sel{color:rgba(255,255,255,0.75);background:rgba(255,255,255,0.05);}
+.f-sel option{background:var(--dark-card2);color:#fff;}
+.f-ta{min-height:80px;resize:vertical;}
+.f-hint{font-size:0.68rem;color:rgba(255,255,255,0.2);margin-top:0.3rem;line-height:1.55;}
+.f-row2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+.f-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.7rem;}
+.f-unit{display:flex;align-items:center;gap:0.4rem;}
+.f-unit .f-inp{flex:1;}
+.f-unit-label{font-size:0.78rem;color:rgba(255,255,255,0.3);white-space:nowrap;min-width:22px;}
+.f-auto-txt{font-size:0.7rem;color:var(--accent-x);margin-top:0.3rem;}
+@media(max-width:480px){.f-row2,.f-row3{grid-template-columns:1fr;}}
+
+/* ── SECTION DIVIDER ── */
+.sec-divider{
+  display:flex;align-items:center;gap:0.7rem;
+  margin:1.5rem 0 1rem;
+}
+.sec-divider-line{flex:1;height:0.5px;background:var(--line-d);}
+.sec-divider-txt{font-size:0.62rem;font-weight:700;color:rgba(255,255,255,0.2);letter-spacing:0.1em;white-space:nowrap;}
+
+/* ── STEP 1: DEV ITEM GRID ── */
+.dev-tabs{display:flex;gap:0.4rem;margin-bottom:1.2rem;flex-wrap:wrap;}
+.dev-tab{
+  padding:0.42rem 1.1rem;border:0.5px solid var(--line-d);border-radius:var(--r-pill);
+  background:rgba(255,255,255,0.04);font-size:0.78rem;font-weight:600;
+  color:rgba(255,255,255,0.45);cursor:pointer;font-family:inherit;transition:all 0.15s;
+}
+.dev-tab.active,.dev-tab:hover{
+  border-color:rgba(82,183,136,0.4);background:rgba(82,183,136,0.1);
+  color:var(--accent-x);
+}
+.dev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.7rem;}
+.dev-card{
+  background:rgba(255,255,255,0.04);
+  border:0.5px solid var(--line-d);border-radius:var(--r-md);
+  padding:1.3rem 1rem;cursor:pointer;
+  transition:all 0.25s var(--ease);
+}
+.dev-card:hover{background:rgba(255,255,255,0.07);border-color:var(--line-d);transform:translateY(-2px);}
+.dev-card.selected{
+  border-color:rgba(82,183,136,0.45);
+  background:rgba(82,183,136,0.08);
+  box-shadow:0 0 0 1px rgba(82,183,136,0.2);
+}
+.dev-card-icon{font-size:1.8rem;margin-bottom:0.6rem;}
+.dev-card-name{font-weight:700;font-size:0.88rem;color:#fff;margin-bottom:0.2rem;letter-spacing:-0.01em;}
+.dev-card-sub{font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.55;}
+.dev-detail-box{
+  display:none;
+  background:rgba(82,183,136,0.05);
+  border:0.5px solid rgba(82,183,136,0.2);
+  border-radius:var(--r-md);padding:1.4rem 1.6rem;margin-top:0.8rem;
+}
+.dev-detail-box.show{display:block;animation:fadeUp 0.3s var(--ease);}
+.dev-detail-title{font-weight:800;font-size:0.95rem;color:#fff;margin-bottom:0.4rem;letter-spacing:-0.01em;}
+.dev-detail-desc{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.8;margin-bottom:1rem;}
+.dev-detail-meta{display:flex;gap:0.8rem;margin-bottom:1rem;flex-wrap:wrap;}
+.dev-meta-chip{
+  display:inline-flex;align-items:center;gap:0.3rem;
+  background:rgba(255,255,255,0.06);border:0.5px solid var(--line-d);
+  border-radius:var(--r-pill);padding:0.28rem 0.8rem;
+  font-size:0.68rem;color:rgba(255,255,255,0.55);
+}
+.dev-detail-sub{font-size:0.7rem;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.5rem;margin-top:0.7rem;}
+.dev-detail-list{list-style:none;display:flex;flex-direction:column;gap:0.3rem;}
+.dev-detail-list li{font-size:0.75rem;color:rgba(255,255,255,0.4);display:flex;align-items:flex-start;gap:0.4rem;}
+.dev-detail-list li::before{content:'›';color:var(--accent-x);flex-shrink:0;}
+.dev-comment-box{
+  background:rgba(201,168,76,0.07);border:0.5px solid rgba(201,168,76,0.2);
+  border-radius:var(--r-sm);padding:0.8rem 1rem;margin-top:0.8rem;
+  font-size:0.75rem;color:rgba(255,255,255,0.5);line-height:1.8;
+}
+.dev-comment-box::before{content:'💡 ';color:var(--gold);}
+
+/* ── STEP NAV BUTTONS ── */
+.step-nav{
+  display:flex;gap:0.6rem;justify-content:flex-end;
+  margin-top:1.5rem;
+}
+.btn-prev{
+  padding:0.8rem 1.8rem;
+  background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);
+  border:0.5px solid var(--line-d);border-radius:var(--r-pill);
+  font-size:0.85rem;font-weight:600;cursor:pointer;font-family:inherit;
+  transition:background 0.2s,color 0.2s;
+}
+.btn-prev:hover{background:rgba(255,255,255,0.11);color:#fff;}
+.btn-next{
+  padding:0.8rem 2.2rem;
+  background:var(--accent);color:#fff;
+  border:none;border-radius:var(--r-pill);
+  font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:background 0.2s,transform 0.2s var(--ease),box-shadow 0.2s;
+}
+.btn-next:hover{background:var(--accent-l);transform:scale(1.03);box-shadow:0 8px 24px rgba(45,106,79,0.28);}
+.btn-calc{
+  padding:0.85rem 2.5rem;
+  background:var(--accent);color:#fff;
+  border:none;border-radius:var(--r-pill);
+  font-size:0.95rem;font-weight:800;cursor:pointer;font-family:inherit;
+  transition:all 0.2s var(--ease);
+  box-shadow:0 4px 20px rgba(45,106,79,0.2);
+}
+.btn-calc:hover{background:var(--accent-l);transform:scale(1.03);box-shadow:0 12px 32px rgba(45,106,79,0.35);}
+
+/* ── ZONE SELECT ── */
+.zone-chips{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.zone-chip{
+  padding:0.38rem 0.9rem;border:0.5px solid var(--line-d);border-radius:var(--r-pill);
+  background:rgba(255,255,255,0.04);font-size:0.74rem;font-weight:600;
+  color:rgba(255,255,255,0.4);cursor:pointer;font-family:inherit;transition:all 0.15s;
+}
+.zone-chip:hover,.zone-chip.active{
+  border-color:rgba(82,183,136,0.4);background:rgba(82,183,136,0.1);color:var(--accent-x);
+}
+
+/* ── CONST TYPE TOGGLE ── */
+.const-row{display:flex;gap:0.4rem;margin-bottom:0.6rem;flex-wrap:wrap;}
+.const-btn{
+  padding:0.38rem 0.9rem;border:0.5px solid var(--line-d);border-radius:var(--r-pill);
+  background:rgba(255,255,255,0.04);font-size:0.74rem;font-weight:600;
+  color:rgba(255,255,255,0.4);cursor:pointer;font-family:inherit;transition:all 0.15s;
+}
+.const-btn:hover,.const-btn.active{
+  border-color:rgba(82,183,136,0.4);background:rgba(82,183,136,0.1);color:var(--accent-x);
+}
+
+/* ── CHECKBOX (dark) ── */
+.chk-row{
+  display:flex;align-items:center;gap:0.7rem;
+  padding:0.7rem 0.9rem;background:rgba(255,255,255,0.04);
+  border:0.5px solid var(--line-d);border-radius:var(--r-sm);
+  cursor:pointer;transition:all 0.15s;margin-bottom:0.4rem;
+}
+.chk-row:hover{border-color:var(--line-d);background:rgba(255,255,255,0.06);}
+.chk-row.on{border-color:rgba(82,183,136,0.3);background:rgba(82,183,136,0.06);}
+.chk-box{
+  width:20px;height:20px;border:1.5px solid rgba(255,255,255,0.15);
+  border-radius:5px;display:flex;align-items:center;justify-content:center;
+  font-size:0.72rem;flex-shrink:0;transition:all 0.15s;
+}
+.chk-row.on .chk-box{background:var(--accent);border-color:var(--accent);color:#fff;}
+.chk-label{font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.65);}
+.chk-sub{font-size:0.68rem;color:rgba(255,255,255,0.28);margin-left:auto;}
+
+/* ── INDIRECT ITEMS ── */
+.indirect-list{display:flex;flex-direction:column;gap:0.4rem;}
+.ind-item{
+  display:flex;align-items:center;gap:0.8rem;
+  background:rgba(255,255,255,0.04);border:0.5px solid var(--line-d);
+  border-radius:var(--r-sm);padding:0.7rem 0.9rem;cursor:pointer;transition:all 0.15s;
+}
+.ind-item:hover{background:rgba(255,255,255,0.06);}
+.ind-item.selected{border-color:rgba(82,183,136,0.3);background:rgba(82,183,136,0.06);}
+.ind-chk{width:20px;height:20px;border:1.5px solid rgba(255,255,255,0.15);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;flex-shrink:0;transition:all 0.15s;}
+.ind-item.selected .ind-chk{background:var(--accent);border-color:var(--accent);color:#fff;}
+.ind-info{flex:1;}
+.ind-name{font-size:0.82rem;font-weight:700;color:rgba(255,255,255,0.8);}
+.ind-desc{font-size:0.66rem;color:rgba(255,255,255,0.28);}
+.ind-rate{font-size:0.82rem;font-weight:800;color:var(--accent-x);white-space:nowrap;}
+.ind-input{width:80px;padding:0.3rem 0.5rem;background:rgba(255,255,255,0.07);border:0.5px solid var(--line-d);border-radius:6px;font-size:0.8rem;font-family:inherit;color:#fff;text-align:right;}
+
+/* ── PREVIEW BOX ── */
+.preview-box{
+  display:none;
+  background:rgba(82,183,136,0.06);
+  border:0.5px solid rgba(82,183,136,0.2);
+  border-radius:var(--r-md);padding:1.2rem 1.5rem;
+  margin-bottom:1rem;
+}
+.preview-box.show{display:block;}
+.preview-row{display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:0.5px solid rgba(255,255,255,0.04);font-size:0.82rem;}
+.preview-row:last-child{border-bottom:none;}
+.preview-key{color:rgba(255,255,255,0.35);}
+.preview-val{font-weight:700;color:var(--accent-x);}
+
+/* ══════════════════════════════════════════════
+   STEP 4: RESULT
+══════════════════════════════════════════════ */
+.result-hero-wrap{
+  background:var(--dark-card);
+  border:0.5px solid var(--line-d);
+  border-radius:var(--r-xl);padding:2.5rem 2rem;
+  margin-bottom:1rem;position:relative;overflow:hidden;
+  box-shadow:var(--sh-float);
+}
+.result-hero-wrap::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 65% 55% at 70% 50%, rgba(45,106,79,0.15) 0%,transparent 65%);
+}
+.result-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;margin-top:1.5rem;position:relative;}
+@media(max-width:600px){.result-grid-3{grid-template-columns:1fr;}}
+.result-kpi{
+  background:rgba(255,255,255,0.04);border:0.5px solid var(--line-d);
+  border-radius:var(--r-md);padding:1.2rem;text-align:center;
+}
+.result-kpi.pos{background:rgba(45,106,79,0.1);border-color:rgba(82,183,136,0.25);}
+.result-kpi.neg{background:rgba(217,79,61,0.08);border-color:rgba(217,79,61,0.2);}
+.result-kpi.neutral{background:rgba(74,138,181,0.1);border-color:rgba(74,138,181,0.25);}
+.rk-label{font-size:0.65rem;color:rgba(255,255,255,0.3);margin-bottom:0.4rem;font-weight:600;letter-spacing:0.04em;}
+.rk-val{font-family:'Noto Serif KR',serif;font-size:1.4rem;font-weight:900;letter-spacing:-0.02em;color:#fff;}
+.rk-val.g{color:var(--accent-x);}
+.rk-val.r{color:#f87171;}
+.rk-val.b{color:#93c5fd;}
+.rk-val.y{color:#fbbf24;}
+.result-2big{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:0.8rem;position:relative;}
+@media(max-width:500px){.result-2big{grid-template-columns:1fr;}}
+.rbig{background:rgba(255,255,255,0.03);border:0.5px solid var(--line-d);border-radius:var(--r-md);padding:1.2rem;}
+.rbig-label{font-size:0.65rem;color:rgba(255,255,255,0.28);margin-bottom:0.3rem;}
+.rbig-val{font-size:1.1rem;font-weight:800;color:#fff;}
+.result-main-num{position:relative;}
+.result-main-label{font-size:0.7rem;color:rgba(255,255,255,0.35);margin-bottom:0.3rem;}
+.result-main-profit{font-family:'Noto Serif KR',serif;font-size:2.5rem;font-weight:900;letter-spacing:-0.03em;}
+.result-main-sub{font-size:0.75rem;color:rgba(255,255,255,0.3);margin-top:0.2rem;}
+
+/* 결과 카드 */
+.result-panel-inner{display:none;}
+.result-panel-inner.show{display:block;}
+.r-card{
+  background:var(--dark-card);border:0.5px solid var(--line-d);
+  border-radius:var(--r-lg);padding:1.8rem;margin-bottom:0.8rem;
+  box-shadow:var(--sh);
+}
+.r-card-title{
+  font-weight:700;font-size:0.88rem;color:#fff;
+  margin-bottom:1.2rem;padding-bottom:0.8rem;
+  border-bottom:0.5px solid var(--line-d);
+  display:flex;align-items:center;gap:0.5rem;letter-spacing:-0.01em;
+}
+
+/* 수지표 테이블 */
+.fs-table{width:100%;border-collapse:collapse;font-size:0.8rem;}
+.fs-table th{padding:0.5rem 0.7rem;text-align:left;font-size:0.67rem;color:rgba(255,255,255,0.3);border-bottom:0.5px solid var(--line-d);font-weight:700;letter-spacing:0.05em;}
+.fs-table td{padding:0.55rem 0.7rem;border-bottom:0.5px solid var(--line-d2);color:rgba(255,255,255,0.7);}
+.fs-table tfoot td{font-weight:800;color:var(--accent-x);border-top:0.5px solid rgba(82,183,136,0.2);border-bottom:none;background:rgba(82,183,136,0.05);}
+.fs-table tr:hover td{background:rgba(255,255,255,0.02);}
+
+/* BEP 그리드 */
+.bep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;margin-top:1.2rem;}
+@media(max-width:500px){.bep-grid{grid-template-columns:1fr;}}
+.bep-box{background:rgba(255,255,255,0.04);border:0.5px solid var(--line-d);border-radius:var(--r-sm);padding:0.9rem;text-align:center;}
+.bep-box .lbl{font-size:0.62rem;color:rgba(255,255,255,0.28);margin-bottom:0.3rem;font-weight:600;}
+.bep-box .val{font-size:0.95rem;font-weight:800;color:var(--accent-x);}
+
+/* 차트 */
+.chart-section{margin-top:1.2rem;}
+.sub-head{font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:0.06em;text-transform:uppercase;border-top:0.5px solid var(--line-d);margin-top:1.2rem;padding-top:1rem;margin-bottom:0.8rem;}
+.pie-wrap{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.pie-canvas{width:140px!important;height:140px!important;flex-shrink:0;}
+.chart-legend{display:flex;flex-direction:column;gap:0.4rem;flex:1;}
+.chart-legend>div{display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:rgba(255,255,255,0.5);}
+.chart-legend>div span:first-child{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+/* BEP 게이지 */
+.bep-gauge{margin-top:0.8rem;}
+.gauge-bar{height:10px;background:rgba(255,255,255,0.08);border-radius:999px;overflow:hidden;margin-bottom:0.4rem;}
+.gauge-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-x));border-radius:999px;transition:width 0.6s var(--ease);}
+.gauge-label{display:flex;justify-content:space-between;font-size:0.62rem;color:rgba(255,255,255,0.3);}
+
+/* 캐시플로우 */
+.cashflow-wrap{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.5rem;}
+.cf-phase{flex:1;min-width:100px;background:rgba(255,255,255,0.04);border:0.5px solid var(--line-d);border-radius:var(--r-sm);padding:0.7rem 0.6rem;text-align:center;}
+.cf-phase-bar{height:4px;border-radius:2px;margin-bottom:0.4rem;}
+.cf-phase-label{font-size:0.65rem;color:rgba(255,255,255,0.35);white-space:pre-line;line-height:1.4;}
+
+/* verdict */
+.verdict{
+  padding:1.2rem 1.4rem;border-radius:var(--r-md);margin-top:1.2rem;
+  font-size:0.85rem;font-weight:600;line-height:1.75;
+}
+.verdict.pos{background:rgba(45,106,79,0.12);border:0.5px solid rgba(82,183,136,0.25);color:rgba(255,255,255,0.75);}
+.verdict.neg{background:rgba(217,79,61,0.1);border:0.5px solid rgba(217,79,61,0.2);color:rgba(255,255,255,0.75);}
+
+/* ROE */
+#r-roe-row{display:none;border-top:0.5px solid var(--line-d);margin-top:1rem;padding-top:0.8rem;}
+#r-roe-row .lbl{font-size:0.68rem;color:rgba(255,255,255,0.3);margin-bottom:0.2rem;}
+#r-roe{font-size:1.2rem;font-weight:800;color:#fbbf24;}
+
+/* disclaimer */
+.disclaimer{
+  background:rgba(255,255,255,0.03);border:0.5px solid var(--line-d);
+  border-radius:var(--r-sm);padding:1rem 1.2rem;margin-top:1rem;
+}
+.disc-meta{display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 1rem;font-size:0.72rem;color:rgba(255,255,255,0.5);margin-bottom:0.7rem;}
+.disc-meta strong{color:rgba(255,255,255,0.75);}
+.disc-legal{font-size:0.68rem;color:rgba(255,255,255,0.2);line-height:1.75;background:rgba(255,255,255,0.02);border-radius:6px;padding:0.7rem;}
+.disc-legal strong{color:rgba(255,255,255,0.4);}
+.disc-footer{text-align:center;margin-top:0.5rem;font-size:0.65rem;color:rgba(255,255,255,0.15);}
+
+/* 인쇄용 (숨김) */
+.print-info{display:none;}
+#pi-proj,#pi-loc,#pi-type,#pi-date,#pi-reviewer,#pi-area{display:none;}
+
+/* ── PRINT ── */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  body{background:#fff!important;color:#111!important;}
+  .hd,.wizard-nav,.step-hero,.step-nav,.dev-tabs,.dev-grid,.dev-detail-box,
+  .hd-btn,.lock-overlay{display:none!important;}
+  .step-screen{display:none!important;}
+  #step4.step-screen{display:block!important;}
+  .d-card,.r-card,.result-hero-wrap,.result-panel-inner{
+    background:#fff!important;border:1px solid #ddd!important;color:#111!important;
+  }
+  .print-info{display:block!important;}
+  #pi-proj,#pi-loc,#pi-type,#pi-date,#pi-reviewer,#pi-area{display:inline!important;}
+  .disc-legal,  .disc-footer{color:#555!important;}
+  @page{size:A4 portrait;margin:12mm 10mm;}
+  thead{display:table-header-group;}tr{break-inside:avoid;}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .step-hero{padding:2rem 1.2rem 1.5rem;}
+  .step-body{padding:0 1rem 3rem;}
+  .d-card{padding:1.3rem;}
+  .result-hero-wrap{padding:1.5rem 1.2rem;}
+  .hd{padding:0 1rem;}
+  .bep-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LOCK OVERLAY ══ -->
+<div id="lock-overlay">
+  <div class="lock-box">
+    <div class="lock-logo">
+      <div class="lock-logo-mark">가치</div>
+      <div>
+        <div class="lock-logo-name">가치<span>잇다</span>컨설팅</div>
+        <div class="lock-logo-sub">041-668-3124 · 충남 서산시 덕지천로 331</div>
+      </div>
+    </div>
+    <div class="lock-eyebrow">무료 서비스</div>
+    <div class="lock-title">부동산 개발<br>사업수지표</div>
+    <div class="lock-desc">무료로 이용하실 수 있습니다. 아래 정보를 입력하시면 바로 시작됩니다.<br>입력하신 정보는 상담 목적으로만 활용되며 외부에 제공되지 않습니다.</div>
+
+    <div class="lock-field">
+      <label>성함 *</label>
+      <input id="lock-name" type="text" placeholder="홍길동" maxlength="20">
+      <div class="lock-err" id="err-name">성함을 입력해 주세요.</div>
+    </div>
+    <div class="lock-field">
+      <label>연락처 * <em style="font-size:0.68rem;color:rgba(255,255,255,0.2);">— 간단한 상담 결과 안내에 활용됩니다</em></label>
+      <input id="lock-phone" type="tel" placeholder="010-0000-0000" maxlength="13" oninput="this.value=this.value.replace(/[^0-9-]/g,'')">
+      <div class="lock-err" id="err-phone">연락처를 입력해 주세요.</div>
+    </div>
+    <div class="lock-field">
+      <label>관심 개발 유형 <em style="font-size:0.68rem;color:rgba(255,255,255,0.2);">(복수 선택 가능)</em></label>
+      <div class="lock-interest" id="lock-interest">
+        <button class="lock-interest-btn" onclick="toggleInterest(this)">🏡 단독주택 단지</button>
+        <button class="lock-interest-btn" onclick="toggleInterest(this)">🏘 소규모 공동주택</button>
+        <button class="lock-interest-btn" onclick="toggleInterest(this)">☕ 테마 카페·상가</button>
+        <button class="lock-interest-btn" onclick="toggleInterest(this)">🛖 숙박·스테이</button>
+        <button class="lock-interest-btn" onclick="toggleInterest(this)">🐾 반려동물 시설</button>
+        <button class="lock-interest-btn" onclick="toggleInterest(this)">📦 창고·스토리지</button>
+        <button class="lock-interest-btn" onclick="toggleInterest(this)">🌾 농업·스마트팜</button>
+        <button class="lock-interest-btn" onclick="toggleInterest(this)">기타</button>
+      </div>
+    </div>
+
+    <div class="lock-agree-wrap">
+      <label>
+        <input type="checkbox" id="lock-agree">
+        <span class="lock-agree-txt">
+          <strong>[필수]</strong> 개인정보 수집·이용에 동의합니다.<br>
+          <span style="font-size:0.7rem;color:rgba(255,255,255,0.2);">수집항목: 성명·연락처·관심유형 / 목적: 사업수지표 제공 및 상담 / 보유: 1년 / 제3자 제공: 없음</span>
+        </span>
+      </label>
+      <div id="err-agree" style="color:#f87171;font-size:0.72rem;margin-top:0.3rem;display:none;">개인정보 수집·이용에 동의해 주세요.</div>
+    </div>
+
+    <button class="lock-btn" onclick="lockUnlock()">✅ 무료로 시작하기</button>
+    <div class="lock-notice">본 서비스는 가치잇다컨설팅이 무료 제공합니다.<br>별도 승인 절차 없이 즉시 이용 가능합니다.</div>
+  </div>
+</div>
+
+<!-- ══ HEADER ══ -->
+<header class="hd">
+  <div class="hd-logo" onclick="location.href='index.html'">
+    <div class="hd-logo-mark">가치</div>
+    <div class="hd-logo-text">
+      <div class="hd-logo-name">가치<span>잇다</span>컨설팅</div>
+      <div class="hd-logo-sub">건축의 가치를 바르게 잇다</div>
+    </div>
+  </div>
+  <div class="hd-center">부동산 개발 사업수지표</div>
+  <div class="hd-right">
+    <div class="hd-tel">
+      <strong>☎ 041-668-3124</strong><br>FAX 041-668-3125
+    </div>
+    <button class="hd-btn" onclick="resetAll()">↺ 초기화</button>
+    <button class="hd-btn hd-btn-accent" onclick="window.print()">🖨 PDF 출력</button>
+    <button class="hd-btn" onclick="location.href='index.html'">🏠 홈</button>
+  </div>
+</header>
+
+<!-- ══ WIZARD NAV ══ -->
+<div class="wizard-nav">
+  <div class="wizard-steps">
+    <div class="ws active" id="ws1" onclick="goStep(1)">
+      <div class="ws-num">1</div>
+      <div class="ws-text">
+        <div class="ws-label">STEP 1</div>
+        <div class="ws-title">개발항목 선택</div>
+      </div>
+    </div>
+    <div class="ws-arrow">›</div>
+    <div class="ws" id="ws2" onclick="goStep(2)">
+      <div class="ws-num">2</div>
+      <div class="ws-text">
+        <div class="ws-label">STEP 2</div>
+        <div class="ws-title">기본정보 입력</div>
+      </div>
+    </div>
+    <div class="ws-arrow">›</div>
+    <div class="ws" id="ws3" onclick="goStep(3)">
+      <div class="ws-num">3</div>
+      <div class="ws-text">
+        <div class="ws-label">STEP 3</div>
+        <div class="ws-title">토지·건물 입력</div>
+      </div>
+    </div>
+    <div class="ws-arrow">›</div>
+    <div class="ws" id="ws4" onclick="goStep(4)">
+      <div class="ws-num">4</div>
+      <div class="ws-text">
+        <div class="ws-label">STEP 4</div>
+        <div class="ws-title">결과 확인</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   STEP 1 — 개발항목 선택
+══════════════════════════════════════════════ -->
+<div class="step-screen active" id="step1">
+  <div class="step-hero">
+    <div class="step-eyebrow">Step 1 of 4</div>
+    <h1 class="step-h1">어떤 개발을 계획하고 계신가요?</h1>
+    <p class="step-desc">사업 유형을 선택하면 추천 공사비 단가·세금 안내·입력 항목이 자동으로 설정됩니다</p>
+  </div>
+  <div class="step-body">
+    <div class="d-card">
+      <div class="dev-tabs" id="devTabs">
+        <button class="dev-tab active" onclick="setDevTab(this,'주거')">🏠 주거</button>
+        <button class="dev-tab" onclick="setDevTab(this,'상업·관광')">☕ 상업·관광</button>
+        <button class="dev-tab" onclick="setDevTab(this,'특화·산업')">🏭 특화·산업</button>
+        <button class="dev-tab" onclick="setDevTab(this,'기타')">📋 기타</button>
+      </div>
+      <div class="dev-grid" id="dev-grid"></div>
+    </div>
+
+    <!-- 선택된 항목 상세 -->
+    <div class="dev-detail-box" id="dev-detail">
+      <div style="display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;">
+        <div style="font-size:2.5rem;" id="dev-detail-header">🏡</div>
+        <div style="flex:1;">
+          <div class="dev-detail-title" id="dev-detail-title">단독주택 단지</div>
+          <div class="dev-detail-desc" id="dev-detail-desc"></div>
+          <div class="dev-detail-meta" id="dev-detail-meta"></div>
+        </div>
+      </div>
+      <div class="f-row2">
+        <div>
+          <div class="dev-detail-sub">주요 입력항목</div>
+          <ul class="dev-detail-list" id="dev-inputs"></ul>
+        </div>
+        <div>
+          <div class="dev-detail-sub">관련 세금</div>
+          <ul class="dev-detail-list" id="dev-taxes"></ul>
+        </div>
+      </div>
+      <div id="dev-cost-tbody" style="display:none;"></div>
+      <div id="dev-comment" class="dev-comment-box" style="display:none;"></div>
+    </div>
+
+    <div class="step-nav">
+      <button class="btn-next" onclick="goStep(2)">다음 단계 — 기본정보 입력 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   STEP 2 — 기본정보 입력
+══════════════════════════════════════════════ -->
+<div class="step-screen" id="step2">
+  <div class="step-hero">
+    <div class="step-eyebrow">Step 2 of 4</div>
+    <h1 class="step-h1">프로젝트 기본 정보</h1>
+    <p class="step-desc">프로젝트명·소재지·건물 유형 등 기본 정보를 입력합니다</p>
+  </div>
+  <div class="step-body">
+
+    <!-- 기본 정보 -->
+    <div class="d-card">
+      <div class="d-card-hd">
+        <div class="d-card-icon">📋</div>
+        <div><div class="d-card-title">① 기본 정보</div><div class="d-card-sub">프로젝트 식별 정보</div></div>
+        <div class="d-card-badge">필수</div>
+      </div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">프로젝트명</label>
+          <input class="f-inp" id="i-proj" placeholder="예) 서산시 OO지구 단독주택">
+        </div>
+        <div class="f-group">
+          <label class="f-label">소재지</label>
+          <input class="f-inp" id="i-loc" placeholder="예) 충남 서산시 지곡면 환성리">
+        </div>
+      </div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">건물 유형</label>
+          <select class="f-sel" id="i-type" onchange="onTypeChange()">
+            <option value="house">단독주택 단지</option>
+            <option value="multi">다가구주택</option>
+            <option value="apt">다세대주택</option>
+            <option value="complex">근생+주거복합</option>
+            <option value="commercial">근린생활시설</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label class="f-label">사업 방향</label>
+          <select class="f-sel" id="i-biz" onchange="onBizChange()">
+            <option value="sell">분양 (전체 매각)</option>
+            <option value="rent">임대 (장기 보유)</option>
+            <option value="mixed">분양+임대 혼합</option>
+            <option value="self">자가 사용</option>
+          </select>
+        </div>
+      </div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">검토일</label>
+          <input class="f-inp" id="i-date" type="date">
+        </div>
+        <div class="f-group">
+          <label class="f-label">검토자</label>
+          <input class="f-inp" id="i-reviewer" value="가치잇다컨설팅">
+        </div>
+      </div>
+    </div>
+
+    <!-- 용도지역 -->
+    <div class="d-card">
+      <div class="d-card-hd">
+        <div class="d-card-icon">🗺️</div>
+        <div><div class="d-card-title">② 용도지역</div><div class="d-card-sub">선택 시 건폐율·용적률 자동입력</div></div>
+        <div class="d-card-badge">필수</div>
+      </div>
+      <div class="f-group">
+        <label class="f-label">용도지역 선택</label>
+        <select class="f-sel" id="i-zone" onchange="onZoneChange()">
+          <option value="">— 선택하세요 —</option>
+          <option value="1종전용">제1종전용주거 (건폐율 50% / 용적률 100%)</option>
+          <option value="2종전용">제2종전용주거 (건폐율 50% / 용적률 150%)</option>
+          <option value="1종일반">제1종일반주거 (건폐율 60% / 용적률 200%)</option>
+          <option value="2종일반">제2종일반주거 (건폐율 60% / 용적률 250%)</option>
+          <option value="3종일반">제3종일반주거 (건폐율 50% / 용적률 300%)</option>
+          <option value="준주거">준주거 (건폐율 70% / 용적률 500%)</option>
+          <option value="중심상업">중심상업 (건폐율 90% / 용적률 1500%)</option>
+          <option value="일반상업">일반상업 (건폐율 80% / 용적률 1300%)</option>
+          <option value="근린상업">근린상업 (건폐율 70% / 용적률 900%)</option>
+          <option value="유통상업">유통상업 (건폐율 80% / 용적률 1100%)</option>
+          <option value="전용공업">전용공업 (건폐율 70% / 용적률 300%)</option>
+          <option value="일반공업">일반공업 (건폐율 70% / 용적률 350%)</option>
+          <option value="준공업">준공업 (건폐율 70% / 용적률 400%)</option>
+          <option value="보전녹지">보전녹지 (건폐율 20% / 용적률 80%)</option>
+          <option value="생산녹지">생산녹지 (건폐율 20% / 용적률 100%)</option>
+          <option value="자연녹지">자연녹지 (건폐율 20% / 용적률 100%)</option>
+          <option value="보전관리">보전관리 (건폐율 20% / 용적률 80%)</option>
+          <option value="생산관리">생산관리 (건폐율 20% / 용적률 80%)</option>
+          <option value="계획관리">계획관리 (건폐율 40% / 용적률 100%)</option>
+          <option value="농림">농림 (건폐율 20% / 용적률 80%)</option>
+          <option value="자연환경보전">자연환경보전 (건폐율 20% / 용적률 80%)</option>
+        </select>
+        <div class="f-hint" id="zone-note" style="display:none;color:rgba(201,168,76,0.8);margin-top:0.4rem;"></div>
+      </div>
+      <div class="f-hint" style="margin-bottom:0.8rem;color:rgba(255,255,255,0.2);">서산시 도시계획 조례 [제2063호, 2025.12.10.] 기준</div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">건폐율 (%)</label>
+          <input class="f-inp" id="i-bcr" type="number" placeholder="예) 40">
+        </div>
+        <div class="f-group">
+          <label class="f-label">용적률 (%)</label>
+          <input class="f-inp" id="i-far" type="number" placeholder="예) 100">
+        </div>
+      </div>
+    </div>
+
+    <!-- 도로·주차 체크 -->
+    <div class="d-card" id="road-check-wrap">
+      <div class="d-card-hd">
+        <div class="d-card-icon">🚗</div>
+        <div><div class="d-card-title">③ 도로·주차 규정 체크</div><div class="d-card-sub">대지면적·건물유형 입력 시 자동 안내</div></div>
+        <div class="d-card-badge opt">자동</div>
+      </div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.3);line-height:1.8;">
+        ℹ️ 대지면적과 건물유형을 입력하면 도로·주차 기준이 자동으로 안내됩니다.
+      </div>
+    </div>
+
+    <div class="step-nav">
+      <button class="btn-prev" onclick="goStep(1)">← 이전</button>
+      <button class="btn-next" onclick="goStep(3)">다음 단계 — 토지·건물 입력 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   STEP 3 — 토지·건물·수입·간접비 입력
+══════════════════════════════════════════════ -->
+<div class="step-screen" id="step3">
+  <div class="step-hero">
+    <div class="step-eyebrow">Step 3 of 4</div>
+    <h1 class="step-h1">토지·건물·수입 정보</h1>
+    <p class="step-desc">사업수지표 계산에 필요한 항목을 입력합니다. 선택 항목은 비워도 계산됩니다</p>
+  </div>
+  <div class="step-body">
+
+    <!-- 토지 면적 -->
+    <div class="d-card">
+      <div class="d-card-hd">
+        <div class="d-card-icon">📐</div>
+        <div><div class="d-card-title">① 토지 면적</div></div>
+        <div class="d-card-badge">필수</div>
+      </div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">대지면적 (㎡)</label>
+          <input class="f-inp" id="i-area-m2" type="number" placeholder="㎡" oninput="syncArea()">
+        </div>
+        <div class="f-group">
+          <label class="f-label">대지면적 (평)</label>
+          <input class="f-inp" id="i-area-py" type="number" placeholder="평" oninput="syncArea()">
+        </div>
+      </div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">필지수 <em>분할 계획</em></label>
+          <input class="f-inp" id="i-lots" type="number" value="1" min="1">
+        </div>
+        <div class="f-group">
+          <label class="f-label">동수 (단지수)</label>
+          <input class="f-inp" id="i-blocks" type="number" value="1" min="1">
+        </div>
+      </div>
+      <!-- 도로제외지 (숨김, JS 호환) -->
+      <div id="land-exclude-wrap" style="display:none;">
+        <div class="f-group">
+          <label class="f-label">도로·제외지 면적 (㎡)</label>
+          <input class="f-inp" id="land-exclude-m2" type="number" placeholder="0">
+          <div class="f-hint" id="land-exclude-py"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 건물 규모 -->
+    <div class="d-card">
+      <div class="d-card-hd">
+        <div class="d-card-icon">🏗️</div>
+        <div><div class="d-card-title">② 건물 규모</div></div>
+        <div class="d-card-badge">필수</div>
+      </div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">지상층수</label>
+          <input class="f-inp" id="i-floors" type="number" value="1" min="1">
+        </div>
+        <div class="f-group">
+          <label class="f-label">지하층수</label>
+          <input class="f-inp" id="i-bfloors" type="number" value="0" min="0">
+        </div>
+      </div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">세대당 전용면적 (㎡)</label>
+          <input class="f-inp" id="i-unit-m2" type="number" placeholder="㎡" oninput="syncUnitArea()">
+        </div>
+        <div class="f-group">
+          <label class="f-label">세대당 전용면적 (평)</label>
+          <input class="f-inp" id="i-unit-py" type="number" placeholder="평" oninput="syncUnitArea()">
+        </div>
+      </div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">동당 세대수</label>
+          <input class="f-inp" id="i-units" type="number" placeholder="미입력 시 필지수 사용">
+        </div>
+        <div class="f-group">
+          <label class="f-label">연면적 (㎡) <em>직접입력 우선</em></label>
+          <input class="f-inp" id="i-gfa" type="number" placeholder="미입력 시 자동산정" oninput="onGfaInput()">
+          <div class="f-hint" id="gfa-auto" style="color:rgba(82,183,136,0.7);"></div>
+        </div>
+      </div>
+      <div class="f-group">
+        <label class="f-label">연면적 (평) <em>참고용</em></label>
+        <input class="f-inp" id="i-gfa-py" type="number" placeholder="평" oninput="onGfaInput()">
+      </div>
+    </div>
+
+    <!-- 공사비 -->
+    <div class="d-card">
+      <div class="d-card-hd">
+        <div class="d-card-icon">🔨</div>
+        <div><div class="d-card-title">③ 공사비 설정</div><div class="d-card-sub">단가 선택 또는 직접 입력</div></div>
+        <div class="d-card-badge">필수</div>
+      </div>
+      <div class="f-group">
+        <label class="f-label">공사비 단가 선택</label>
+        <div class="const-row" id="i-const-sel">
+          <button class="const-btn active" onclick="onConstSel(this,'70')">저가 (70만/㎡)</button>
+          <button class="const-btn" onclick="onConstSel(this,'85')">표준 (85만/㎡)</button>
+          <button class="const-btn" onclick="onConstSel(this,'100')">고급 (100만/㎡)</button>
+          <button class="const-btn" onclick="onConstSel(this,'120')">프리미엄 (120만/㎡)</button>
+          <button class="const-btn" onclick="onConstSel(this,'custom')">직접입력</button>
+        </div>
+      </div>
+      <div class="f-group" id="i-const-custom" style="display:none;">
+        <label class="f-label">공사비 단가 직접입력 (만원/㎡)</label>
+        <input class="f-inp" type="number" id="const-custom-val" placeholder="예) 95">
+      </div>
+      <div class="f-row2" style="margin-top:0.5rem;">
+        <div class="chk-row" id="chk-vat-const-wrap" onclick="toggleChk(this,'chk-vat-const')">
+          <div class="chk-box" id="chk-vat-const-box"></div>
+          <div>
+            <div class="chk-label">공사비 VAT (10%) 포함</div>
+            <div class="chk-sub">별도 계상 시 체크</div>
+          </div>
+          <input type="checkbox" id="chk-vat-const" style="display:none;">
+        </div>
+        <div>
+          <div class="sec-divider" style="margin:0.5rem 0;">
+            <div class="sec-divider-line"></div>
+            <div class="sec-divider-txt">추가 공사비</div>
+            <div class="sec-divider-line"></div>
+          </div>
+          <div class="f-row2">
+            <div class="f-group">
+              <label class="f-label">철거비 (만원)</label>
+              <input class="f-inp" id="i-demolish" type="number" placeholder="0">
+            </div>
+            <div class="f-group">
+              <label class="f-label">기반시설 (만원)</label>
+              <input class="f-inp" id="i-utility" type="number" placeholder="0">
+            </div>
+          </div>
+          <div class="f-group">
+            <label class="f-label">조경비 (만원/평)</label>
+            <input class="f-inp" id="i-landscape" type="number" placeholder="0">
+            <div class="f-hint" id="landscape-calc" style="color:rgba(82,183,136,0.7);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 토지 취득 비용 -->
+    <div class="d-card">
+      <div class="d-card-hd">
+        <div class="d-card-icon">💰</div>
+        <div><div class="d-card-title">④ 토지 취득 비용</div></div>
+        <div class="d-card-badge">필수</div>
+      </div>
+      <div class="f-group">
+        <label class="f-label">토지 평단가 (만원/평)</label>
+        <input class="f-inp" id="i-land-py" type="number" placeholder="예) 50" oninput="onLandPriceInput()">
+        <div class="f-hint" id="acq-auto" style="color:rgba(82,183,136,0.7);"></div>
+      </div>
+      <div class="f-group">
+        <label class="f-label">토지 매입가 합계 (만원)</label>
+        <input class="f-inp" id="i-land-price" type="number" placeholder="콤마 자동입력" oninput="onLandPriceInput()">
+      </div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">기타 부대비용 (만원)</label>
+          <input class="f-inp" id="i-land-etc" type="number" placeholder="0">
+        </div>
+      </div>
+      <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-txt">취득 세금</div><div class="sec-divider-line"></div></div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">취득세 (%)</label>
+          <input class="f-inp" id="i-acq" type="number" value="4.0" step="0.1">
+          <div class="f-hint" id="vat-note"></div>
+        </div>
+        <div class="f-group">
+          <label class="f-label">중개수수료율 (%)</label>
+          <input class="f-inp" id="i-broker" type="number" value="0.5" step="0.1">
+        </div>
+      </div>
+    </div>
+
+    <!-- 수입 추정 -->
+    <div class="d-card">
+      <div class="d-card-hd">
+        <div class="d-card-icon">📈</div>
+        <div><div class="d-card-title">⑤ 수입 추정</div><div class="d-card-sub">분양 / 임대 수익 입력</div></div>
+        <div class="d-card-badge">필수</div>
+      </div>
+
+      <!-- 분양 -->
+      <div id="rev-sell">
+        <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-txt">분양 수익</div><div class="sec-divider-line"></div></div>
+        <div class="f-row2">
+          <div class="f-group">
+            <label class="f-label">토지 분양가 (만원/평)</label>
+            <input class="f-inp" id="i-sell-land-py" type="number" placeholder="0" oninput="syncLandPrice()">
+          </div>
+          <div class="f-group">
+            <label class="f-label">분양 대상 면적 (평)</label>
+            <input class="f-inp" id="i-sell-land-area" type="number" placeholder="미입력 시 대지면적">
+          </div>
+        </div>
+        <div class="f-hint" id="i-sell-land-income" style="color:rgba(82,183,136,0.7);margin-bottom:0.6rem;"></div>
+        <div class="f-row2">
+          <div class="f-group">
+            <label class="f-label">건물 분양가 (만원/평)</label>
+            <input class="f-inp" id="i-sell-bld-py1" type="number" placeholder="0" oninput="syncLandPrice()">
+          </div>
+          <div class="f-group">
+            <label class="f-label">분양 동수</label>
+            <input class="f-inp" id="i-sell-bld-blocks" type="number" placeholder="미입력 시 전체 동수">
+          </div>
+        </div>
+        <div class="f-hint" id="i-sell-bld-formula" style="color:rgba(82,183,136,0.7);margin-bottom:0.3rem;"></div>
+        <div class="f-hint" id="i-sell-bld-income" style="color:rgba(82,183,136,0.7);margin-bottom:0.6rem;"></div>
+        <div class="f-group">
+          <label class="f-label">분양 수익 합계 (만원)</label>
+          <input class="f-inp" id="i-sell-income" type="number" placeholder="직접입력 or 자동산정">
+          <div class="f-hint" id="sell-price-note" style="color:rgba(201,168,76,0.8);"></div>
+        </div>
+        <div class="f-group">
+          <label class="f-label">분양률 (%)</label>
+          <input class="f-inp" id="i-sell-rate" type="number" value="100" min="0" max="100">
+        </div>
+        <div class="f-group">
+          <label class="f-label">분양 시 VAT 처리</label>
+          <div class="chk-row" id="chk-vat-sell-wrap" onclick="toggleChk(this,'chk-vat-sell')">
+            <div class="chk-box" id="chk-vat-sell-box"></div>
+            <div class="chk-label">매출에 VAT (10%) 포함 (건물분)</div>
+            <input type="checkbox" id="chk-vat-sell" style="display:none;">
+          </div>
+        </div>
+      </div>
+
+      <!-- 임대 -->
+      <div id="rev-rent" style="display:none;">
+        <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-txt">임대 수익</div><div class="sec-divider-line"></div></div>
+        <div class="f-row2">
+          <div class="f-group">
+            <label class="f-label">월 임대료 (만원)</label>
+            <input class="f-inp" id="i-monthly" type="number" placeholder="0">
+          </div>
+          <div class="f-group">
+            <label class="f-label">보증금 (만원)</label>
+            <input class="f-inp" id="i-deposit" type="number" placeholder="0">
+          </div>
+        </div>
+        <div class="f-group">
+          <label class="f-label">연 임대수익 합계 (만원)</label>
+          <input class="f-inp" id="i-rent-income" type="number" placeholder="직접 입력 가능">
+          <div class="f-hint" id="rev-calc-note" style="color:rgba(82,183,136,0.7);"></div>
+        </div>
+      </div>
+
+      <!-- 기타 수익 -->
+      <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-txt">기타 수익</div><div class="sec-divider-line"></div></div>
+      <div class="f-group">
+        <label class="f-label">기타 수익 (만원)</label>
+        <input class="f-inp" id="i-etc" type="number" placeholder="0">
+      </div>
+      <!-- 매도 수익 (숨김 호환) -->
+      <input type="number" id="i-sell-price" style="display:none;">
+    </div>
+
+    <!-- 간접비 -->
+    <div class="d-card">
+      <div class="d-card-hd">
+        <div class="d-card-icon">📊</div>
+        <div><div class="d-card-title">⑥ 간접비 설정</div><div class="d-card-sub">설계·감리·금융·판매 관련 비용</div></div>
+        <div class="d-card-badge opt">선택</div>
+      </div>
+      <div class="indirect-list">
+        <div class="ind-item selected" onclick="toggleIndirect(this)">
+          <div class="ind-chk">✓</div>
+          <div class="ind-info">
+            <div class="ind-name">설계비</div>
+            <div class="ind-desc">건축설계·인허가비용</div>
+          </div>
+          <div class="ind-rate"><input class="ind-input" id="i-design" type="number" value="4" onclick="event.stopPropagation()"> %</div>
+        </div>
+        <div class="ind-item selected" onclick="toggleIndirect(this)">
+          <div class="ind-chk">✓</div>
+          <div class="ind-info">
+            <div class="ind-name">감리비</div>
+            <div class="ind-desc">공사감리·CM비용</div>
+          </div>
+          <div class="ind-rate"><input class="ind-input" id="i-supervision" type="number" value="2" onclick="event.stopPropagation()"> %</div>
+        </div>
+        <div class="ind-item selected" onclick="toggleIndirect(this)">
+          <div class="ind-chk">✓</div>
+          <div class="ind-info">
+            <div class="ind-name">인허가·제세공과</div>
+            <div class="ind-desc">허가 수수료·부담금</div>
+          </div>
+          <div class="ind-rate"><input class="ind-input" id="i-permit" type="number" value="400" onclick="event.stopPropagation()"> 만원</div>
+        </div>
+        <div class="ind-item selected" onclick="toggleIndirect(this)">
+          <div class="ind-chk">✓</div>
+          <div class="ind-info">
+            <div class="ind-name">판매관리비</div>
+            <div class="ind-desc">광고·분양대행 비용</div>
+          </div>
+          <div class="ind-rate"><input class="ind-input" id="i-sales" type="number" value="2" onclick="event.stopPropagation()"> %</div>
+        </div>
+        <div class="ind-item" onclick="toggleIndirect(this)">
+          <div class="ind-chk"></div>
+          <div class="ind-info">
+            <div class="ind-name">예비비</div>
+            <div class="ind-desc">공사비 기준 %</div>
+          </div>
+          <div class="ind-rate"><input class="ind-input" id="i-reserve" type="number" value="5" onclick="event.stopPropagation()"> %</div>
+        </div>
+      </div>
+
+      <!-- 금융비용 -->
+      <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-txt">금융 비용 (선택)</div><div class="sec-divider-line"></div></div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">대출금 (만원)</label>
+          <input class="f-inp" id="i-loan" type="number" placeholder="0">
+        </div>
+        <div class="f-group">
+          <label class="f-label">대출 이율 (%/년)</label>
+          <input class="f-inp" id="i-rate" type="number" value="5.0" step="0.1">
+        </div>
+      </div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">사업 기간 (개월)</label>
+          <input class="f-inp" id="i-period" type="number" value="12">
+        </div>
+        <div class="f-group">
+          <label class="f-label">자기자본 (만원)</label>
+          <input class="f-inp" id="i-equity" type="number" placeholder="ROE 계산용">
+        </div>
+      </div>
+      <div class="f-hint" id="i-finance-calc" style="color:rgba(82,183,136,0.7);"></div>
+
+      <!-- 브릿지론 -->
+      <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-txt">브릿지 대출 (선택)</div><div class="sec-divider-line"></div></div>
+      <div class="f-row2">
+        <div class="f-group">
+          <label class="f-label">브릿지 대출금 (만원)</label>
+          <input class="f-inp" id="i-bridge-loan" type="number" placeholder="0">
+        </div>
+        <div class="f-group">
+          <label class="f-label">이율 (%/년)</label>
+          <input class="f-inp" id="i-bridge-rate" type="number" value="6.0" step="0.1">
+        </div>
+      </div>
+      <div class="f-group">
+        <label class="f-label">브릿지 기간 (개월)</label>
+        <input class="f-inp" id="i-bridge-period" type="number" placeholder="0">
+        <div class="f-hint" id="bridge-calc" style="color:rgba(82,183,136,0.7);"></div>
+      </div>
+
+      <!-- 전환율 -->
+      <div class="f-group" style="margin-top:0.8rem;">
+        <label class="f-label">전용률 (%) <em>참고</em></label>
+        <input class="f-inp" id="i-conv" type="number" value="6.0" step="0.1">
+      </div>
+    </div>
+
+    <!-- 미리보기 -->
+    <div class="preview-box" id="preview">
+      <div style="font-size:0.7rem;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.8rem;">사업비 미리보기</div>
+      <div class="preview-row"><span class="preview-key">토지구입비</span><span class="preview-val" id="pv-land">—</span></div>
+      <div class="preview-row"><span class="preview-key">건축공사비</span><span class="preview-val" id="pv-const">—</span></div>
+      <div class="preview-row"><span class="preview-key">간접비</span><span class="preview-val" id="pv-indirect">—</span></div>
+      <div class="preview-row" style="border-bottom:none;"><span class="preview-key" style="font-weight:700;color:rgba(255,255,255,0.6);">총 사업비 (추정)</span><span class="preview-val" id="pv-total" style="font-size:1rem;"></span></div>
+    </div>
+
+    <div class="step-nav">
+      <button class="btn-prev" onclick="goStep(2)">← 이전</button>
+      <button class="btn-calc" onclick="goStep(4)">📊 사업수지표 계산하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+   STEP 4 — 결과 확인
+══════════════════════════════════════════════ -->
+<div class="step-screen" id="step4">
+  <div class="step-hero">
+    <div class="step-eyebrow">Step 4 of 4</div>
+    <h1 class="step-h1">사업성 검토 결과</h1>
+    <p class="step-desc">입력값 기준 추정치입니다. 정밀 산출은 실시설계 후 확인하세요</p>
+  </div>
+  <div class="step-body">
+
+    <!-- 인쇄용 프로젝트 정보 (화면 숨김) -->
+    <div class="print-info">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;font-size:0.8rem;">
+        <div>프로젝트 <strong id="pi-proj"></strong></div>
+        <div>소재지 <strong id="pi-loc"></strong></div>
+        <div>건물유형 <strong id="pi-type"></strong></div>
+        <div>검토일 <strong id="pi-date"></strong></div>
+        <div style="display:none;">검토자 <strong id="pi-reviewer"></strong></div>
+        <div>대지면적 <strong id="pi-area"></strong></div>
+      </div>
+    </div>
+
+    <!-- 결과 히어로 -->
+    <div class="result-hero-wrap" id="result-panel">
+      <div class="result-main-num">
+        <div class="result-main-label">총 사업이익</div>
+        <div class="result-main-profit" id="r-profit" style="color:var(--accent-x);">—</div>
+        <div class="result-main-sub">수익률 <span id="r-rate" style="color:rgba(255,255,255,0.6);">—</span></div>
+      </div>
+      <div id="r-roe-row">
+        <div class="lbl">자기자본수익률 (ROE)</div>
+        <div id="r-roe"></div>
+      </div>
+      <div class="result-grid-3">
+        <div class="result-kpi neutral">
+          <div class="rk-label">① 토지구입비</div>
+          <div class="rk-val b" id="r-land">—</div>
+        </div>
+        <div class="result-kpi">
+          <div class="rk-label">② 건축공사비</div>
+          <div class="rk-val g" id="r-const">—</div>
+        </div>
+        <div class="result-kpi">
+          <div class="rk-label">③ 간접비</div>
+          <div class="rk-val" id="r-indirect" style="color:#c4b5fd;">—</div>
+        </div>
+      </div>
+      <div class="result-2big">
+        <div class="rbig">
+          <div class="rbig-label">총 사업비</div>
+          <div class="rbig-val" id="r-total-cost">—</div>
+        </div>
+        <div class="rbig">
+          <div class="rbig-label">총 수입</div>
+          <div class="rbig-val" id="r-total-income" style="color:var(--accent-x);">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 상세 결과 -->
+    <div class="result-panel-inner" id="result-detail">
+
+      <!-- 수지표 -->
+      <div class="r-card">
+        <div class="r-card-title">📋 사업 수지표 상세</div>
+        <table class="fs-table">
+          <thead>
+            <tr>
+              <th style="width:45%;">항목</th>
+              <th>금액 (만원)</th>
+              <th>구성비</th>
+            </tr>
+          </thead>
+          <tbody id="fs-tbody"></tbody>
+          <tfoot>
+            <tr>
+              <td>총 사업비 합계</td>
+              <td id="fs-total-cost"></td>
+              <td>100%</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <!-- BEP -->
+        <div class="bep-grid">
+          <div class="bep-box"><div class="lbl">손익분기 분양가</div><div class="val" id="r-bep">—</div></div>
+          <div class="bep-box"><div class="lbl">시세 대비 안전마진</div><div class="val" id="r-margin">—</div></div>
+          <div class="bep-box"><div class="lbl">㎡당 총 사업비</div><div class="val" id="r-cost-m2">—</div></div>
+        </div>
+
+        <!-- 차트 -->
+        <div class="chart-section" id="chart-section">
+          <div class="sub-head">📊 비용 구조 분석</div>
+          <div class="pie-wrap">
+            <canvas id="pie-canvas" class="pie-canvas"></canvas>
+            <div class="chart-legend" id="pie-legend"></div>
+          </div>
+          <div class="bep-gauge">
+            <div class="sub-head" style="border-top:none;margin:0.8rem 0 0.4rem;">📈 BEP 분양률 게이지</div>
+            <div class="gauge-bar"><div class="gauge-fill" id="bep-gauge-fill"></div></div>
+            <div class="gauge-label">
+              <span>0%</span>
+              <span id="bep-gauge-label"></span>
+              <span>100%</span>
+            </div>
+          </div>
+          <div class="sub-head" style="margin-top:1rem;">🗓 현금흐름 타임라인</div>
+          <div class="cashflow-wrap" id="cashflow-wrap"></div>
+        </div>
+
+        <div class="verdict" id="r-verdict"></div>
+
+        <!-- 면책 -->
+        <div class="disclaimer">
+          <div class="disc-meta">
+            <div>작성자 <strong id="disc-name">—</strong></div>
+            <div>연락처 <strong id="disc-phone">—</strong></div>
+            <div>검토일 <strong id="disc-date">—</strong></div>
+          </div>
+          <div class="disc-legal">
+            <strong>【법적 고지 및 면책 사항】</strong><br>
+            본 사업수지표는 작성자가 (주)가치잇다컨설팅플랫폼을 이용한 <strong>참고용 검토 자료</strong>입니다.<br>
+            ① 본 검토서의 수치는 입력값 기준으로 산출된 추정치이며, 실제 사업 결과와 다를 수 있습니다.<br>
+            ② 공사비·분양가·세율 등은 시장 여건·현장 조건에 따라 변동되므로 정밀 산출은 실시설계 후 확인을 요합니다.<br>
+            ③ 본 자료를 근거로 한 투자 결정에 대한 법적 책임은 의뢰인 본인에게 있으며, 가치잇다컨설팅은 이에 대한 손해배상 책임을 지지 않습니다.<br>
+            ④ 본 자료의 무단 복제·배포·상업적 이용을 금합니다. © 가치잇다컨설팅
+          </div>
+          <div class="disc-footer">가치잇다컨설팅 · ☎ 041-668-3124 · FAX 041-668-3125 · 충남 서산시 덕지천로 331</div>
+        </div>
+      </div>
+    </div><!-- /result-detail -->
+
+    <div class="step-nav" style="margin-top:1.5rem;">
+      <button class="btn-prev" onclick="goStep(3)">← 입력 수정</button>
+      <button class="hd-btn hd-btn-accent" onclick="window.print()" style="padding:0.8rem 2rem;font-size:0.88rem;">🖨 PDF 출력</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ JS 호환용 숨김 필드 ══ -->
+<div style="display:none;">
+  <input id="i-model" type="text">
+  <span id="pf-calc"></span>
+  <span id="sell-price-note-hidden"></span>
+  <span id="dev-period"></span>
+  <span id="dev-permit"></span>
+  <span id="dev-cost"></span>
+  <span id="dev-detail-header-hidden"></span>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// STEP WIZARD CONTROLLER
+// ══════════════════════════════════════════════
+var currentStep = 1;
+
+function goStep(n) {
+  // 스텝 화면 전환
+  document.querySelectorAll('.step-screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('step'+n).classList.add('active');
+
+  // 위저드 네비 상태
+  for(var i=1;i<=4;i++){
+    var ws = document.getElementById('ws'+i);
+    ws.classList.remove('active','done');
+    if(i < n) ws.classList.add('done');
+    else if(i === n) ws.classList.add('active');
+  }
+
+  currentStep = n;
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  // STEP 4: 자동 계산
+  if(n === 4) {
+    showResult();
+    document.getElementById('result-detail').classList.add('show');
+  }
+}
+
+function toggleChk(row, id) {
+  var inp = document.getElementById(id);
+  var box = document.getElementById(id+'-box');
+  inp.checked = !inp.checked;
+  row.classList.toggle('on', inp.checked);
+  if(box) box.textContent = inp.checked ? '✓' : '';
+}
+
+function toggleIndirect(item) {
+  item.classList.toggle('selected');
+  var chk = item.querySelector('.ind-chk');
+  if(item.classList.contains('selected')) chk.textContent='✓';
+  else chk.textContent='';
+}
+
+// ══════════════════════════════════════════════
+// 기존 JS 로직 100% 유지
+// ══════════════════════════════════════════════
+
+// ── 용도지역 테이블 (서산시 조례 2025.12.10) ──
+// ── 개발항목 데이터 ──
+var DEV_DATA = {
+  '주거': [
+    {
+      icon:'🏡', name:'단독주택 단지', sub:'필지 분할 분양·전원주택단지',
+      desc:'계획관리지역 토지를 매입해 필지 분할 후 단독주택 부지로 분양하거나, 직접 시공해 완성 주택을 판매하는 방식',
+      inputs:['대지면적·필지수·분할계획','건폐율·용적률 (계획관리 40%/100%)','세대당 전용면적·층수','평당 분양가 (지역 시세 조사 필수)','기반시설(도로·상하수도) 비용'],
+      taxes:['취득세 4.0% (농지·임야 → 주거용 전용 시)','양도소득세: 보유 2년 이상 일반세율(6~45%), 비사업용 토지는 중과(+10%p)','종합부동산세: 주택 합산 공시가 9억 초과 시 과세','부가가치세: 분양 시 건물분 10% (토지분 면세)','개발부담금: 개발이익의 25% (소규모 면제 기준 확인)'],
+      cost:'70~85만원/㎡',
+      costDetail:[{label:'건축물 공사비',range:'700~1000만원/평',items:'기초·골조(RC/경량목구조)·지붕·외벽마감·창호·내부마감·위생설비·전기·기계설비 포함'},{label:'토목 공사비',range:'5~15만원/㎡',items:'부지 정지·흙막이·배수로·포장(진입로·주차)·옹벽·조경 기반'},{label:'인입시설 공사비',range:'300~800만원/필지',items:'상수도 인입·오수관 연결(또는 개인하수처리)·전기 인입·가스 인입(도시가스 또는 LPG)·통신 인입'}],
+      permit:'⭐⭐ 보통', period:'12~18개월',
+      comment:'건축사의 강점이 가장 잘 발휘되는 영역입니다. 인허가 리스크를 직접 파악하고, 협력업체 단가를 직접 검증할 수 있어 수익률 관리가 용이합니다. 서산 지곡·성연·예천 일대 계획관리지역이 유망합니다.'
+    },
+    {icon:'🏘️',name:'소규모 공동주택',sub:'도심 내 연립·다세대주택',desc:'도심 일반주거지역 내 노후 단독주택 부지를 매입해 다세대·연립으로 신축하는 방식',inputs:['대지면적·용적률 (2종일반 250%)','세대수·전용면적 (전용 85㎡ 이하 중소형 위주)','지하주차장 포함 여부','분양가·임대료 지역 시세','사업승인 vs 신고 기준 (19세대 이하)'],taxes:['취득세 4.0% (토지), 준공 후 주택 분양 시 건물 2.8%','양도세: 1세대1주택 비과세 불해당 (사업용)','부가가치세: 국민주택 규모(85㎡ 이하) 건물분 면세, 초과분 10%','종합부동산세: 임대 보유 시 주택 수 합산 주의','지방소득세: 양도세의 10% 추가 납부'],cost:'90~110만원/㎡',costDetail:[{label:'건축물 공사비',range:'90~110만원/㎡',items:'RC구조 골조·지하주차장·공용계단·엘리베이터 피트·세대별 마감·위생·전기·기계설비'},{label:'토목 공사비',range:'8~20만원/㎡',items:'굴토·흙막이(H-PILE 또는 CIP)·지하 방수·부지 정지·외부 포장·조경'},{label:'인입시설 공사비',range:'500~1,500만원/동',items:'상하수도 인입·개별난방 또는 지역난방 연결·전기 인입(변압기 포함)·통신·소방 수원 확보'}],permit:'⭐⭐⭐ 복잡',period:'18~24개월',comment:'사업성 승인 vs 신고 여부가 사업비에 큰 영향을 미칩니다. 19세대 이하 신고제를 활용하면 인허가 기간을 단축할 수 있습니다.'},
+    {icon:'🏚️',name:'노후주택 리모델링',sub:'폐가·구옥 → 카페·스테이 개조',desc:'구도심이나 농촌의 빈집·노후주택을 매입해 상업시설(카페·숙박)로 리모델링하는 방식',inputs:['기존 건물 구조·노후도 조사 (리모델링 vs 신축 판단)','용도변경 가능 여부 (주거→근생)','석면·유해물질 조사비용','리모델링 공사비 (현장여건 편차 큼)','운영수익 vs 매각 방향'],taxes:['취득세 4.0% (일반 주택 취득)','용도변경 시 주택→근생: 추가 취득세 없음 (재산세 과세표준 변경)','부가가치세: 상업 임대 시 10% 발생 (주거임대는 면세)','양도세: 보유기간·용도에 따라 차등 (근생 건물은 주택 비과세 미적용)','증여·상속 활용 시 가업승계 특례 여부 검토'],cost:'50~80만원/㎡',costDetail:[{label:'건축물 공사비',range:'50~80만원/㎡',items:'구조보강·지붕 교체·창호·내외부 마감·위생설비 교체·전기 재배선'},{label:'토목 공사비',range:'2~8만원/㎡',items:'외부 정지·진입로 포장·배수 개선·기존 담장 철거·조경 정비'},{label:'인입시설 공사비',range:'200~600만원/동',items:'노후 상하수관 교체·전기 인입 용량 증설·가스 배관 교체·통신 재인입'}],permit:'⭐ 비교적 용이',period:'6~12개월',comment:'초기 투자비가 적어 소규모 개인 사업자에게 적합합니다. 단, 기존 구조 불량 시 공사비가 신축 수준으로 올라갈 수 있으므로 사전 구조 점검이 필수입니다.'},
+    {icon:'🏠',name:'실버 하우징',sub:'고령층 편의서비스 결합 주거단지',desc:'베이비붐 세대 은퇴 수요를 겨냥한 의료·생활 편의서비스 연계 주거단지',inputs:['의료·요양 시설 연계 계획','공동공간(식당·의원·헬스장) 면적 배분','배리어프리(BF) 설계 기준','운영사 협약 또는 자체 운영 여부','장기 임대 수익 모델 설계'],taxes:['취득세: 노인복지주택 인가 시 감면 혜택 (지자체별 상이)','재산세: 노인복지시설 감면 50~100% (요건 충족 시)','부가가치세: 의료용역 면세, 식음료·편의서비스 10%','법인세·소득세: 사회적 기업 인증 시 50% 감면 가능','개발부담금 감면: 임대주택 용도 시 면제 요건 확인'],cost:'100~130만원/㎡',costDetail:[{label:'건축물 공사비',range:'100~130만원/㎡',items:'무장애(BF) 설계 전용 마감·자동문·경사로·비상호출 시스템·의료공간 별도 마감'},{label:'토목 공사비',range:'10~25만원/㎡',items:'단지 내 보행로 완전 무장애 처리·차량 동선 분리·응급차량 진입로 확보'},{label:'인입시설 공사비',range:'1,000~3,000만원/단지',items:'의료가스(산소) 배관·비상발전기·지역난방·통합 스마트홈 배선·소방 스프링클러 확장'}],permit:'⭐⭐⭐⭐ 매우 복잡',period:'24~36개월',comment:'노인복지법·건축법 동시 적용으로 인허가가 복잡합니다. 지자체 보조금·기금 연계 가능성을 먼저 검토하는 것이 사업성 확보의 핵심입니다.'}
+  ],
+  '상업·관광': [
+    {icon:'☕',name:'대형 테마 카페',sub:'주차 용이한 외곽 목적형 근생',desc:'교외 접근성 좋은 부지에 주차장 충분히 확보한 대형 카페·복합문화공간을 개발',inputs:['대지면적 (주차 30% 이상 확보 권장)','건물 규모·외관 테마 계획','근린생활시설 신고 vs 허가 기준','상하수도·정화조 계획 (외곽지 필수)','운영 임대 vs 직영 방향'],taxes:['취득세 4.0% (비주거용 토지)','부가가치세: 임대 시 10%, 직영 매출에 10%','사업소득세·법인세: 개인 6~45%, 법인 9~24%','재산세: 건물분 0.25% 상업용','의제매입세액공제: 직영 시 식재료 매입 부가세 일부 공제 가능'],cost:'80~100만원/㎡',costDetail:[{label:'건축물 공사비',range:'80~100만원/㎡',items:'목구조·철골조·특수 외관 마감·대공간 내부·주방설비·위생·전기·냉난방'},{label:'토목 공사비',range:'10~25만원/㎡(대지)',items:'주차장 포장·진입로 확폭·우수 배수·외부 조경·간판 기초'},{label:'인입시설 공사비',range:'500~1,500만원',items:'상수도 대용량 인입·오수처리시설·전기 인입(3상 동력)·도시가스 또는 LPG 인입'}],permit:'⭐⭐ 보통',period:'10~16개월',comment:'서산 지역 특색(대산·가로림만·마애삼존불)을 테마로 한 목적형 카페는 SNS 마케팅 효과가 큽니다. 단, 트렌드 변화가 빠른 업종으로 임대 방식이 리스크 관리에 유리합니다.'},
+    {icon:'🛖',name:'감성 독채 스테이',sub:'지역 특색 고단가 숙박시설',desc:'농촌·자연환경을 활용한 고급 독채 글램핑·한옥·컨테이너 숙박시설',inputs:['농지전용·산지전용 가능 여부 먼저 확인','숙박업 신고 요건 (각 객실 독립 출입)','소방·전기·가스 설비 기준','계절별 예약률 예측 (성수기/비수기)','온라인 플랫폼(에어비앤비·야놀자) 마케팅 계획'],taxes:['취득세: 농지 전용 후 취득 시 4.0% + 농지보전부담금 별도','농지보전부담금: 공시지가의 30% (농지전용 허가 시)','부가가치세: 숙박업 매출 10%','종합소득세: 연 수익 규모에 따라 6~45% 누진 과세','지방세특례: 귀농·귀촌 지원 지자체 취득세 감면 요건 확인'],cost:'70~90만원/㎡',costDetail:[{label:'건축물 공사비',range:'70~90만원/㎡',items:'한옥·목조·컨테이너 등 특수구조·고급 내부 마감·욕실 프리미엄 마감·냉난방·위생'},{label:'토목 공사비',range:'8~20만원/㎡(대지)',items:'진입로 포장·부지 정지·독립 정화조·외부 조명·조경·개별 주차'},{label:'인입시설 공사비',range:'400~1,200만원/동',items:'상수도 인입 또는 지하수 개발·개별 정화조·전기 인입(태양광 병행 가능)·LPG 인입·통신'}],permit:'⭐⭐⭐ 복잡 (농지전용)',period:'12~20개월',comment:'농지전용 가능 여부가 사업의 첫 관문입니다. 계획관리·자연녹지 지역을 우선 검토하고, 농지전용 후 건축허가를 순차적으로 진행해야 합니다.'},
+    {icon:'⛺',name:'야영장·글램핑장',sub:'토목 최소화 자연친화적 개발',desc:'임야·자연녹지 토지를 활용해 토목공사를 최소화한 저투자 숙박시설',inputs:['야영장업 등록 요건 (관광진흥법)','토지 경사도·배수 계획','전기·용수 공급 가능 여부','안전시설 (소화기·대피로) 기준','계절 운영 vs 연중 운영 구분'],taxes:['취득세 4.0% (비농업용 임야)','산지전용부담금: 산지전용 허가 시 별도 부담','부가가치세: 숙박 매출 10%','재산세: 임야 0.07%, 건축물 신축 후 건물분 별도','소득세: 관광사업체 인증 시 일부 세제 혜택 확인'],cost:'30~50만원/㎡(토목+시설)',costDetail:[{label:'건축물 공사비',range:'10~25만원/㎡',items:'관리동·샤워장·화장실 등 부속 건축물·글램핑 구조물 설치'},{label:'토목 공사비',range:'15~30만원/㎡(부지)',items:'부지 정지·배수로·진입로 포장·데크 기초·전기 트렌치·야영장 구획 포장'},{label:'인입시설 공사비',range:'300~800만원',items:'상수도 인입(또는 지하수)·오수 처리·전기 인입 및 각 사이트 배전·통신 인입'}],permit:'⭐⭐ 보통',period:'8~14개월',comment:'초기 투자 대비 수익회수가 빠른 유형입니다. 단, 기상 여건에 매출이 크게 좌우되므로 연간 운영일수를 보수적으로 산정해야 합니다.'},
+    {icon:'🏢',name:'워케이션 센터',sub:'공유오피스·단기숙소 복합',desc:'서울·수도권 재택근무자 대상 공유 오피스와 단기 숙박을 결합한 복합 시설',inputs:['인터넷 인프라 (기가 인터넷 필수)','1인실·다인실·공유오피스 공간 배분','오피스텔 vs 근생 용도 선택','주차 및 대중교통 접근성','운영·관리 위탁 계획'],taxes:['취득세: 오피스텔 4.0%, 근생 4.0%','부가가치세: 오피스 임대 10%, 주거 임대 면세','재산세: 업무용 0.25%, 주거용 0.1%~0.4%','소득세·법인세: 임대 수익 합산 과세','지방 이전기업 세제 혜택 연계 가능성 검토'],cost:'90~120만원/㎡',costDetail:[{label:'건축물 공사비',range:'90~120만원/㎡',items:'RC·철골조·바닥 OA플로어·방음 칸막이·공유 오피스 전용 마감·숙박실 별도 마감'},{label:'토목 공사비',range:'8~15만원/㎡',items:'주차장 포장·진입 동선 분리(업무/숙박)·외부 조경·조명'},{label:'인입시설 공사비',range:'800~2,000만원',items:'기가 인터넷 광케이블 인입(필수)·전기 인입(업무용 대용량)·UPS 설치·냉난방·소방설비 강화'}],permit:'⭐⭐⭐ 복잡',period:'14~20개월',comment:'서산시 기업도시 및 현대제철·롯데케미칼 협력사 직원 수요도 함께 고려해볼 만합니다.'}
+  ],
+  '특화·산업': [
+    {icon:'🐾',name:'반려동물 복합시설',sub:'애견운동장·동반 숙박',desc:'반려인구 증가 수요를 겨냥한 펫파크·호텔·훈련소 복합 시설',inputs:['부지 면적 (운동장 최소 500㎡ 이상 권장)','동물관련 영업 허가 요건 (동물보호법)','악취·소음 민원 완충 계획','수의사 협력 또는 직원 고용 계획','회원제 vs 일반 영업 방식'],taxes:['취득세 4.0%','부가가치세: 동물 숙박·훈련 서비스 10%','사업소득세: 업종코드 96993 (기타 개인서비스업)','재산세: 시설 용도에 따라 상업용·공장용 차등 적용','농어촌특별세: 취득세 감면 시 농어촌특별세 20% 부가'],cost:'65~90만원/㎡',costDetail:[{label:'건축물 공사비',range:'65~90만원/㎡',items:'항균·방수 바닥 마감·배수 트렌치 전 구역 설치·소음 흡음재·냄새 환기 덕트·목욕실 방수'},{label:'토목 공사비',range:'12~25만원/㎡(운동장)',items:'운동장 조성(잔디·인조잔디·우레탄)·배수 처리·외곽 펜스(최소 1.8m)·그늘 시설·주차장 포장'},{label:'인입시설 공사비',range:'400~1,000만원',items:'상수도 대용량 인입·오수 처리(동물 배설물 처리 강화)·전기 인입·냉난방 전용 배관·CCTV 배선'}],permit:'⭐⭐ 보통',period:'10~16개월',comment:'전국 반려동물 1500만 시대, 서산권 대형 시설이 부족한 틈새시장입니다.'},
+    {icon:'🌾',name:'스마트팜 연계시설',sub:'농업생산·체험·판매 6차산업',desc:'스마트팜 온실·체험장·직판장을 결합해 농업 6차 산업화를 구현하는 시설',inputs:['농업진흥지역 여부 확인 (농진지역 외 권장)','스마트팜 보조금·융자 지원 사업 연계','체험시설·직판장 근생 용도 처리','도로 접근성·차량 주차 계획','운영 주체 (농업법인·개인사업자)'],taxes:['취득세: 농업용 시설 설치 시 50% 감면 (지방세특례제한법 제6조)','재산세: 농업용 시설 분리과세 0.07%','부가가치세: 농산물 판매 면세, 체험프로그램 10%','농지보전부담금: 농진지역 내 전용 금지, 외 지역 공시지가 30%','소득세: 농업소득 분리과세 혜택 (작물재배업)'],cost:'40~60만원/㎡(시설 포함)',costDetail:[{label:'스마트팜 시설비',range:'30~80만원/㎡',items:'유리온실·비닐하우스 구조·수경재배 시스템·자동화 제어설비·냉난방 에너지 설비'},{label:'토목 공사비',range:'5~12만원/㎡',items:'부지 정지·배수로·비닐하우스 기초·진입로·저수조'},{label:'인입시설 공사비',range:'300~800만원',items:'전기 인입(농업용)·용수 인입(농업용수 또는 지하수)·통신·스마트팜 인터넷 연결'}],permit:'⭐⭐ 보통',period:'8~14개월',comment:'정부 스마트팜 보조금(시설비 50% 지원) 사업을 먼저 확인하세요.'},
+    {icon:'📦',name:'소형 창고·셀프스토리지',sub:'1인 가구·이사 수요 물류창고',desc:'도심 인근 소형 개인 창고 수요를 겨냥한 자동화 셀프스토리지 시설',inputs:['도심 접근성 (반경 3km 이내 권장)','창고업 신고 vs 물류시설 허가 기준','자동화 잠금·CCTV 시스템','유닛 크기 구성 (0.5평~5평)','이용 요금 및 계약 방식 (월정액)'],taxes:['취득세 4.0% (창고용 부동산)','부가가치세: 창고 임대 10%','재산세: 창고 0.25%','소득세·법인세: 임대 수익 합산','창고업 신고: 물류시설법 해당 시 별도 요건'],cost:'40~60만원/㎡',costDetail:[{label:'건축물 공사비',range:'40~60만원/㎡',items:'철골조·패널 외벽·방습 바닥·전동 셔터 도어·소방설비·CCTV 배선'},{label:'토목 공사비',range:'5~10만원/㎡',items:'부지 정지·아스콘 포장·배수로·외곽 펜스·조명'},{label:'인입시설 공사비',range:'200~500만원',items:'전기 인입·보안 시스템·인터넷 배선·자동 잠금 시스템 배관'}],permit:'⭐ 비교적 용이',period:'8~12개월',comment:'서산시 1~2인 가구 증가 및 현대제철·대산 석유화학단지 협력사 직원 수요를 타깃으로 하면 안정적인 가동률을 기대할 수 있습니다.'}
+  ],
+  '기타': [
+    {icon:'🏪',name:'근린생활시설 복합',sub:'상가·사무실 복합 건물',desc:'1층 상가+2~3층 사무실 또는 주거를 복합한 소규모 수익형 건물',inputs:['상가 호수·전용면적 구성','임대료 지역 시세 조사','주차 확보 (상업지역 기준 강함)','관리비 및 공실 리스크 관리','향후 매각 vs 장기 보유'],taxes:['취득세 4.0%','부가가치세: 상업 임대 10%','재산세: 건물분 0.25% (상업용)','양도세: 비사업용 토지 중과 주의','법인 명의 보유 시 법인세·배당세 검토'],cost:'85~110만원/㎡',costDetail:[{label:'건축물 공사비',range:'85~110만원/㎡',items:'RC구조·상가 전면 유리 파사드·내부 골조·위생·전기·기계설비'},{label:'토목 공사비',range:'8~18만원/㎡',items:'지하 굴토·주차장 포장·외부 조경·간판 기초'},{label:'인입시설 공사비',range:'400~1,000만원',items:'전기 인입(상업용 대용량)·상하수도 인입·도시가스·통신'}],permit:'⭐⭐ 보통',period:'12~18개월',comment:'1층 상가 분양 시 임차인 업종 구성이 건물 전체 가치에 큰 영향을 미칩니다. 편의점·의원·학원 등 안정적인 업종을 우선 유치하는 전략이 유효합니다.'}
+  ]
+};
+var currentDevTab = '주거';
+var selectedDevItem = null;
+var ZONE = {
+  '1종전용':{bcr:50,far:100},'2종전용':{bcr:50,far:150},'1종일반':{bcr:60,far:200},
+  '2종일반':{bcr:60,far:250},'3종일반':{bcr:50,far:300},'준주거':{bcr:70,far:500},
+  '중심상업':{bcr:90,far:1500},'일반상업':{bcr:80,far:1300},'근린상업':{bcr:70,far:900},
+  '유통상업':{bcr:80,far:1100},'전용공업':{bcr:70,far:300},'일반공업':{bcr:70,far:350},
+  '준공업':{bcr:70,far:400},'보전녹지':{bcr:20,far:80},'생산녹지':{bcr:20,far:100},
+  '자연녹지':{bcr:20,far:100},'보전관리':{bcr:20,far:80},'생산관리':{bcr:20,far:80},
+  '계획관리':{bcr:40,far:100},'농림':{bcr:20,far:80},'자연환경보전':{bcr:20,far:80}
+};
+var SHEET_URL = 'https://script.google.com/macros/s/AKfycbxNtFJYq6dBtdcPGdSZPBSysoA2ePeYoe3gMNiPBAisVoGqzwAjR4PiiEpI4H0jLizn/exec';
+var _lockUser = null;
+
+function setDevTab(btn,tab){
+  document.querySelectorAll('.dev-tab').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  currentDevTab=tab;
+  renderDevGrid();
+}
+function renderDevGrid(){
+  var grid=document.getElementById('dev-grid');
+  var items=DEV_DATA[currentDevTab]||[];
+  grid.innerHTML=items.map(function(item,i){
+    return '<div class="dev-card" onclick="selectDevItem('+i+')" id="dev-card-'+i+'">'+
+      '<div class="dev-card-icon">'+item.icon+'</div>'+
+      '<div class="dev-card-name">'+item.name+'</div>'+
+      '<div class="dev-card-sub">'+item.sub+'</div>'+
+    '</div>';
+  }).join('');
+  document.getElementById('dev-detail').classList.remove('show');
+  selectedDevItem=null;
+}
+function selectDevItem(i){
+  var items=DEV_DATA[currentDevTab]||[];
+  var item=items[i];
+  if(!item) return;
+  selectedDevItem=item;
+  document.querySelectorAll('.dev-card').forEach(function(c){c.classList.remove('selected');});
+  document.getElementById('dev-card-'+i).classList.add('selected');
+  document.getElementById('dev-detail-header').textContent=item.icon;
+  document.getElementById('dev-detail-title').textContent=item.name;
+  document.getElementById('dev-detail-desc').textContent=item.desc;
+  document.getElementById('dev-detail-meta').innerHTML=
+    '<span class="dev-meta-chip">💰 '+item.cost+'</span>'+
+    '<span class="dev-meta-chip">📋 인허가: '+item.permit+'</span>'+
+    '<span class="dev-meta-chip">⏱ '+item.period+'</span>';
+  var inputsEl=document.getElementById('dev-inputs');
+  inputsEl.innerHTML=(item.inputs||[]).map(function(t){return '<li>'+t+'</li>';}).join('');
+  var taxesEl=document.getElementById('dev-taxes');
+  taxesEl.innerHTML=(item.taxes||[]).map(function(t){return '<li>'+t+'</li>';}).join('');
+  var commentEl=document.getElementById('dev-comment');
+  if(item.comment){commentEl.textContent=item.comment;commentEl.style.display='block';}
+  else{commentEl.style.display='none';}
+  document.getElementById('dev-detail').classList.add('show');
+  // 공사비 단가 자동 설정
+  if(item.cost){
+    var match=item.cost.match(/(\d+)~(\d+)/);
+    if(match){
+      var mid=Math.round((parseInt(match[1])+parseInt(match[2]))/2);
+      onConstSel(null,String(mid),'custom');
+    }
+  }
+}
+
+function toggleInterest(btn){btn.classList.toggle('selected');}
+
+function lockUnlock(){
+  var name=document.getElementById('lock-name').value.trim();
+  var phone=document.getElementById('lock-phone').value.trim();
+  var agree=document.getElementById('lock-agree').checked;
+  var ok=true;
+  if(!name){document.getElementById('err-name').style.display='block';ok=false;}
+  else{document.getElementById('err-name').style.display='none';}
+  if(!phone){document.getElementById('err-phone').style.display='block';ok=false;}
+  else{document.getElementById('err-phone').style.display='none';}
+  if(!agree){document.getElementById('err-agree').style.display='block';ok=false;}
+  else{document.getElementById('err-agree').style.display='none';}
+  if(!ok) return;
+  _lockUser={name:name,phone:phone};
+  document.getElementById('disc-name').textContent=name;
+  document.getElementById('disc-phone').textContent=phone;
+  document.getElementById('disc-date').textContent=new Date().toLocaleDateString('ko-KR');
+  document.getElementById('lock-overlay').style.display='none';
+  renderDevGrid();
+  document.getElementById('i-date').value=new Date().toISOString().slice(0,10);
+  try{
+    new Image().src=SHEET_URL+'?type=feasibility_lock&name='+encodeURIComponent(name)+'&phone='+encodeURIComponent(phone)+'&t='+Date.now();
+  }catch(e){}
+}
+
+function N(id){var el=document.getElementById(id);if(!el)return 0;return parseFloat(el.value)||0;}
+function S(id){var el=document.getElementById(id);if(!el)return '';return el.value||'';}
+function fmt(n){return Math.round(n).toLocaleString('ko-KR');}
+function fc(n){return Math.round(n*10)/10;}
+
+function onGfaInput(){
+  var gfa=N('i-gfa');
+  if(gfa>0){
+    var py=document.getElementById('i-gfa-py');
+    if(py&&!py._editing) py.value=(gfa/3.3058).toFixed(1);
+  }
+  var gfaPy=N('i-gfa-py');
+  if(gfaPy>0&&!N('i-gfa')){
+    var gfaEl=document.getElementById('i-gfa');
+    if(gfaEl) gfaEl.value=(gfaPy*3.3058).toFixed(1);
+  }
+}
+function syncArea(){
+  var m2El=document.getElementById('i-area-m2');
+  var pyEl=document.getElementById('i-area-py');
+  if(document.activeElement===m2El){
+    var m2=parseFloat(m2El.value)||0;
+    pyEl.value=m2>0?(m2/3.3058).toFixed(1):'';
+  } else {
+    var py=parseFloat(pyEl.value)||0;
+    m2El.value=py>0?(py*3.3058).toFixed(1):'';
+  }
+  updateRoadCheck();
+}
+function syncUnitArea(){
+  var m2El=document.getElementById('i-unit-m2');
+  var pyEl=document.getElementById('i-unit-py');
+  if(document.activeElement===m2El){
+    var m2=parseFloat(m2El.value)||0;
+    pyEl.value=m2>0?(m2/3.3058).toFixed(1):'';
+  } else {
+    var py=parseFloat(pyEl.value)||0;
+    m2El.value=py>0?(py*3.3058).toFixed(1):'';
+  }
+}
+function syncLandPrice(){
+  var pyVal=N('i-sell-land-py');
+  var area=N('i-area-py')||N('i-area-m2')/3.3058;
+  var sellArea=N('i-sell-land-area')||area;
+  var landIncome=pyVal*sellArea;
+  var el=document.getElementById('i-sell-land-income');
+  if(el) el.textContent=pyVal>0&&sellArea>0?'토지 분양수익 추정: '+fmt(landIncome)+'만원 ('+fc(sellArea)+'평 × '+pyVal+'만원/평)':'';
+  var bldPy=N('i-sell-bld-py1');
+  var bldBlocks=N('i-sell-bld-blocks')||N('i-blocks')||1;
+  var unitPy=N('i-unit-py')||N('i-unit-m2')/3.3058;
+  var bldIncome=bldPy*unitPy*bldBlocks;
+  var fEl=document.getElementById('i-sell-bld-formula');
+  var bEl=document.getElementById('i-sell-bld-income');
+  if(fEl) fEl.textContent=bldPy>0&&unitPy>0?bldPy+'만원/평 × '+fc(unitPy)+'평 × '+bldBlocks+'동':'';
+  if(bEl) bEl.textContent=bldIncome>0?'건물 분양수익 추정: '+fmt(bldIncome)+'만원':'';
+  var total=landIncome+bldIncome;
+  var tEl=document.getElementById('i-sell-income');
+  if(tEl&&total>0&&!tEl._manual) tEl.value=Math.round(total);
+}
+function onLandPriceInput(){
+  var pyEl=document.getElementById('i-land-py');
+  var priceEl=document.getElementById('i-land-price');
+  var area=N('i-area-py')||N('i-area-m2')/3.3058;
+  if(document.activeElement===pyEl){
+    var pyVal=parseFloat(pyEl.value)||0;
+    if(pyVal>0&&area>0){ priceEl.value=Math.round(pyVal*area); }
+  } else if(document.activeElement===priceEl) {
+    var price=parseFloat(priceEl.value)||0;
+    if(price>0&&area>0){ pyEl.value=fc(price/area); }
+  }
+  var lp=N('i-land-price');
+  var acqEl=document.getElementById('acq-auto');
+  if(acqEl&&lp>0){
+    var acq=lp*N('i-acq')/100;
+    var broker=lp*N('i-broker')/100;
+    acqEl.textContent='취득세 '+fmt(acq)+'만원 + 중개수수료 '+fmt(broker)+'만원 = 부대비용 '+fmt(acq+broker)+'만원';
+  }
+  calc();
+}
+function getLandPrice(){
+  var py=N('i-land-py');
+  var price=N('i-land-price');
+  var area=N('i-area-py')||N('i-area-m2')/3.3058;
+  if(price>0) return price;
+  if(py>0&&area>0) return py*area;
+  return 0;
+}
+function onZoneChange(){
+  var zone=S('i-zone');
+  var z=ZONE[zone];
+  var noteEl=document.getElementById('zone-note');
+  if(z){
+    document.getElementById('i-bcr').value=z.bcr;
+    document.getElementById('i-far').value=z.far;
+    if(noteEl){ noteEl.textContent='서산시 조례 기준 — 건폐율 '+z.bcr+'% / 용적률 '+z.far+'%'; noteEl.style.display='block'; }
+  } else {
+    if(noteEl) noteEl.style.display='none';
+  }
+}
+function onBizChange(){
+  var biz=S('i-biz');
+  var revSell=document.getElementById('rev-sell');
+  var revRent=document.getElementById('rev-rent');
+  if(biz==='rent'){ if(revSell) revSell.style.display='none'; if(revRent) revRent.style.display='block'; }
+  else if(biz==='mixed'){ if(revSell) revSell.style.display='block'; if(revRent) revRent.style.display='block'; }
+  else { if(revSell) revSell.style.display='block'; if(revRent) revRent.style.display='none'; }
+}
+function onTypeChange(){
+  updateRoadCheck();
+}
+function onConstSel(btn,val,forceCustom){
+  if(btn){
+    document.querySelectorAll('.const-btn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+  }
+  var customDiv=document.getElementById('i-const-custom');
+  if(val==='custom'||forceCustom==='custom'){
+    if(customDiv) customDiv.style.display='block';
+    if(val&&val!=='custom'){
+      var inp=document.getElementById('const-custom-val');
+      if(inp) inp.value=val;
+    }
+  } else {
+    if(customDiv) customDiv.style.display='none';
+  }
+}
+function getConstUnit(){
+  var btns=document.querySelectorAll('.const-btn.active');
+  if(!btns.length) return 85;
+  var txt=btns[0].textContent;
+  var match=txt.match(/(\d+)만/);
+  if(match) return parseInt(match[1]);
+  var custom=document.getElementById('const-custom-val');
+  return custom?parseFloat(custom.value)||85:85;
+}
+function getConstUnitPy(){ return getConstUnit()*3.3058; }
+function calc(){
+  var landPrice=getLandPrice();
+  var area=N('i-area-m2');
+  var bcr=N('i-bcr');
+  var far=N('i-far');
+  var lots=N('i-lots')||1;
+  var blocks=N('i-blocks')||1;
+  var floors=N('i-floors')||1;
+  var bfloors=N('i-bfloors')||0;
+  var unitM2=N('i-unit-m2');
+  var unitsPerBlock=N('i-units')||lots;
+  var totalUnits=unitsPerBlock*blocks;
+  var gfaInput=N('i-gfa');
+  var gfa;
+  if(gfaInput>0){
+    gfa=gfaInput;
+    document.getElementById('gfa-auto').textContent='';
+  } else if(unitM2>0&&blocks>0){
+    gfa=unitM2*blocks;
+    var autoTxt='자동산정: 필지당 전용면적 '+unitM2+'㎡ × '+blocks+'동 = '+Math.round(gfa)+'㎡ ('+Math.round(gfa/3.3058)+'평)';
+    document.getElementById('gfa-auto').textContent=autoTxt;
+    var gfaPyEl=document.getElementById('i-gfa-py');
+    if(gfaPyEl) gfaPyEl.value=(gfa/3.3058).toFixed(1);
+  } else { gfa=0; document.getElementById('gfa-auto').textContent='필지당 전용면적과 동수를 입력하면 자동산정됩니다.'; }
+  var acqTax=landPrice*N('i-acq')/100;
+  var brokerFee=landPrice*N('i-broker')/100;
+  var landEtc=N('i-land-etc');
+  var landTotal=landPrice+acqTax+brokerFee+landEtc;
+  var constUnit=getConstUnit();
+  var vatConst=document.getElementById('chk-vat-const')&&document.getElementById('chk-vat-const').checked;
+  var constBase=gfa*constUnit;
+  var constVat=vatConst?constBase*0.1:0;
+  var demolishFee=N('i-demolish');
+  var utilityFee=N('i-utility');
+  var areaPy=area/3.3058;
+  var landscapePy=N('i-landscape');
+  var landscapeFee=landscapePy*areaPy;
+  var lcEl=document.getElementById('landscape-calc');
+  if(lcEl) lcEl.textContent=landscapePy>0&&area>0?landscapePy+'만원/평 × '+areaPy.toFixed(1)+'평 = '+Math.round(landscapeFee)+'만원':'';
+  var constTotal=constBase+constVat+demolishFee+utilityFee+landscapeFee;
+  var designRate=0,supervisionRate=0,salesRate=0,reserveRate=0;
+  var permitFee=0;
+  var indItems=document.querySelectorAll('.ind-item.selected');
+  indItems.forEach(function(item){
+    var nameEl=item.querySelector('.ind-name');
+    if(!nameEl) return;
+    var name=nameEl.textContent;
+    if(name.indexOf('설계')>=0) designRate=N('i-design')/100;
+    else if(name.indexOf('감리')>=0) supervisionRate=N('i-supervision')/100;
+    else if(name.indexOf('인허가')>=0) permitFee=N('i-permit');
+    else if(name.indexOf('판매')>=0) salesRate=N('i-sales')/100;
+    else if(name.indexOf('예비')>=0) reserveRate=N('i-reserve')/100;
+  });
+  var designFee=constTotal*designRate;
+  var supervisionFee=constTotal*supervisionRate;
+  var salesFee=constTotal*salesRate;
+  var reserveFee=constTotal*reserveRate;
+  var loanAmt=N('i-loan');
+  var loanRate=N('i-rate')/100;
+  var period=N('i-period')||12;
+  var financeFee=loanAmt*loanRate*(period/12);
+  var bridgeLoan=N('i-bridge-loan');
+  var bridgeRate=N('i-bridge-rate')/100;
+  var bridgePeriod=N('i-bridge-period')||0;
+  var bridgeFee=bridgeLoan*bridgeRate*(bridgePeriod/12);
+  var bridgeEl=document.getElementById('bridge-calc');
+  if(bridgeEl) bridgeEl.textContent=bridgeLoan>0&&bridgePeriod>0?'브릿지 이자 추정: '+fmt(bridgeFee)+'만원':'';
+  var finEl=document.getElementById('i-finance-calc');
+  if(finEl) finEl.textContent=loanAmt>0?'대출 이자 추정: '+fmt(financeFee)+'만원 ('+loanAmt.toLocaleString()+'만원 × '+N('i-rate')+'% × '+period+'개월)':'';
+  var indirectTotal=designFee+supervisionFee+permitFee+salesFee+reserveFee+financeFee+bridgeFee;
+  var totalCost=landTotal+constTotal+indirectTotal;
+  var biz=S('i-biz');
+  var sellIncome=N('i-sell-income')*(N('i-sell-rate')/100||1);
+  var vatSell=document.getElementById('chk-vat-sell')&&document.getElementById('chk-vat-sell').checked;
+  if(vatSell) sellIncome=sellIncome/1.1;
+  var monthlyIncome=N('i-monthly')*12+N('i-deposit')*0.02;
+  var rentIncome=N('i-rent-income')||monthlyIncome;
+  var rentEl=document.getElementById('rev-calc-note');
+  if(rentEl) rentEl.textContent=monthlyIncome>0&&!N('i-rent-income')?'자동산정: 월 임대료 '+N('i-monthly')+'만원 × 12개월 + 보증금 수익률 2% = '+Math.round(monthlyIncome)+'만원/년':'';
+  var etcIncome=N('i-etc');
+  var totalIncome;
+  if(biz==='rent') totalIncome=rentIncome+etcIncome;
+  else if(biz==='mixed') totalIncome=sellIncome+rentIncome+etcIncome;
+  else totalIncome=sellIncome+etcIncome;
+  var pvEl=document.getElementById('preview');
+  if(totalCost>0){
+    pvEl.classList.add('show');
+    var pvLand=document.getElementById('pv-land');
+    var pvConst=document.getElementById('pv-const');
+    var pvInd=document.getElementById('pv-indirect');
+    var pvTotal=document.getElementById('pv-total');
+    if(pvLand) pvLand.textContent=fmt(landTotal)+'만원';
+    if(pvConst) pvConst.textContent=fmt(constTotal)+'만원';
+    if(pvInd) pvInd.textContent=fmt(indirectTotal)+'만원';
+    if(pvTotal) pvTotal.textContent=fmt(totalCost)+'만원';
+  } else {
+    pvEl.classList.remove('show');
+  }
+  window._R={
+    landPrice,area,bcr,far,lots,blocks,floors,bfloors,gfa,unitM2,
+    totalUnits,constUnit,constBase,constVat,demolishFee,utilityFee,
+    landscapeFee,constTotal,acqTax,brokerFee,landEtc,landTotal,
+    designFee,supervisionFee,permitFee,salesFee,reserveFee,
+    financeFee,bridgeFee,indirectTotal,totalCost,
+    sellIncome,rentIncome,etcIncome,totalIncome,
+    loanAmt,loanRate,period,bridgeLoan,bridgeRate,bridgePeriod
+  };
+}
+function showResult(){
+  calc();
+  var R=window._R;
+  if(!R||!R.area||!R.landPrice){
+    return;
+  }
+  var profit=R.totalIncome-R.totalCost;
+  var profitRate=R.totalCost>0?profit/R.totalCost*100:0;
+  var equity=N('i-equity');
+  var roe=equity>0?profit/equity*100:null;
+  var typeMap={'house':'단독주택단지','multi':'다가구주택','apt':'다세대주택','complex':'근생+주거복합','commercial':'근린생활시설'};
+  document.getElementById('pi-proj').textContent=S('i-proj')||'—';
+  document.getElementById('pi-loc').textContent=S('i-loc')||'—';
+  document.getElementById('pi-type').textContent=typeMap[S('i-type')]||S('i-type');
+  document.getElementById('pi-date').textContent=S('i-date')||'—';
+  document.getElementById('pi-reviewer').textContent=S('i-reviewer')||'—';
+  document.getElementById('pi-area').textContent=N('i-area-m2')+'㎡ ('+N('i-area-py')+'평)';
+  document.getElementById('r-land').textContent=fmt(R.landTotal)+'만원';
+  document.getElementById('r-const').textContent=fmt(R.constTotal)+'만원';
+  document.getElementById('r-indirect').textContent=fmt(R.indirectTotal)+'만원';
+  document.getElementById('r-total-cost').textContent=fmt(R.totalCost)+'만원';
+  document.getElementById('r-total-income').textContent=fmt(R.totalIncome)+'만원';
+  var pEl=document.getElementById('r-profit');
+  pEl.textContent=(profit>=0?'+':'')+fmt(profit)+'만원';
+  pEl.style.color=profit>=0?'#52b788':'#f87171';
+  document.getElementById('r-rate').textContent=fc(profitRate)+'%';
+  var roeRow=document.getElementById('r-roe-row');
+  if(roe!==null){ roeRow.style.display='block'; document.getElementById('r-roe').textContent=fc(roe)+'%'; }
+  else { roeRow.style.display='none'; }
+  // 수지표
+  var tbody=document.getElementById('fs-tbody');
+  var rows=[
+    {label:'■ 토지구입비',val:R.landTotal,bold:true},
+    {label:'  ＋ 토지 매입가',val:R.landPrice},
+    {label:'  ＋ 취득세 ('+N('i-acq')+'%)',val:R.acqTax},
+    {label:'  ＋ 중개수수료 ('+N('i-broker')+'%)',val:R.brokerFee},
+    {label:'  ＋ 기타 부대비용',val:R.landEtc},
+    {label:'■ 건축공사비',val:R.constTotal,bold:true},
+    {label:'  ＋ 건축공사비 기본 ('+R.constUnit+'만원/㎡)',val:R.constBase},
+    R.constVat>0?{label:'  ＋ 공사비 VAT',val:R.constVat}:null,
+    R.demolishFee>0?{label:'  ＋ 철거비',val:R.demolishFee}:null,
+    R.utilityFee>0?{label:'  ＋ 기반시설',val:R.utilityFee}:null,
+    R.landscapeFee>0?{label:'  ＋ 조경비',val:R.landscapeFee}:null,
+    {label:'■ 간접비',val:R.indirectTotal,bold:true},
+    R.designFee>0?{label:'  ＋ 설계비',val:R.designFee}:null,
+    R.supervisionFee>0?{label:'  ＋ 감리비',val:R.supervisionFee}:null,
+    R.permitFee>0?{label:'  ＋ 인허가·제세공과',val:R.permitFee}:null,
+    R.salesFee>0?{label:'  ＋ 판매관리비',val:R.salesFee}:null,
+    R.reserveFee>0?{label:'  ＋ 예비비',val:R.reserveFee}:null,
+    R.financeFee>0?{label:'  ＋ 금융비용 (대출이자)',val:R.financeFee}:null,
+    R.bridgeFee>0?{label:'  ＋ 브릿지 이자',val:R.bridgeFee}:null,
+  ].filter(Boolean);
+  tbody.innerHTML=rows.map(function(r){
+    var pct=R.totalCost>0?(r.val/R.totalCost*100).toFixed(1)+'%':'—';
+    return '<tr><td style="'+(r.bold?'font-weight:800;color:rgba(255,255,255,0.9);':'')+'">'+r.label+'</td>'+
+      '<td style="font-weight:'+(r.bold?'800':'500')+';text-align:right;">'+fmt(r.val)+'</td>'+
+      '<td style="text-align:right;color:rgba(255,255,255,0.35);">'+pct+'</td></tr>';
+  }).join('');
+  document.getElementById('fs-total-cost').textContent=fmt(R.totalCost);
+  // BEP
+  var sellPrice=N('i-sell-land-py');
+  var bepPy=R.totalUnits>0&&sellPrice>0?R.totalCost/R.totalUnits/(N('i-unit-py')||N('i-unit-m2')/3.3058||1):null;
+  var bepEl=document.getElementById('r-bep');
+  if(bepPy&&bepPy>0){ bepEl.textContent=fmt(bepPy)+'만원/평'; }
+  else { bepEl.textContent='—'; }
+  var margin=bepPy&&sellPrice>0?((sellPrice-bepPy)/sellPrice*100):null;
+  var mEl=document.getElementById('r-margin');
+  if(margin!==null){ mEl.textContent=fc(margin)+'%'; mEl.style.color=margin>0?'#52b788':'#f87171'; }
+  else { mEl.textContent='—'; }
+  var m2El=document.getElementById('r-cost-m2');
+  if(R.area>0){ m2El.textContent=fmt(R.totalCost/R.area)+'만원/㎡'; }
+  else { m2El.textContent='—'; }
+  // verdict
+  var vEl=document.getElementById('r-verdict');
+  if(profitRate>15){ vEl.className='verdict pos'; vEl.innerHTML='✅ <strong>사업성 양호</strong> — 수익률 '+fc(profitRate)+'%로 목표 수익률(15%)을 상회합니다. 분양 리스크와 금리 변동을 감안해 보수적 시나리오도 함께 검토하세요.'; }
+  else if(profitRate>0){ vEl.className='verdict pos'; vEl.innerHTML='⚠️ <strong>사업성 주의</strong> — 수익률 '+fc(profitRate)+'%로 사업이 가능하나, 공사비·분양가 변동에 취약합니다. 비용 절감 방안을 검토하세요.'; }
+  else if(R.totalIncome>0){ vEl.className='verdict neg'; vEl.innerHTML='❌ <strong>사업성 부족</strong> — 현재 입력값 기준으로 손실이 예상됩니다. 토지 매입가 조정 또는 수입 증대 방안을 검토하세요.'; }
+  else { vEl.className='verdict'; vEl.textContent='수입 정보를 입력하면 사업성 평가가 표시됩니다.'; }
+  renderCharts();
+}
+function updateRoadCheck(){
+  var area=N('i-area-m2');
+  var type=S('i-type');
+  var rcEl=document.getElementById('road-check-wrap');
+  if(!rcEl) return;
+  if(area>0&&type){
+    var minRoad=area>3000?8:area>1000?6:4;
+    var parkingNote=type==='commercial'?'상업시설: 시설면적 100㎡당 1대 이상':type==='house'?'단독주택: 연면적 150㎡ 이상 1대':'다가구·다세대: 세대당 0.5~1대';
+    rcEl.querySelector('div:last-child').innerHTML='<div style="font-size:0.78rem;line-height:1.9;color:rgba(255,255,255,0.45);">'+
+      '📏 <strong style="color:rgba(255,255,255,0.7);">접도 요건:</strong> 대지면적 '+area+'㎡ → 접도 최소 '+minRoad+'m 이상 권장<br>'+
+      '🚗 <strong style="color:rgba(255,255,255,0.7);">주차 기준:</strong> '+parkingNote+
+    '</div>';
+  }
+}
+function renderCharts(){
+  var R=window._R;
+  if(!R||!R.totalCost) return;
+  var canvas=document.getElementById('pie-canvas');
+  var legend=document.getElementById('pie-legend');
+  if(!canvas||!legend) return;
+  var segments=[
+    {label:'토지구입비',val:R.landTotal,color:'#4a8ab5'},
+    {label:'건축공사비',val:R.constTotal,color:'#52b788'},
+    {label:'간접비',val:R.indirectTotal,color:'#8b7ec8'}
+  ].filter(function(s){return s.val>0;});
+  var total=segments.reduce(function(a,b){return a+b.val;},0);
+  var ctx=canvas.getContext('2d');
+  canvas.width=140;canvas.height=140;
+  var cx=70,cy=70,r=62,start=-Math.PI/2;
+  segments.forEach(function(seg){
+    var angle=(seg.val/total)*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,start,start+angle);
+    ctx.closePath();ctx.fillStyle=seg.color;ctx.fill();
+    ctx.beginPath();ctx.arc(cx,cy,r*0.55,0,Math.PI*2);
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--dark-card')||'#18181c';
+    ctx.fill();
+    start+=angle;
+  });
+  legend.innerHTML=segments.map(function(s){
+    return '<div><span style="background:'+s.color+';width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:4px;"></span>'+s.label+' '+fc(s.val/total*100)+'%</div>';
+  }).join('');
+  // BEP 게이지
+  var sellRate=N('i-sell-rate')||100;
+  var bepRate=R.totalIncome>0?(R.totalCost/R.totalIncome*100):100;
+  var fillEl=document.getElementById('bep-gauge-fill');
+  var labelEl=document.getElementById('bep-gauge-label');
+  if(fillEl) fillEl.style.width=Math.min(bepRate,100)+'%';
+  if(labelEl) labelEl.textContent='BEP '+fc(bepRate)+'%';
+  // 캐시플로우
+  var cfEl=document.getElementById('cashflow-wrap');
+  if(cfEl&&R.period>0){
+    var phases=[
+      {label:'사전준비\n(인허가)',color:'#4a8ab5',out:true,width:20},
+      {label:'착공\n(공사비 투입)',color:'#52b788',out:true,width:35},
+      {label:'분양·영업\n(수익 발생)',color:'#c9a84c',out:false,width:30},
+      {label:'준공\n(잔금 수령)',color:'#8b7ec8',out:false,width:15}
+    ];
+    cfEl.innerHTML=phases.map(function(p){
+      return '<div class="cf-phase" style="flex:'+p.width+';"><div class="cf-phase-bar" style="background:'+p.color+';opacity:'+(p.out?'0.85':'0.5')+'"></div><div class="cf-phase-label">'+p.label+'</div></div>';
+    }).join('');
+  }
+}
+function resetAll(){
+  if(!confirm('모든 입력값을 초기화하시겠습니까?')) return;
+  document.querySelectorAll('input[type=number],input[type=text]').forEach(function(el){
+    if(el.id==='i-reviewer') el.value='가치잇다컨설팅';
+    else if(['i-acq','i-broker'].includes(el.id)) el.value=el.id==='i-acq'?'4.0':'0.5';
+    else if(['i-floors','i-blocks','i-lots'].includes(el.id)) el.value='1';
+    else if(el.id==='i-bfloors') el.value='0';
+    else if(el.id==='i-design') el.value='4';
+    else if(el.id==='i-supervision') el.value='2';
+    else if(el.id==='i-permit') el.value='400';
+    else if(el.id==='i-sales') el.value='2';
+    else if(el.id==='i-reserve') el.value='5';
+    else if(el.id==='i-sell-rate') el.value='100';
+    else if(el.id==='i-conv') el.value='6.0';
+    else if(el.id==='i-rate') el.value='5.0';
+    else if(el.id==='i-period') el.value='12';
+    else el.value='';
+    el.classList.remove('filled','required-empty');
+  });
+  document.getElementById('i-date').value=new Date().toISOString().slice(0,10);
+  document.getElementById('preview').classList.remove('show');
+  document.getElementById('result-panel').style.display='';
+  document.getElementById('result-detail').classList.remove('show');
+  document.getElementById('gfa-auto').textContent='';
+  var zn=document.getElementById('zone-note'); if(zn) zn.style.display='none';
+  onZoneChange();
+  goStep(1);
+}
+
+// 초기화
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('i-date').value=new Date().toISOString().slice(0,10);
+  renderDevGrid();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가치잇다컨설팅 — 건축의 가치를 잇다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+/* ════════════════════════════════════════════
+   가치잇다컨설팅 — Full Redesign
+   Concept: Architectural Editorial
+   Dark hero / White content / Cinematic scroll
+════════════════════════════════════════════ */
+:root {
+  --black:   #080808;
+  --off-black: #111114;
+  --white:   #ffffff;
+  --off-white: #f8f8f6;
+  --warm:    #f2f0eb;
+  --ink:     #1a1a1c;
+  --mid:     #6b6b6e;
+  --light:   #adadb0;
+  --accent:  #2d6a4f;
+  --accent-l:#40916c;
+  --accent-x:#52b788;
+  --gold:    #c9a84c;
+  --line:    rgba(0,0,0,0.07);
+  --line-w:  rgba(255,255,255,0.1);
+  --r:       4px;
+  --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease2:   cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Noto Sans KR', -apple-system, sans-serif;
+  color: var(--ink);
+  background: var(--off-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+
+/* ════ CURSOR ════ */
+* { cursor: default; }
+a, button, [onclick], .nav-link, .svc-tab, .gallery-card, .partner-card,
+.board-row, .gf-btn, .pf-btn { cursor: pointer; }
+
+/* ════════════════════════════════════════════
+   NAV
+════════════════════════════════════════════ */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  height: 60px;
+  transition: background 0.5s var(--ease), backdrop-filter 0.5s;
+}
+header.scrolled {
+  background: rgba(8,8,8,0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 0.5px solid rgba(255,255,255,0.06);
+}
+.nav-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: flex; align-items: center;
+  height: 60px; padding: 0 2rem; gap: 0;
+}
+.logo {
+  display: flex; align-items: center; gap: 0.7rem;
+  flex-shrink: 0; margin-right: 2rem;
+}
+.logo-mark {
+  width: 36px; height: 36px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900; font-size: 0.65rem;
+  color: #fff; letter-spacing: -0.02em;
+}
+.logo-name {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900; font-size: 0.95rem;
+  color: #fff; letter-spacing: -0.01em;
+}
+.logo-name em { font-style: normal; color: var(--accent-x); }
+.logo-sub { font-size: 0.48rem; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; margin-top: 1px; }
+.logo-consulting { font-size: 0.75em; font-weight: 400; opacity: 0.7; }
+
+.nav-links {
+  display: flex; align-items: center; gap: 0; flex: 1;
+}
+.nav-item { position: relative; }
+.nav-link {
+  display: flex; align-items: center; gap: 0.2rem;
+  padding: 0 0.9rem; height: 60px;
+  font-size: 0.75rem; font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: #fff; }
+.nav-link .arr { font-size: 0.4rem; opacity: 0.4; transition: transform 0.2s; }
+.nav-item:hover .arr { transform: rotate(180deg); }
+
+/* 드롭다운 */
+.dropdown {
+  display: none;
+  position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  min-width: 200px;
+  background: rgba(18,18,22,0.97);
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  backdrop-filter: blur(40px);
+  padding: 0.5rem; overflow: hidden;
+  z-index: 100;
+}
+.nav-item:hover .dropdown { display: block; }
+.dd-item {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.6rem 0.9rem; border-radius: 8px;
+  font-size: 0.76rem; color: rgba(255,255,255,0.7);
+  transition: background 0.12s;
+}
+.dd-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.dd-icon { font-size: 0.9rem; width: 1.2rem; text-align: center; }
+.dd-sub { font-size: 0.62rem; color: rgba(255,255,255,0.3); display: block; margin-top: 0.1rem; }
+
+.nav-right {
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-left: auto; flex-shrink: 0;
+}
+.btn-kakao {
+  display: flex; align-items: center; gap: 0.35rem;
+  padding: 0.42rem 0.9rem;
+  background: #FEE500; color: #3C1E1E;
+  border-radius: 999px; font-size: 0.72rem; font-weight: 700;
+  border: none; transition: opacity 0.2s, transform 0.2s;
+}
+.btn-kakao:hover { opacity: 0.88; transform: scale(1.03); }
+.btn-quote {
+  display: flex; align-items: center; gap: 0.35rem;
+  padding: 0.45rem 1.1rem;
+  background: var(--accent); color: #fff;
+  border-radius: 999px; font-size: 0.72rem; font-weight: 700;
+  border: none; transition: background 0.2s, transform 0.2s;
+}
+.btn-quote:hover { background: var(--accent-l); transform: scale(1.03); }
+
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 0.5rem; margin-left: auto;
+}
+.hamburger span {
+  width: 20px; height: 1.5px; background: rgba(255,255,255,0.7);
+  border-radius: 2px; transition: all 0.3s;
+}
+
+/* nav partner panel */
+.nav-partner-panel {
+  display: none; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(18,18,22,0.97);
+  border-radius: 14px; border: 0.5px solid rgba(255,255,255,0.1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  backdrop-filter: blur(40px);
+  width: 480px; max-height: 480px; overflow-y: auto;
+  z-index: 500; padding: 1rem;
+}
+.nav-item:hover .nav-partner-panel,
+.nav-partner-panel:hover { display: block; }
+.nav-partner-panel .pf-btn {
+  padding: 0.3rem 0.75rem; font-size: 0.75rem; font-weight: 700;
+  border: 0.5px solid rgba(255,255,255,0.15); border-radius: 999px;
+  background: transparent; color: rgba(255,255,255,0.6);
+  cursor: pointer; font-family: inherit; transition: all 0.15s;
+}
+.nav-partner-panel .pf-btn.active,
+.nav-partner-panel .pf-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.nav-panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin-top: 0.7rem; }
+.nav-panel-card {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.6rem 0.8rem; border-radius: 8px;
+  border: 0.5px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  transition: all 0.15s;
+}
+.nav-panel-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.15); }
+.nav-panel-card .pc-icon { font-size: 1.1rem; }
+.nav-panel-card .pc-name { font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.85); }
+.nav-panel-card .pc-type { font-size: 0.68rem; color: rgba(255,255,255,0.35); }
+.nav-panel-empty { text-align: center; padding: 1.5rem; color: rgba(255,255,255,0.3); font-size: 0.8rem; grid-column: 1/-1; }
+
+/* ════════════════════════════════════════════
+   HERO — 풀스크린 시네마틱
+════════════════════════════════════════════ */
+#hero {
+  position: relative;
+  height: 100vh; min-height: 700px;
+  display: flex; align-items: center;
+  overflow: hidden;
+  background: var(--black);
+}
+
+/* 건축 추상 배경 — CSS만으로 */
+.hero-canvas {
+  position: absolute; inset: 0;
+  overflow: hidden;
+}
+/* 메인 건물 실루엣 */
+.hero-canvas::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 65%;
+  background:
+    /* 창문 그리드 레이어 */
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px, transparent 38px,
+      rgba(255,255,255,0.028) 38px, rgba(255,255,255,0.028) 42px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px, transparent 52px,
+      rgba(255,255,255,0.022) 52px, rgba(255,255,255,0.022) 56px
+    ),
+    /* 건물 실루엣 */
+    linear-gradient(180deg,
+      transparent 0%,
+      rgba(10,14,22,0.0) 0%,
+      rgba(10,14,22,1) 100%
+    );
+  z-index: 1;
+}
+
+/* 앰비언트 조명 */
+.hero-canvas::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 68% 38%, rgba(45,106,79,0.28) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 15% 75%, rgba(201,168,76,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 85% 80%, rgba(20,20,35,0.9) 0%, transparent 70%);
+  z-index: 2;
+}
+
+/* 건축 라인 드로잉 */
+.hero-lines {
+  position: absolute; inset: 0; z-index: 3;
+  overflow: hidden;
+}
+.hero-lines svg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0.12;
+}
+
+/* 노이즈 그레인 */
+.hero-grain {
+  position: absolute; inset: 0; z-index: 4;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* 하단 페이드 */
+.hero-fade {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 200px;
+  background: linear-gradient(to top, var(--off-white) 0%, transparent 100%);
+  z-index: 5;
+}
+
+.hero-content {
+  position: relative; z-index: 10;
+  max-width: 1320px; margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  padding-top: 60px;
+}
+
+.hero-eyebrow {
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.22em; color: var(--accent-x);
+  text-transform: uppercase; margin-bottom: 1.8rem;
+  display: flex; align-items: center; gap: 0.7rem;
+  opacity: 0; animation: fadeSlideUp 0.9s var(--ease) 0.2s forwards;
+}
+.hero-eyebrow::before {
+  content: ''; width: 32px; height: 1px; background: var(--accent-x);
+}
+
+.hero-h1 {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+  line-height: 1.06;
+  color: #fff;
+  letter-spacing: -0.03em;
+  max-width: 680px;
+  margin-bottom: 2rem;
+  opacity: 0; animation: fadeSlideUp 1s var(--ease) 0.38s forwards;
+}
+.hero-h1 em { font-style: normal; color: var(--accent-x); }
+
+.hero-desc {
+  font-size: 1.05rem; color: rgba(255,255,255,0.45);
+  line-height: 1.8; max-width: 420px;
+  font-weight: 300; margin-bottom: 3rem;
+  opacity: 0; animation: fadeSlideUp 1s var(--ease) 0.52s forwards;
+}
+
+.hero-actions {
+  display: flex; gap: 0.8rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeSlideUp 1s var(--ease) 0.64s forwards;
+  margin-bottom: 5rem;
+}
+.btn-hero-p {
+  padding: 0.9rem 2.2rem;
+  background: var(--accent); color: #fff;
+  font-weight: 700; font-size: 0.88rem;
+  border: none; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  transition: background 0.25s, transform 0.25s var(--ease);
+}
+.btn-hero-p:hover { background: var(--accent-l); transform: scale(1.04) translateY(-1px); }
+.btn-hero-s {
+  padding: 0.9rem 2rem;
+  background: transparent; color: rgba(255,255,255,0.8);
+  font-size: 0.88rem; font-weight: 500;
+  border: 0.5px solid rgba(255,255,255,0.2);
+  border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  transition: border-color 0.25s, color 0.25s, transform 0.25s var(--ease);
+  backdrop-filter: blur(8px);
+}
+.btn-hero-s:hover { border-color: rgba(255,255,255,0.5); color: #fff; transform: scale(1.04) translateY(-1px); }
+
+/* 스탯 바 */
+.hero-stats {
+  display: flex; gap: 0; border-top: 0.5px solid rgba(255,255,255,0.08);
+  padding-top: 2rem;
+  opacity: 0; animation: fadeSlideUp 1s var(--ease) 0.78s forwards;
+}
+.hero-stat {
+  padding-right: 3rem; margin-right: 3rem;
+  border-right: 0.5px solid rgba(255,255,255,0.08);
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-n {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 2rem; font-weight: 900;
+  color: var(--accent-x); line-height: 1;
+  letter-spacing: -0.02em;
+}
+.hero-stat-l { font-size: 0.62rem; color: rgba(255,255,255,0.3); margin-top: 0.4rem; }
+
+/* 우하단 스크롤 힌트 */
+.hero-scroll {
+  position: absolute; bottom: 3rem; right: 2rem; z-index: 10;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  opacity: 0; animation: fadeIn 1s var(--ease) 1.2s forwards;
+}
+.hero-scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, transparent, var(--accent-x));
+  animation: scrollLine 2s ease infinite;
+}
+.hero-scroll-txt {
+  font-size: 0.55rem; letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.25); text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+/* ════════════════════════════════════════════
+   ABOUT — 대형 텍스트 + 다크 카드
+════════════════════════════════════════════ */
+#about {
+  background: var(--off-white);
+  padding: 10rem 2rem;
+  overflow: hidden;
+}
+.about-inner { max-width: 1320px; margin: 0 auto; }
+
+/* 대형 섹션 레이블 */
+.s-label {
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.22em; color: var(--accent);
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+.s-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.about-left {}
+.about-h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900;
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  line-height: 1.18;
+  color: var(--ink);
+  letter-spacing: -0.025em;
+  margin-bottom: 2rem;
+}
+.about-body {
+  font-size: 0.92rem; color: var(--mid);
+  line-height: 2; margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+/* CEO 다크 카드 */
+.ceo-card {
+  background: var(--off-black);
+  border-radius: 24px;
+  padding: 2.5rem;
+  position: relative; overflow: hidden;
+  border: 0.5px solid rgba(255,255,255,0.06);
+}
+.ceo-card::after {
+  content: '';
+  position: absolute; bottom: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(45,106,79,0.15) 0%, transparent 70%);
+}
+.ceo-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(82,183,136,0.12); border: 0.5px solid rgba(82,183,136,0.2);
+  border-radius: 999px; padding: 0.3rem 0.9rem;
+  font-size: 0.6rem; color: var(--accent-x);
+  letter-spacing: 0.08em; font-weight: 700;
+  margin-bottom: 1.2rem;
+}
+.ceo-name {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900; font-size: 1.6rem;
+  color: #fff; margin-bottom: 0.2rem;
+  letter-spacing: -0.02em;
+}
+.ceo-role { font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-bottom: 1.5rem; }
+.ceo-career { list-style: none; }
+.ceo-career li {
+  font-size: 0.75rem; color: rgba(255,255,255,0.5);
+  padding: 0.45rem 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.05);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.ceo-career li:last-child { border-bottom: none; }
+.ceo-career li::before { content: '✓'; color: var(--accent-x); font-size: 0.58rem; }
+.ceo-tag {
+  position: absolute; bottom: -0.9rem; left: 2.5rem;
+  background: var(--accent-x); color: var(--ink);
+  padding: 0.5rem 1.2rem; border-radius: 999px;
+  font-weight: 900; font-size: 0.75rem;
+}
+
+/* 3가지 가치 */
+.about-right { display: flex; flex-direction: column; gap: 0; padding-top: 1rem; }
+.about-value {
+  padding: 2rem 0;
+  border-bottom: 0.5px solid var(--line);
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  transition: all 0.3s var(--ease);
+}
+.about-value:first-child { padding-top: 0; }
+.about-value:last-child { border-bottom: none; }
+.about-value:hover { padding-left: 0.5rem; }
+.av-num {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.7rem; font-weight: 900;
+  color: var(--accent); letter-spacing: 0.05em;
+  min-width: 24px; padding-top: 0.2rem;
+}
+.av-icon { font-size: 1.6rem; flex-shrink: 0; }
+.av-title {
+  font-weight: 700; font-size: 1rem;
+  margin-bottom: 0.5rem; letter-spacing: -0.01em;
+}
+.av-desc { font-size: 0.8rem; color: var(--mid); line-height: 1.85; }
+
+/* ════════════════════════════════════════════
+   SERVICES — 탭 + 카드
+════════════════════════════════════════════ */
+#services {
+  background: var(--warm);
+  padding: 10rem 2rem;
+}
+.services-inner { max-width: 1320px; margin: 0 auto; }
+.services-head {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 4rem;
+  flex-wrap: wrap; gap: 2rem;
+}
+.services-h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.svc-tabs {
+  display: flex; gap: 0.4rem; flex-wrap: wrap;
+}
+.svc-tab {
+  padding: 0.5rem 1.2rem;
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--mid); border: 0.5px solid var(--line);
+  background: #fff; border-radius: 999px;
+  transition: all 0.2s;
+}
+.svc-tab.active {
+  background: var(--ink); color: #fff;
+  border-color: var(--ink);
+}
+.svc-tab:hover:not(.active) { border-color: var(--ink); color: var(--ink); }
+
+.svc-panel { display: none; }
+.svc-panel.active {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+  background: var(--line);
+  border-radius: 20px; overflow: hidden;
+  border: 0.5px solid var(--line);
+}
+.svc-card {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  transition: background 0.25s var(--ease);
+}
+.svc-card:hover { background: var(--off-black); }
+.svc-card:hover .svc-card-title { color: #fff; }
+.svc-card:hover .svc-card-desc { color: rgba(255,255,255,0.45); }
+.svc-card:hover .svc-tag { background: rgba(82,183,136,0.12); color: var(--accent-x); border-color: rgba(82,183,136,0.2); }
+.svc-card:hover .svc-card-icon { background: rgba(82,183,136,0.1); }
+.svc-card-icon {
+  width: 52px; height: 52px;
+  background: var(--warm);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; margin-bottom: 1.5rem;
+  transition: background 0.25s;
+}
+.svc-card-title {
+  font-weight: 700; font-size: 1rem;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.01em;
+  transition: color 0.25s;
+}
+.svc-card-desc {
+  font-size: 0.78rem; color: var(--mid);
+  line-height: 1.85; margin-bottom: 1.2rem;
+  transition: color 0.25s;
+}
+.svc-card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.svc-tag {
+  padding: 0.2rem 0.7rem;
+  background: rgba(45,106,79,0.06); color: var(--accent);
+  border-radius: 999px; font-size: 0.6rem; font-weight: 700;
+  border: 0.5px solid rgba(45,106,79,0.15);
+  transition: all 0.25s;
+}
+
+/* ════════════════════════════════════════════
+   PROCESS — 수평 스텝
+════════════════════════════════════════════ */
+#process {
+  background: var(--off-black);
+  padding: 10rem 2rem;
+  overflow: hidden; position: relative;
+}
+#process::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(45,106,79,0.12) 0%, transparent 60%);
+}
+.process-inner { max-width: 1320px; margin: 0 auto; position: relative; }
+.process-head { margin-bottom: 5rem; }
+.process-h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  color: #fff; letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.process-steps {
+  display: flex; gap: 0;
+  position: relative;
+}
+/* 연결선 */
+.process-steps::before {
+  content: '';
+  position: absolute; top: 28px; left: 28px; right: 28px;
+  height: 0.5px;
+  background: linear-gradient(90deg,
+    var(--accent) 0%, rgba(82,183,136,0.3) 60%, transparent 100%);
+}
+.ps-item {
+  flex: 1; padding: 0 1.5rem; text-align: center;
+  position: relative;
+}
+.ps-num-wrap {
+  width: 56px; height: 56px; margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: rgba(45,106,79,0.15);
+  border: 0.5px solid rgba(82,183,136,0.3);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+  transition: all 0.3s var(--ease);
+}
+.ps-item:hover .ps-num-wrap {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: 0 12px 32px rgba(45,106,79,0.35);
+}
+.ps-n {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1rem; font-weight: 900; color: var(--accent-x);
+  transition: color 0.3s;
+}
+.ps-item:hover .ps-n { color: #fff; }
+.ps-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+.ps-title { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 0.4rem; }
+.ps-desc { font-size: 0.7rem; color: rgba(255,255,255,0.35); line-height: 1.8; }
+
+/* ════════════════════════════════════════════
+   REGION — 지역 커버리지
+════════════════════════════════════════════ */
+#region {
+  background: var(--off-white);
+  padding: 10rem 2rem;
+}
+.region-inner { max-width: 1320px; margin: 0 auto; }
+.region-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center;
+}
+.region-map {
+  background: var(--warm);
+  border-radius: 28px; padding: 3rem;
+  text-align: center;
+  border: 0.5px solid var(--line);
+  position: relative; overflow: hidden;
+}
+.region-map::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(45,106,79,0.05) 0%, transparent 70%);
+}
+.region-map-icon { font-size: 4.5rem; margin-bottom: 1.2rem; }
+.region-map-title {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700; font-size: 1.2rem; margin-bottom: 0.6rem;
+  letter-spacing: -0.01em;
+}
+.region-map-desc { font-size: 0.78rem; color: var(--mid); line-height: 1.9; }
+.region-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.8rem; justify-content: center; }
+.r-tag {
+  padding: 0.38rem 1rem; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 500;
+  border: 0.5px solid var(--line); color: var(--ink);
+  background: #fff; transition: all 0.2s;
+}
+.r-tag.main { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+.r-tag:hover:not(.main) { border-color: var(--accent); color: var(--accent); }
+.region-info { display: flex; flex-direction: column; gap: 0; }
+.r-info-item {
+  display: flex; gap: 1.2rem; align-items: flex-start;
+  padding: 1.8rem 0;
+  border-bottom: 0.5px solid var(--line);
+  transition: padding-left 0.3s var(--ease);
+}
+.r-info-item:first-child { padding-top: 0; }
+.r-info-item:last-child { border-bottom: none; }
+.r-info-item:hover { padding-left: 0.5rem; }
+.r-info-icon { font-size: 1.6rem; flex-shrink: 0; }
+.r-info-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+.r-info-desc { font-size: 0.78rem; color: var(--mid); line-height: 1.85; }
+
+/* ════════════════════════════════════════════
+   CTA — 풀블리드 다크
+════════════════════════════════════════════ */
+#cta {
+  background: var(--black);
+  padding: 10rem 2rem;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+#cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 50%, rgba(45,106,79,0.18) 0%, transparent 65%);
+}
+.cta-inner { max-width: 760px; margin: 0 auto; position: relative; }
+.cta-eyebrow {
+  font-size: 0.62rem; letter-spacing: 0.22em; color: var(--accent-x);
+  text-transform: uppercase; font-weight: 700; margin-bottom: 1.5rem;
+}
+.cta-h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  color: #fff; line-height: 1.1;
+  margin-bottom: 1.4rem; letter-spacing: -0.03em;
+}
+.cta-desc { font-size: 0.95rem; color: rgba(255,255,255,0.35); line-height: 1.9; margin-bottom: 3.5rem; font-weight: 300; }
+.cta-btns { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+.btn-cta-m {
+  padding: 1rem 2.4rem;
+  background: var(--accent); color: #fff;
+  font-weight: 700; font-size: 0.92rem;
+  border: none; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  transition: all 0.25s var(--ease);
+}
+.btn-cta-m:hover { background: var(--accent-l); transform: scale(1.04) translateY(-2px); box-shadow: 0 12px 32px rgba(45,106,79,0.3); }
+.btn-cta-s {
+  padding: 1rem 2.2rem;
+  background: transparent; color: rgba(255,255,255,0.75);
+  font-size: 0.92rem; font-weight: 500;
+  border: 0.5px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  transition: all 0.25s var(--ease);
+  backdrop-filter: blur(8px);
+}
+.btn-cta-s:hover { border-color: rgba(255,255,255,0.45); color: #fff; transform: scale(1.04); }
+
+/* ════════════════════════════════════════════
+   GALLERY
+════════════════════════════════════════════ */
+#gallery {
+  background: var(--warm);
+  padding: 10rem 2rem;
+}
+.gallery-inner { max-width: 1320px; margin: 0 auto; }
+.gallery-head {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;
+}
+.gallery-h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 3.2vw, 2.6rem);
+  letter-spacing: -0.025em; color: var(--ink);
+}
+.gallery-filter-bar { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.gf-btn {
+  padding: 0.38rem 1rem; border: 0.5px solid var(--line);
+  border-radius: 999px; background: #fff;
+  font-size: 0.76rem; font-weight: 600; color: var(--mid);
+  transition: all 0.2s;
+}
+.gf-btn.active, .gf-btn:hover { border-color: var(--ink); color: var(--ink); background: var(--ink); color: #fff; }
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem;
+}
+.gallery-card {
+  border-radius: 16px; overflow: hidden;
+  border: 0.5px solid var(--line);
+  background: #fff;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  display: block;
+}
+.gallery-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(0,0,0,0.12); }
+.gallery-thumb {
+  height: 180px; display: flex;
+  align-items: center; justify-content: center;
+  background: var(--warm);
+}
+.gallery-thumb-icon { font-size: 3rem; }
+.gallery-info { padding: 1.2rem; }
+.gallery-tag {
+  display: inline-block; font-size: 0.62rem; font-weight: 700;
+  color: var(--accent); background: rgba(45,106,79,0.08);
+  padding: 0.18rem 0.65rem; border-radius: 999px; margin-bottom: 0.5rem;
+}
+.gallery-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; letter-spacing: -0.01em; }
+.gallery-desc { font-size: 0.73rem; color: var(--mid); }
+.gallery-more { border: 1.5px dashed var(--line); background: rgba(0,0,0,0.02); }
+.gallery-more-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 240px; padding: 2rem; text-align: center; }
+.gallery-loading { grid-column: 1/-1; text-align: center; padding: 3rem; }
+.gallery-spinner { width: 28px; height: 28px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.gallery-empty { grid-column:1/-1; text-align:center; padding:3rem; color:var(--mid); font-size:0.85rem; }
+@media(max-width:768px){ .gallery-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px){ .gallery-grid { grid-template-columns: 1fr; } }
+
+/* ════════════════════════════════════════════
+   PARTNERS
+════════════════════════════════════════════ */
+#partners {
+  background: var(--off-white);
+  padding: 10rem 2rem;
+}
+.partners-inner { max-width: 1320px; margin: 0 auto; }
+.pf-btn { padding: 0.38rem 1rem; border: 0.5px solid var(--line); border-radius: 999px; background: #fff; font-size: 0.76rem; font-weight: 600; color: var(--mid); transition: all 0.2s; }
+.pf-btn.active, .pf-btn:hover { border-color: var(--ink); background: var(--ink); color: #fff; }
+.partner-grid-layout { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.6rem; }
+.partner-card { background: #fff; border-radius: 12px; border: 0.5px solid var(--line); padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.8rem; transition: all 0.25s var(--ease); }
+.partner-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: rgba(45,106,79,0.2); }
+.partner-avatar { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg,var(--accent),var(--accent-x)); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.partner-name { font-weight: 700; font-size: 0.85rem; color: var(--ink); }
+.partner-ceo { display: none; }
+.partner-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.2rem; }
+.partner-tag { font-size: 0.6rem; font-weight: 700; padding: 0.12rem 0.45rem; border-radius: 999px; border: 0.5px solid var(--line); color: var(--mid); }
+.partner-tag.type { background: rgba(45,106,79,0.07); border-color: rgba(45,106,79,0.2); color: var(--accent); }
+.partner-tag.region, .partner-regions, .partner-contact { display: none; }
+.partner-recruiting { grid-column: 1/-1; text-align: center; padding: 1.5rem; background: rgba(45,106,79,0.04); border: 1.5px dashed rgba(45,106,79,0.2); border-radius: 12px; }
+.btn-partner-apply { display: inline-block; padding: 0.7rem 1.8rem; background: var(--ink); color: #fff; border-radius: 999px; font-size: 0.82rem; font-weight: 700; transition: all 0.2s; }
+.btn-partner-apply:hover { background: var(--accent); transform: scale(1.03); }
+.partner-empty { text-align:center; padding:3rem 1rem; background:#fff; border-radius:12px; border:0.5px solid var(--line); }
+@media(max-width:768px){ .partner-grid-layout { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px){ .partner-grid-layout { grid-template-columns: 1fr; } }
+
+/* 업체 상세 모달 */
+.partner-detail-bg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9000; align-items:center; justify-content:center; backdrop-filter:blur(8px); }
+.partner-detail-bg.open { display:flex; }
+.partner-detail-modal { background:#fff; border-radius:24px; width:92%; max-width:400px; padding:2rem; box-shadow:0 30px 80px rgba(0,0,0,0.25); }
+.pd-header { display:flex; align-items:center; gap:1rem; margin-bottom:1.4rem; }
+.pd-avatar { width:54px; height:54px; border-radius:14px; flex-shrink:0; background:linear-gradient(135deg,var(--accent),var(--accent-x)); display:flex; align-items:center; justify-content:center; font-size:1.6rem; }
+.pd-company { font-size:1.1rem; font-weight:900; color:var(--ink); letter-spacing:-0.01em; }
+.pd-type { font-size:0.78rem; color:var(--accent); font-weight:700; margin-top:0.15rem; }
+.pd-body { border-top:0.5px solid var(--line); padding-top:1.1rem; display:flex; flex-direction:column; gap:0.8rem; }
+.pd-row { display:flex; align-items:center; gap:0.7rem; font-size:0.88rem; }
+.pd-label { color:var(--mid); min-width:56px; font-size:0.78rem; }
+.pd-value { color:var(--ink); font-weight:500; }
+.pd-close { width:100%; margin-top:1.4rem; padding:0.7rem; border:0.5px solid var(--line); border-radius:12px; background:var(--off-white); cursor:pointer; font-family:inherit; font-size:0.85rem; color:var(--mid); }
+.pd-close:hover { background:var(--warm); }
+
+/* ════════════════════════════════════════════
+   BOARD — 커뮤니티
+════════════════════════════════════════════ */
+#board {
+  background: var(--warm);
+  padding: 10rem 2rem;
+}
+.board-inner { max-width: 1320px; margin: 0 auto; }
+.board-tabs { display:flex; gap:0; border-bottom:0.5px solid var(--line); margin-bottom:2rem; }
+.board-tab { padding:0.6rem 1.4rem; font-size:0.85rem; font-weight:700; border:none; background:none; cursor:pointer; font-family:inherit; color:var(--mid); border-bottom:2px solid transparent; margin-bottom:-0.5px; transition:color 0.2s; }
+.board-tab.active { color:var(--ink); border-bottom-color:var(--ink); }
+.board-panel { display:none; }
+.board-panel.active { display:block; }
+.board-write-btn { float:right; padding:0.4rem 1.2rem; background:var(--ink); color:#fff; border:none; border-radius:999px; font-size:0.78rem; font-weight:700; cursor:pointer; font-family:inherit; transition:background 0.2s; }
+.board-write-btn:hover { background:var(--accent); }
+.board-table { width:100%; border-collapse:collapse; font-size:0.85rem; clear:both; margin-top:0.5rem; }
+.board-table th { padding:0.55rem 0.8rem; text-align:left; font-size:0.7rem; color:var(--mid); border-bottom:0.5px solid var(--line); font-weight:700; background:rgba(0,0,0,0.02); }
+.board-table td { padding:0.65rem 0.8rem; border-bottom:0.5px solid var(--line); color:var(--ink); }
+.board-table tr:hover td { background:rgba(0,0,0,0.02); cursor:pointer; }
+.board-num { width:48px; text-align:center; color:var(--mid); }
+.board-category { width:80px; }
+.board-cat-badge { display:inline-block; padding:2px 8px; border-radius:999px; font-size:0.7rem; font-weight:700; background:rgba(45,106,79,0.08); color:var(--accent); }
+.board-title { font-weight:500; }
+.board-author { width:80px; color:var(--mid); font-size:0.78rem; }
+.board-date { width:90px; color:var(--mid); font-size:0.78rem; }
+.board-views { width:54px; text-align:center; color:var(--mid); font-size:0.78rem; }
+.board-empty { text-align:center; padding:3rem; color:var(--mid); font-size:0.85rem; }
+.board-pager { display:flex; justify-content:center; gap:0.4rem; margin-top:1.2rem; }
+.board-page-btn { width:32px; height:32px; border:0.5px solid var(--line); border-radius:8px; font-size:0.8rem; cursor:pointer; background:#fff; font-family:inherit; color:var(--mid); }
+.board-page-btn.active { background:var(--ink); color:#fff; border-color:var(--ink); }
+
+/* 글쓰기 폼 */
+.write-form { background:#fff; border-radius:16px; padding:1.4rem 1.6rem; margin-bottom:1.5rem; border:0.5px solid var(--line); }
+.write-form-title { font-size:0.9rem; font-weight:700; color:var(--ink); margin-bottom:0.9rem; }
+.write-row { display:grid; grid-template-columns:1fr 1fr; gap:0.7rem; margin-bottom:0.7rem; }
+.write-row.full { grid-template-columns:1fr; }
+.write-label { font-size:0.72rem; color:var(--mid); margin-bottom:3px; font-weight:500; }
+.write-inp, .write-sel, .write-ta { width:100%; padding:0.45rem 0.75rem; border:0.5px solid var(--line); border-radius:10px; font-size:0.83rem; font-family:inherit; color:var(--ink); background:#fff; transition:border-color 0.2s; }
+.write-inp:focus, .write-sel:focus, .write-ta:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(45,106,79,0.1); }
+.write-ta { min-height:100px; resize:vertical; }
+.write-btns { display:flex; gap:0.5rem; justify-content:flex-end; margin-top:0.8rem; }
+.write-cancel { padding:0.45rem 1rem; border:0.5px solid var(--line); border-radius:999px; background:#fff; font-size:0.82rem; cursor:pointer; font-family:inherit; color:var(--mid); }
+.write-submit { padding:0.45rem 1.2rem; border:none; border-radius:999px; background:var(--ink); color:#fff; font-size:0.82rem; font-weight:700; cursor:pointer; font-family:inherit; }
+.write-submit:hover { background:var(--accent); }
+.md-preview { display:none; background:var(--off-white); border:0.5px solid var(--line); border-radius:10px; padding:0.8rem 1rem; margin-top:0.5rem; font-size:0.83rem; line-height:1.8; min-height:60px; }
+.md-preview.show { display:block; }
+.md-toggle { font-size:0.75rem; color:var(--accent); cursor:pointer; background:none; border:none; font-family:inherit; padding:0; margin-top:4px; }
+
+/* 게시글 모달 */
+.post-modal-bg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:8000; align-items:center; justify-content:center; backdrop-filter:blur(8px); }
+.post-modal-bg.open { display:flex; }
+.post-modal { background:#fff; border-radius:24px; width:92%; max-width:640px; max-height:90vh; overflow-y:auto; padding:2.5rem; box-shadow:0 30px 80px rgba(0,0,0,0.2); }
+.post-modal-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.2rem; border-bottom:0.5px solid var(--line); padding-bottom:0.8rem; }
+.post-modal-title { font-size:1.1rem; font-weight:700; color:var(--ink); line-height:1.5; letter-spacing:-0.01em; }
+.post-modal-close { background:rgba(0,0,0,0.06); border:none; font-size:0.9rem; cursor:pointer; color:var(--mid); padding:0.35rem 0.6rem; border-radius:999px; }
+.post-modal-meta { font-size:0.78rem; color:var(--mid); margin-bottom:1.4rem; }
+.post-modal-body { font-size:0.88rem; color:var(--ink); line-height:1.9; min-height:100px; }
+.post-modal-body h1,.post-modal-body h2,.post-modal-body h3 { font-weight:700; margin:1rem 0 0.4rem; }
+.post-modal-body h1 { font-size:1.2rem; } .post-modal-body h2 { font-size:1.05rem; } .post-modal-body h3 { font-size:0.95rem; }
+.post-modal-body p { margin:0.5rem 0; } .post-modal-body ul,.post-modal-body ol { padding-left:1.4rem; margin:0.5rem 0; } .post-modal-body li { margin:0.2rem 0; }
+.post-modal-body code { background:var(--warm); padding:1px 5px; border-radius:4px; font-size:0.82rem; font-family:monospace; }
+.post-modal-body pre { background:var(--warm); padding:0.8rem 1rem; border-radius:10px; overflow-x:auto; font-size:0.80rem; margin:0.6rem 0; }
+.post-modal-body blockquote { border-left:2px solid var(--accent); padding-left:0.8rem; color:var(--mid); margin:0.5rem 0; }
+.post-modal-body a { color:var(--accent); text-decoration:underline; }
+.post-modal-body table { border-collapse:collapse; width:100%; margin:0.6rem 0; font-size:0.82rem; }
+.post-modal-body th,.post-modal-body td { border:0.5px solid var(--line); padding:5px 8px; }
+.post-modal-body th { background:var(--warm); font-weight:700; }
+.post-modal-body hr { border:none; border-top:0.5px solid var(--line); margin:0.8rem 0; }
+
+/* ════════════════════════════════════════════
+   REVIEWS
+════════════════════════════════════════════ */
+#reviews {
+  background: var(--off-black);
+  padding: 10rem 2rem;
+}
+.reviews-inner { max-width: 1320px; margin: 0 auto; }
+.reviews-h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 3.2vw, 2.6rem);
+  color: #fff; letter-spacing: -0.025em;
+  margin-bottom: 3.5rem;
+}
+.review-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,255,255,0.06); border-radius:20px; overflow:hidden; }
+.review-card { background:rgba(255,255,255,0.03); padding:2.5rem 2rem; display:flex; flex-direction:column; gap:1.2rem; transition:background 0.25s; }
+.review-card:hover { background:rgba(255,255,255,0.06); }
+.review-stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 3px; }
+.review-text { font-size:0.85rem; line-height:1.9; color:rgba(255,255,255,0.55); flex:1; font-weight:300; }
+.review-name { font-weight:700; font-size:0.88rem; color:rgba(255,255,255,0.85); }
+.review-meta { font-size:0.68rem; color:rgba(255,255,255,0.3); margin-top:0.1rem; }
+.btn-review-write { display:inline-block; margin-top:2.5rem; padding:0.75rem 2rem; border:0.5px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.65); border-radius:999px; font-size:0.82rem; font-weight:600; transition:all 0.2s; }
+.btn-review-write:hover { border-color:rgba(255,255,255,0.5); color:#fff; transform:scale(1.03); }
+@media(max-width:768px){ .review-grid { grid-template-columns:1fr; } }
+
+/* ════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════ */
+footer {
+  background: var(--black);
+  border-top: 0.5px solid rgba(255,255,255,0.05);
+  padding: 4rem 2rem 2rem;
+}
+.footer-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+}
+.footer-logo-area .logo-name { color: rgba(255,255,255,0.85); }
+.footer-logo-area .logo-mark { background: var(--accent); }
+.footer-desc { font-size:0.7rem; color:rgba(255,255,255,0.25); line-height:1.95; margin-top:0.8rem; }
+.footer-col-title { font-size:0.65rem; font-weight:700; color:rgba(255,255,255,0.35); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:1rem; }
+.footer-links-list { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+.footer-links-list a { font-size:0.73rem; color:rgba(255,255,255,0.32); transition:color 0.2s; }
+.footer-links-list a:hover { color:rgba(255,255,255,0.75); }
+.footer-bottom { max-width:1320px; margin:2.5rem auto 0; padding-top:1.5rem; border-top:0.5px solid rgba(255,255,255,0.04); display:flex; justify-content:space-between; align-items:center; font-size:0.62rem; color:rgba(255,255,255,0.18); flex-wrap:wrap; gap:0.5rem; }
+
+/* ════════════════════════════════════════════
+   ANIMATIONS
+════════════════════════════════════════════ */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scrollLine {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  50%  { transform: scaleY(1); transform-origin: top; }
+  51%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* 스크롤 reveal */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ════════════════════════════════════════════
+   MOBILE DRAWER
+════════════════════════════════════════════ */
+.mobile-drawer { display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:300; }
+.mobile-drawer.open { display:block; }
+.drawer-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.55); backdrop-filter:blur(4px); }
+.drawer-panel { position:absolute; top:0; right:0; width:300px; height:100%; background:rgba(14,14,18,0.97); backdrop-filter:blur(40px); padding:1.5rem 1.2rem; overflow-y:auto; display:flex; flex-direction:column; border-left:0.5px solid rgba(255,255,255,0.08); }
+.drawer-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; }
+.drawer-logo { font-family:'Noto Serif KR',serif; font-weight:900; font-size:1rem; color:#fff; }
+.drawer-logo span { color:var(--accent-x); }
+.drawer-close { background:rgba(255,255,255,0.08); border:none; color:#aaa; font-size:1rem; cursor:pointer; padding:0.3rem 0.6rem; border-radius:999px; }
+.drawer-close:hover { color:#fff; }
+.drawer-nav { display:flex; flex-direction:column; gap:0.2rem; flex:1; }
+.drawer-link { display:block; padding:0.75rem 0.8rem; color:rgba(255,255,255,0.65); font-size:0.92rem; font-weight:500; border-radius:10px; transition:all 0.15s; }
+.drawer-link:hover { background:rgba(255,255,255,0.06); color:#fff; }
+.drawer-link.accent { color:var(--accent-x); font-weight:700; }
+.drawer-divider { height:0.5px; background:rgba(255,255,255,0.06); margin:0.6rem 0; }
+.drawer-actions { margin-top:auto; padding-top:1rem; border-top:0.5px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; gap:0.6rem; }
+.drawer-btn-kakao { display:block; padding:0.7rem; background:#FEE500; color:#3C1E1E; border-radius:12px; text-align:center; font-weight:700; font-size:0.85rem; cursor:pointer; border:none; font-family:inherit; }
+.drawer-btn-quote { display:block; padding:0.7rem; background:var(--accent); color:#fff; border-radius:12px; text-align:center; font-weight:700; font-size:0.85rem; }
+
+/* ════════════════════════════════════════════
+   MOBILE RESPONSIVE
+════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .about-layout { gap: 4rem; }
+  .region-grid { gap: 3rem; }
+}
+@media (max-width: 900px) {
+  .nav-links, .nav-right { display: none; }
+  .hamburger { display: flex; }
+  .about-layout, .region-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .svc-panel.active { grid-template-columns: 1fr; }
+  .process-steps { flex-wrap: wrap; gap: 2rem; }
+  .ps-item { min-width: 140px; flex: none; width: calc(50% - 1rem); }
+  .process-steps::before { display: none; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  #hero, #about, #services, #process, #region, #cta, #gallery, #partners, #board, #reviews { padding-left: 1.2rem; padding-right: 1.2rem; }
+}
+@media (max-width: 640px) {
+  .hero-h1 { font-size: 2.2rem; }
+  .hero-stats { gap: 0; flex-direction: column; }
+  .hero-stat { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.08); padding: 0.8rem 0; margin: 0; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions a, .hero-actions button { width: 100%; justify-content: center; }
+  .services-head { flex-direction: column; align-items: flex-start; }
+  .svc-tabs { justify-content: flex-start; }
+  .gallery-head { flex-direction: column; align-items: flex-start; }
+  .ps-item { width: 100%; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .review-grid { grid-template-columns: 1fr; }
+  #about, #services, #process, #region, #cta, #gallery, #partners, #board, #reviews { padding-top: 6rem; padding-bottom: 6rem; }
+}
+
+@media print {
+  header, #hero, .wizard-nav, .hero-scroll, #cta { display: none !important; }
+  .section { padding: 2rem 1rem !important; }
+  body { background: #fff !important; color: #111 !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header id="mainHeader">
+  <nav class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">가치</div>
+      <div class="logo-text">
+        <div class="logo-name">가치<em>잇다</em><span class="logo-consulting">컨설팅</span></div>
+        <div class="logo-sub">건축의 가치를 바르게 잇다</div>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <div class="nav-item">
+        <a href="#about" class="nav-link">회사소개 <span class="arr">▼</span></a>
+        <div class="dropdown">
+          <div class="dd-item" onclick="location.href='#about'">
+            <span class="dd-icon">🏛️</span>
+            <div><div>대표 소개</div><span class="dd-sub">경력 및 철학</span></div>
+          </div>
+          <div class="dd-item" onclick="location.href='#about'">
+            <span class="dd-icon">📌</span>
+            <div><div>회사 연혁</div><span class="dd-sub">가치잇다컨설팅 히스토리</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#services" class="nav-link">서비스 <span class="arr">▼</span></a>
+        <div class="dropdown">
+          <div class="dd-item" onclick="location.href='#services'"><span class="dd-icon">📐</span><div><div>설계</div><span class="dd-sub">건축설계·인테리어설계·감리</span></div></div>
+          <div class="dd-item" onclick="location.href='#services'"><span class="dd-icon">🏗️</span><div><div>시공</div><span class="dd-sub">신축·증축·리모델링</span></div></div>
+          <div class="dd-item" onclick="location.href='#services'"><span class="dd-icon">🛋️</span><div><div>인테리어</div><span class="dd-sub">욕실·주방·도배·마루</span></div></div>
+          <div class="dd-item" onclick="location.href='#services'"><span class="dd-icon">🔧</span><div><div>집수리</div><span class="dd-sub">누수·창호·도색·전기설비</span></div></div>
+          <div class="dd-item" onclick="window.open('feasibility.html','_blank')"><span class="dd-icon">🏢</span><div><div>사업수지표</div><span class="dd-sub">토지·공사비·수익률 분석</span></div></div>
+          <div class="dd-item" onclick="location.href='#region'"><span class="dd-icon">📍</span><div><div>서비스 지역</div><span class="dd-sub">서산·충남 전역</span></div></div>
+        </div>
+      </div>
+      <div class="nav-item"><a href="#gallery" class="nav-link">사례</a></div>
+      <div class="nav-item" style="position:relative;">
+        <a href="#partners" class="nav-link" onclick="event.preventDefault();document.getElementById('navPartnerPanel').style.display=document.getElementById('navPartnerPanel').style.display==='block'?'none':'block'">협력업체 <span class="arr">▼</span></a>
+        <div class="nav-partner-panel" id="navPartnerPanel">
+          <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.6rem;">
+            <button class="pf-btn active" onclick="navFilterPartners(this,'all')">전체</button>
+            <button class="pf-btn" onclick="navFilterPartners(this,'architect')">📐 건축사</button>
+            <button class="pf-btn" onclick="navFilterPartners(this,'civil')">🗺️ 토목</button>
+            <button class="pf-btn" onclick="navFilterPartners(this,'legal')">⚖️ 법무사</button>
+            <button class="pf-btn" onclick="navFilterPartners(this,'realestate')">🏢 중개사</button>
+            <button class="pf-btn" onclick="navFilterPartners(this,'construction')">🏗️ 시공</button>
+            <button class="pf-btn" onclick="navFilterPartners(this,'interior')">🛋️ 인테리어</button>
+            <button class="pf-btn" onclick="navFilterPartners(this,'electric')">⚡ 전기</button>
+            <button class="pf-btn" onclick="navFilterPartners(this,'plumbing')">🔧 설비</button>
+            <button class="pf-btn" onclick="navFilterPartners(this,'repair')">🏠 집수리</button>
+            <button class="pf-btn" onclick="navFilterPartners(this,'material')">📦 자재</button>
+          </div>
+          <div class="nav-panel-grid" id="navPartnerGrid"></div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#board" class="nav-link">커뮤니티 <span class="arr">▼</span></a>
+        <div class="dropdown">
+          <div class="dd-item" onclick="location.href='#board';switchBoard('free')"><span class="dd-icon">💬</span><div><div>자유게시판</div><span class="dd-sub">자유롭게 소통하세요</span></div></div>
+          <div class="dd-item" onclick="location.href='#board';switchBoard('info')"><span class="dd-icon">📂</span><div><div>자료 / 정보</div><span class="dd-sub">건축·법규·단가 자료</span></div></div>
+          <div class="dd-item" onclick="location.href='#reviews'"><span class="dd-icon">⭐</span><div><div>고객후기</div><span class="dd-sub">고객의 소리</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button class="btn-kakao" onclick="alert('카카오 채널 준비 중입니다.')">💬 카카오 상담</button>
+      <a href="platform_v11.html" class="btn-quote" target="_blank">📋 견적 신청</a>
+    </div>
+    <div class="hamburger" onclick="openDrawer()"><span></span><span></span><span></span></div>
+  </nav>
+</header>
+
+<!-- ══ MOBILE DRAWER ══ -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-overlay" onclick="closeDrawer()"></div>
+  <div class="drawer-panel">
+    <div class="drawer-header">
+      <div class="drawer-logo">가치잇다<span>컨설팅</span></div>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      <a class="drawer-link" onclick="closeDrawer()" href="#about">회사소개</a>
+      <a class="drawer-link" onclick="closeDrawer()" href="#services">서비스</a>
+      <a class="drawer-link" onclick="closeDrawer()" href="#region">서비스 지역</a>
+      <a class="drawer-link" onclick="closeDrawer()" href="#gallery">사례</a>
+      <a class="drawer-link" onclick="closeDrawer()" href="#partners">협력업체</a>
+      <a class="drawer-link" onclick="closeDrawer()" href="#board">커뮤니티</a>
+      <a class="drawer-link" onclick="closeDrawer()" href="#reviews">고객후기</a>
+      <div class="drawer-divider"></div>
+      <a class="drawer-link accent" href="feasibility.html" target="_blank" onclick="closeDrawer()">🏢 사업수지표</a>
+    </nav>
+    <div class="drawer-actions">
+      <button class="drawer-btn-kakao" onclick="alert('카카오 채널 준비 중입니다.')">💬 카카오 상담</button>
+      <a class="drawer-btn-quote" href="platform_v11.html" target="_blank" onclick="closeDrawer()">📋 견적 신청</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-canvas">
+    <!-- 건축 라인 드로잉 SVG -->
+    <div class="hero-lines">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+        <!-- 건물 윤곽 -->
+        <g stroke="rgba(255,255,255,0.6)" fill="none" stroke-width="0.8">
+          <!-- 메인 건물 -->
+          <rect x="480" y="180" width="320" height="520" />
+          <rect x="500" y="200" width="280" height="480" />
+          <!-- 창문 그리드 -->
+          <line x1="480" y1="260" x2="800" y2="260" />
+          <line x1="480" y1="320" x2="800" y2="320" />
+          <line x1="480" y1="380" x2="800" y2="380" />
+          <line x1="480" y1="440" x2="800" y2="440" />
+          <line x1="480" y1="500" x2="800" y2="500" />
+          <line x1="480" y1="560" x2="800" y2="560" />
+          <line x1="480" y1="620" x2="800" y2="620" />
+          <line x1="560" y1="180" x2="560" y2="700" />
+          <line x1="640" y1="180" x2="640" y2="700" />
+          <line x1="720" y1="180" x2="720" y2="700" />
+          <!-- 작은 창 블록들 -->
+          <rect x="508" y="268" width="44" height="44" fill="rgba(82,183,136,0.08)" />
+          <rect x="568" y="268" width="44" height="44" fill="rgba(255,255,255,0.04)" />
+          <rect x="628" y="268" width="44" height="44" fill="rgba(82,183,136,0.05)" />
+          <rect x="728" y="268" width="44" height="44" fill="rgba(255,255,255,0.04)" />
+          <rect x="508" y="328" width="44" height="44" />
+          <rect x="568" y="328" width="44" height="44" fill="rgba(82,183,136,0.1)" />
+          <rect x="728" y="328" width="44" height="44" fill="rgba(255,255,255,0.04)" />
+          <rect x="508" y="388" width="44" height="44" fill="rgba(255,255,255,0.04)" />
+          <rect x="628" y="388" width="44" height="44" fill="rgba(82,183,136,0.06)" />
+          <rect x="728" y="388" width="44" height="44" />
+          <!-- 부속 건물 -->
+          <rect x="800" y="380" width="180" height="320" />
+          <line x1="800" y1="440" x2="980" y2="440" />
+          <line x1="800" y1="500" x2="980" y2="500" />
+          <line x1="800" y1="560" x2="980" y2="560" />
+          <line x1="800" y1="620" x2="980" y2="620" />
+          <line x1="860" y1="380" x2="860" y2="700" />
+          <line x1="920" y1="380" x2="920" y2="700" />
+          <!-- 투시 라인 -->
+          <line x1="0" y1="700" x2="480" y2="700" stroke-width="0.5" opacity="0.4" />
+          <line x1="980" y1="700" x2="1440" y2="700" stroke-width="0.5" opacity="0.4" />
+          <line x1="0" y1="700" x2="480" y2="180" stroke-width="0.3" opacity="0.2" />
+          <line x1="1440" y1="700" x2="800" y2="180" stroke-width="0.3" opacity="0.2" />
+        </g>
+        <!-- 포인트 원 -->
+        <circle cx="480" cy="180" r="3" fill="rgba(82,183,136,0.6)" />
+        <circle cx="800" cy="180" r="3" fill="rgba(82,183,136,0.4)" />
+        <circle cx="800" cy="380" r="2.5" fill="rgba(82,183,136,0.5)" />
+        <circle cx="980" cy="380" r="2" fill="rgba(82,183,136,0.35)" />
+      </svg>
+    </div>
+    <div class="hero-grain"></div>
+  </div>
+  <div class="hero-fade"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">건축 컨설팅 플랫폼 · 충청남도 서산</div>
+    <h1 class="hero-h1">
+      건축의 <em>가치</em>를<br>바르게 <em>잇다</em>
+    </h1>
+    <p class="hero-desc">
+      설계·시공·인테리어·집수리까지<br>
+      검증된 협력업체와 투명하게 연결합니다.<br>
+      건축사가 직접 운영하는 플랫폼입니다.
+    </p>
+    <div class="hero-actions">
+      <a href="platform_v11.html" class="btn-hero-p" target="_blank">📋 무료 견적 신청하기</a>
+      <a href="#about" class="btn-hero-s">서비스 알아보기 ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-n">30+</div>
+        <div class="hero-stat-l">년 건축 경력</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">3사</div>
+        <div class="hero-stat-l">견적 동시 비교</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">무료</div>
+        <div class="hero-stat-l">견적 상담</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <div class="hero-scroll-txt">scroll</div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="about-inner">
+    <div class="s-label reveal">About Us</div>
+    <div class="about-layout">
+      <div class="about-left">
+        <h2 class="about-h2 reveal">전문가가 직접 운영하는<br>믿을 수 있는 플랫폼</h2>
+        <p class="about-body reveal">
+          가치잇다컨설팅은 투명하고 정확한 견적을 받을 수 있도록<br>
+          전문가가 직접 운영하는 플랫폼입니다.<br>
+          건축사 전문가가 고객과 협력업체 사이에서<br>
+          설계부터 집수리까지 투명하게 연결합니다.
+        </p>
+        <div class="ceo-card reveal" style="position:relative;">
+          <div class="ceo-badge">🏛️ 건축사 · 대표</div>
+          <div class="ceo-name">가치잇다</div>
+          <div class="ceo-role">가치잇다컨설팅 대표 · 건축사</div>
+          <ul class="ceo-career">
+            <li>한국방송통신대학교 재학</li>
+            <li>건축사 면허 보유</li>
+            <li>충남 서산시 건축설계사무소 운영</li>
+            <li>주식회사 가치잇다컨설팅 대표</li>
+          </ul>
+          <div class="ceo-tag">전문가 직접 운영</div>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="about-value reveal reveal-delay-1">
+          <div class="av-num">01</div>
+          <div>
+            <div class="av-icon">🔍</div>
+            <div class="av-title">전문가가 직접 수량을 산출합니다</div>
+            <div class="av-desc">일반 플랫폼과 달리 전문가가 현장을 직접 확인하고 정확한 수량을 산출하여 업체 간 견적 차이의 원인을 명확히 파악합니다.</div>
+          </div>
+        </div>
+        <div class="about-value reveal reveal-delay-2">
+          <div class="av-num">02</div>
+          <div>
+            <div class="av-icon">✅</div>
+            <div class="av-title">검증된 지역 업체만 등록합니다</div>
+            <div class="av-desc">시공 이력이 확인된 업체만 파트너로 등록합니다. 사업자등록증과 실적을 직접 검토합니다.</div>
+          </div>
+        </div>
+        <div class="about-value reveal reveal-delay-3">
+          <div class="av-num">03</div>
+          <div>
+            <div class="av-icon">📊</div>
+            <div class="av-title">투명한 3사 비교표를 제공합니다</div>
+            <div class="av-desc">공종별로 3개 업체의 단가를 나란히 비교한 표를 카카오톡으로 전달해드립니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section id="services">
+  <div class="services-inner">
+    <div class="services-head reveal">
+      <div>
+        <div class="s-label" style="margin-bottom:0.8rem;">Services</div>
+        <h2 class="services-h2">건축의 모든 과정을<br>함께합니다</h2>
+      </div>
+      <div class="svc-tabs">
+        <div class="svc-tab active" onclick="switchTab(this,'tab1')">📐 설계</div>
+        <div class="svc-tab" onclick="switchTab(this,'tab2')">🏗️ 시공</div>
+        <div class="svc-tab" onclick="switchTab(this,'tab3')">🛋️ 인테리어</div>
+        <div class="svc-tab" onclick="switchTab(this,'tab4')">🔧 집수리</div>
+      </div>
+    </div>
+
+    <div id="tab1" class="svc-panel active">
+      <div class="svc-card reveal"><div class="svc-card-icon">🏛️</div><div class="svc-card-title">건축 계획 수립</div><div class="svc-card-desc">건물 용도·규모·법규 검토부터 최적의 건축 계획을 수립합니다.</div><div class="svc-card-tags"><span class="svc-tag">용도검토</span><span class="svc-tag">규모산정</span><span class="svc-tag">법규분석</span></div></div>
+      <div class="svc-card reveal reveal-delay-1"><div class="svc-card-icon">📋</div><div class="svc-card-title">인허가 컨설팅</div><div class="svc-card-desc">건축허가·신고 절차를 안내하고 인허가 과정을 지원합니다.</div><div class="svc-card-tags"><span class="svc-tag">건축허가</span><span class="svc-tag">신고절차</span><span class="svc-tag">행정지원</span></div></div>
+      <div class="svc-card reveal reveal-delay-2"><div class="svc-card-icon">🏢</div><div class="svc-card-title">부동산 개발 컨설팅</div><div class="svc-card-desc">토지 분석부터 수익성 검토까지 개발사업 전반을 컨설팅합니다.</div><div class="svc-card-tags"><span class="svc-tag">토지분석</span><span class="svc-tag">수익성검토</span><span class="svc-tag">사업기획</span></div></div>
+    </div>
+    <div id="tab2" class="svc-panel">
+      <div class="svc-card reveal"><div class="svc-card-icon">🔍</div><div class="svc-card-title">업체 발굴 및 검증</div><div class="svc-card-desc">시공 이력이 검증된 업체를 발굴하고 등록합니다.</div><div class="svc-card-tags"><span class="svc-tag">실적검증</span><span class="svc-tag">사업자확인</span></div></div>
+      <div class="svc-card reveal reveal-delay-1"><div class="svc-card-icon">📊</div><div class="svc-card-title">3사 견적 비교</div><div class="svc-card-desc">공종별로 3개 업체의 단가를 동시에 수집하고 비교표를 작성합니다.</div><div class="svc-card-tags"><span class="svc-tag">동시수집</span><span class="svc-tag">비교분석</span><span class="svc-tag">카카오전달</span></div></div>
+      <div class="svc-card reveal reveal-delay-2"><div class="svc-card-icon">🤝</div><div class="svc-card-title">업체 매칭 지원</div><div class="svc-card-desc">건축주 요구사항에 맞는 최적의 업체를 추천하고 계약을 지원합니다.</div><div class="svc-card-tags"><span class="svc-tag">맞춤추천</span><span class="svc-tag">계약지원</span></div></div>
+    </div>
+    <div id="tab3" class="svc-panel">
+      <div class="svc-card reveal"><div class="svc-card-icon">📐</div><div class="svc-card-title">표준품셈 공사비 산출</div><div class="svc-card-desc">2024 표준품셈 기준으로 공종별 수량과 단가를 정밀하게 산출합니다.</div><div class="svc-card-tags"><span class="svc-tag">표준품셈</span><span class="svc-tag">공종별산출</span></div></div>
+      <div class="svc-card reveal reveal-delay-1"><div class="svc-card-icon">🗺️</div><div class="svc-card-title">지역 단가 보정</div><div class="svc-card-desc">실정에 맞게 단가를 보정하여 현실적인 공사비를 제공합니다.</div><div class="svc-card-tags"><span class="svc-tag">지역보정</span><span class="svc-tag">실거래가반영</span></div></div>
+      <div class="svc-card reveal reveal-delay-2"><div class="svc-card-icon">🛋️</div><div class="svc-card-title">인테리어 자재 소싱</div><div class="svc-card-desc">합리적인 가격의 인테리어 자재를 소싱하고 구매를 지원합니다.</div><div class="svc-card-tags"><span class="svc-tag">자재소싱</span><span class="svc-tag">가격비교</span></div></div>
+    </div>
+    <div id="tab4" class="svc-panel">
+      <div class="svc-card reveal"><div class="svc-card-icon">💧</div><div class="svc-card-title">누수·방수</div><div class="svc-card-desc">지붕·외벽·지하 누수 진단 및 전문 방수 공사를 연결해드립니다.</div><div class="svc-card-tags"><span class="svc-tag">누수진단</span><span class="svc-tag">방수공사</span></div></div>
+      <div class="svc-card reveal reveal-delay-1"><div class="svc-card-icon">🪟</div><div class="svc-card-title">창호·문짝 교체</div><div class="svc-card-desc">노후 창문·현관문 교체 및 단열 성능 개선 공사를 안내합니다.</div><div class="svc-card-tags"><span class="svc-tag">창호교체</span><span class="svc-tag">단열개선</span></div></div>
+      <div class="svc-card reveal reveal-delay-2"><div class="svc-card-icon">🎨</div><div class="svc-card-title">도색·도배</div><div class="svc-card-desc">외벽 도색, 실내 도배 등 소규모 마감 수선 전문업체를 연결합니다.</div><div class="svc-card-tags"><span class="svc-tag">외벽도색</span><span class="svc-tag">실내도배</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS ══ -->
+<section id="process">
+  <div class="process-inner">
+    <div class="process-head reveal">
+      <div class="s-label" style="color:var(--accent-x);margin-bottom:1rem;">How it works</div>
+      <h2 class="process-h2">5단계로<br>완성되는 견적</h2>
+    </div>
+    <div class="process-steps">
+      <div class="ps-item reveal reveal-delay-1">
+        <div class="ps-num-wrap"><div class="ps-n">1</div></div>
+        <div class="ps-icon">📋</div>
+        <div class="ps-title">온라인 신청</div>
+        <div class="ps-desc">용도·면적·예산<br>간단 입력</div>
+      </div>
+      <div class="ps-item reveal reveal-delay-2">
+        <div class="ps-num-wrap"><div class="ps-n">2</div></div>
+        <div class="ps-icon">🔍</div>
+        <div class="ps-title">현장 확인</div>
+        <div class="ps-desc">방문 후<br>정밀 수량 산출</div>
+      </div>
+      <div class="ps-item reveal reveal-delay-3">
+        <div class="ps-num-wrap"><div class="ps-n">3</div></div>
+        <div class="ps-icon">🤝</div>
+        <div class="ps-title">업체 배정</div>
+        <div class="ps-desc">검증된<br>협력업체 선별</div>
+      </div>
+      <div class="ps-item reveal" style="transition-delay:0.4s">
+        <div class="ps-num-wrap"><div class="ps-n">4</div></div>
+        <div class="ps-icon">📊</div>
+        <div class="ps-title">견적 비교</div>
+        <div class="ps-desc">공종별 단가<br>비교표 작성</div>
+      </div>
+      <div class="ps-item reveal" style="transition-delay:0.5s">
+        <div class="ps-num-wrap"><div class="ps-n">5</div></div>
+        <div class="ps-icon">💬</div>
+        <div class="ps-title">카카오 전달</div>
+        <div class="ps-desc">비교표 +<br>전문가 의견</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REGION ══ -->
+<section id="region">
+  <div class="region-inner">
+    <div class="s-label reveal">Coverage</div>
+    <div class="region-grid">
+      <div>
+        <h2 style="font-family:'Noto Serif KR',serif;font-weight:900;font-size:clamp(2rem,3.2vw,2.6rem);letter-spacing:-0.025em;margin-bottom:2.5rem;" class="reveal">서비스 지역</h2>
+        <div class="region-map reveal">
+          <div class="region-map-icon">🗺️</div>
+          <div class="region-map-title">충청남도 전역</div>
+          <div class="region-map-desc">서산시를 중심으로 당진·홍성·태안 등<br>충남 전역에서 현장 방문 서비스를 제공합니다</div>
+          <div class="region-tags">
+            <span class="r-tag main">📍 서산시 (거점)</span>
+            <span class="r-tag">당진시</span><span class="r-tag">홍성군</span><span class="r-tag">태안군</span>
+            <span class="r-tag">예산군</span><span class="r-tag">보령시</span><span class="r-tag">아산시</span>
+            <span class="r-tag">천안시</span><span class="r-tag">충남 전역</span>
+          </div>
+        </div>
+      </div>
+      <div class="region-info">
+        <div class="r-info-item reveal">
+          <div class="r-info-icon">🚗</div>
+          <div>
+            <div class="r-info-title">현장 직접 방문</div>
+            <div class="r-info-desc">전문가가 직접 현장을 방문하여 수량을 산출합니다. 서산시 기준 1시간 이내 지역은 당일 방문 가능합니다.</div>
+          </div>
+        </div>
+        <div class="r-info-item reveal reveal-delay-1">
+          <div class="r-info-icon">📞</div>
+          <div>
+            <div class="r-info-title">카카오톡 상담</div>
+            <div class="r-info-desc">방문 전 카카오톡으로 기본 상담을 진행합니다. 도면이나 사진을 보내주시면 사전 검토 후 방문합니다.</div>
+          </div>
+        </div>
+        <div class="r-info-item reveal reveal-delay-2">
+          <div class="r-info-icon">💰</div>
+          <div>
+            <div class="r-info-title">상담 및 견적 무료</div>
+            <div class="r-info-desc">초기 상담과 견적 수집은 무료입니다. 투명한 과정으로 진행하며, 업체 선정 후 컨설팅 수수료가 발생합니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="cta-eyebrow reveal">무료 견적 상담</div>
+    <h2 class="cta-h2 reveal">지금 바로 무료로<br>견적을 신청하세요</h2>
+    <p class="cta-desc reveal">전문가가 직접 확인하고 검증된 3곳의 견적을 비교해드립니다.<br>상담 및 견적 신청은 완전 무료입니다.</p>
+    <p style="margin-top:-1.5rem;margin-bottom:3rem;font-size:0.85rem;color:rgba(255,255,255,0.3);" class="reveal">또는 전화 문의 <a href="tel:0416683124" style="color:rgba(255,255,255,0.55);font-weight:700;text-decoration:underline;">041-668-3124</a></p>
+    <div class="cta-btns reveal">
+      <a href="platform_v11.html" class="btn-cta-m" target="_blank">📋 견적 신청하기 →</a>
+      <button class="btn-cta-s" onclick="alert('카카오 채널 준비 중입니다.')">💬 카카오톡 상담</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY ══ -->
+<section id="gallery">
+  <div class="gallery-inner">
+    <div class="gallery-head reveal">
+      <div>
+        <div class="s-label" style="margin-bottom:0.8rem;">Gallery</div>
+        <h2 class="gallery-h2">설계·시공 사례</h2>
+      </div>
+      <div class="gallery-filter-bar">
+        <button class="gf-btn active" onclick="filterGallery(this,'전체')">전체</button>
+        <button class="gf-btn" onclick="filterGallery(this,'설계')">📐 설계</button>
+        <button class="gf-btn" onclick="filterGallery(this,'시공')">🏗️ 시공</button>
+        <button class="gf-btn" onclick="filterGallery(this,'인테리어')">🛋️ 인테리어</button>
+        <button class="gf-btn" onclick="filterGallery(this,'집수리')">🔧 집수리</button>
+      </div>
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-loading">
+        <div class="gallery-spinner"></div>
+        <div style="font-size:0.85rem;color:var(--mid);margin-top:1rem;">사례를 불러오는 중...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARTNERS ══ -->
+<section id="partners">
+  <div class="partners-inner">
+    <div class="s-label reveal">Partners</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;" class="reveal">
+      <h2 style="font-family:'Noto Serif KR',serif;font-weight:900;font-size:clamp(2rem,3.2vw,2.6rem);letter-spacing:-0.025em;">협력업체 찾기</h2>
+      <p style="font-size:0.82rem;color:var(--mid);max-width:360px;line-height:1.7;">가치잇다컨설팅이 검증한 지역 전문 협력업체입니다. 업체를 클릭하면 연락처를 확인할 수 있습니다.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem;">
+      <button class="pf-btn active" onclick="filterPartners(this,'all')">전체</button>
+      <button class="pf-btn" onclick="filterPartners(this,'architect')">📐 건축사</button>
+      <button class="pf-btn" onclick="filterPartners(this,'civil')">🗺️ 토목</button>
+      <button class="pf-btn" onclick="filterPartners(this,'legal')">⚖️ 법무사</button>
+      <button class="pf-btn" onclick="filterPartners(this,'realestate')">🏢 공인중개사</button>
+      <button class="pf-btn" onclick="filterPartners(this,'construction')">🏗️ 시공</button>
+      <button class="pf-btn" onclick="filterPartners(this,'interior')">🛋️ 인테리어</button>
+      <button class="pf-btn" onclick="filterPartners(this,'electric')">⚡ 전기</button>
+      <button class="pf-btn" onclick="filterPartners(this,'plumbing')">🔧 설비</button>
+      <button class="pf-btn" onclick="filterPartners(this,'repair')">🏠 집수리</button>
+      <button class="pf-btn" onclick="filterPartners(this,'material')">📦 자재</button>
+    </div>
+    <div class="partner-grid-layout" id="partnerList"></div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="platform_v11.html" class="btn-partner-apply" target="_blank">협력업체 가입 신청 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 업체 상세 모달 -->
+<div class="partner-detail-bg" id="partnerDetailBg" onclick="closePartnerDetail(event)">
+  <div class="partner-detail-modal">
+    <div class="pd-header">
+      <div class="pd-avatar" id="pdAvatar">🏢</div>
+      <div><div class="pd-company" id="pdCompany"></div><div class="pd-type" id="pdType"></div></div>
+    </div>
+    <div class="pd-body">
+      <div class="pd-row"><span class="pd-label">담당자</span><span class="pd-value" id="pdCeo"></span></div>
+      <div class="pd-row"><span class="pd-label">연락처</span><span class="pd-value" id="pdPhone"></span></div>
+      <div class="pd-row" id="pdAddrRow"><span class="pd-label">주소</span><span class="pd-value" id="pdAddr"></span></div>
+    </div>
+    <button class="pd-close" onclick="document.getElementById('partnerDetailBg').classList.remove('open')">닫기</button>
+  </div>
+</div>
+
+<!-- ══ COMMUNITY ══ -->
+<section id="board">
+  <div class="board-inner">
+    <div class="s-label reveal">Community</div>
+    <h2 style="font-family:'Noto Serif KR',serif;font-weight:900;font-size:clamp(2rem,3.2vw,2.6rem);letter-spacing:-0.025em;margin-bottom:0.8rem;" class="reveal">커뮤니티</h2>
+    <p style="font-size:0.88rem;color:var(--mid);margin-bottom:2.5rem;" class="reveal">건축·시공·인테리어에 관한 정보를 나누고, 유용한 자료를 공유하는 공간입니다.</p>
+
+    <div class="board-tabs">
+      <button class="board-tab active" id="tab-free" onclick="switchBoard('free')">💬 자유게시판</button>
+      <button class="board-tab" id="tab-info" onclick="switchBoard('info')">📂 자료 / 정보</button>
+    </div>
+
+    <div class="board-panel active" id="panel-free">
+      <button class="board-write-btn" onclick="openWriteForm('free')">✏️ 글쓰기</button>
+      <div id="write-form-free" style="display:none;">
+        <div class="write-form">
+          <div class="write-form-title">✏️ 새 글 작성</div>
+          <div class="write-row"><div><div class="write-label">분류</div><select class="write-sel" id="wf-free-cat"><option value="일반">일반</option><option value="질문">질문</option><option value="후기">후기</option><option value="정보">정보공유</option></select></div><div><div class="write-label">작성자</div><input class="write-inp" id="wf-free-author" placeholder="닉네임"></div></div>
+          <div class="write-row full"><div><div class="write-label">제목</div><input class="write-inp" id="wf-free-title" placeholder="제목을 입력하세요"></div></div>
+          <div class="write-row full"><div><div class="write-label">내용</div><textarea class="write-ta" id="wf-free-body" placeholder="내용을 입력하세요&#10;마크다운 문법을 지원합니다." oninput="mdPreview('free')"></textarea><button class="md-toggle" onclick="toggleMdPreview('free')">미리보기 ▾</button><div class="md-preview" id="md-preview-free"></div></div></div>
+          <div class="write-btns"><button class="write-cancel" onclick="loadMdFile('free')" style="color:var(--accent);">📄 .md 파일</button><button class="write-cancel" onclick="closeWriteForm('free')">취소</button><button class="write-submit" onclick="submitPost('free')">등록</button></div>
+        </div>
+      </div>
+      <table class="board-table"><thead><tr><th class="board-num">#</th><th class="board-category">분류</th><th class="board-title">제목</th><th class="board-author">작성자</th><th class="board-date">날짜</th><th class="board-views">조회</th></tr></thead><tbody id="free-board-body"><tr><td colspan="6" class="board-empty">게시글을 불러오는 중...</td></tr></tbody></table>
+      <div class="board-pager" id="free-pager"></div>
+    </div>
+
+    <div class="board-panel" id="panel-info">
+      <button class="board-write-btn" onclick="openWriteForm('info')">✏️ 자료 등록</button>
+      <div id="write-form-info" style="display:none;">
+        <div class="write-form">
+          <div class="write-form-title">📂 자료 등록</div>
+          <div class="write-row"><div><div class="write-label">분류</div><select class="write-sel" id="wf-info-cat"><option value="법규">법규·인허가</option><option value="단가">단가·적산</option><option value="설계">설계자료</option><option value="시공">시공·공법</option><option value="기타">기타</option></select></div><div><div class="write-label">작성자</div><input class="write-inp" id="wf-info-author" placeholder="닉네임"></div></div>
+          <div class="write-row full"><div><div class="write-label">제목</div><input class="write-inp" id="wf-info-title" placeholder="자료 제목을 입력하세요"></div></div>
+          <div class="write-row full"><div><div class="write-label">내용 / 링크</div><textarea class="write-ta" id="wf-info-body" placeholder="내용이나 자료 링크를 입력하세요" oninput="mdPreview('info')"></textarea><button class="md-toggle" onclick="toggleMdPreview('info')">미리보기 ▾</button><div class="md-preview" id="md-preview-info"></div></div></div>
+          <div class="write-btns"><button class="write-cancel" onclick="loadMdFile('info')" style="color:var(--accent);">📄 .md 파일</button><button class="write-cancel" onclick="closeWriteForm('info')">취소</button><button class="write-submit" onclick="submitPost('info')">등록</button></div>
+        </div>
+      </div>
+      <table class="board-table"><thead><tr><th class="board-num">#</th><th class="board-category">분류</th><th class="board-title">제목</th><th class="board-author">작성자</th><th class="board-date">날짜</th><th class="board-views">조회</th></tr></thead><tbody id="info-board-body"><tr><td colspan="6" class="board-empty">게시글을 불러오는 중...</td></tr></tbody></table>
+      <div class="board-pager" id="info-pager"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 게시글 모달 -->
+<div class="post-modal-bg" id="postModalBg" onclick="closePostModal(event)">
+  <div class="post-modal">
+    <div class="post-modal-header">
+      <div class="post-modal-title" id="modalTitle"></div>
+      <button class="post-modal-close" onclick="document.getElementById('postModalBg').classList.remove('open')">✕</button>
+    </div>
+    <div class="post-modal-meta" id="modalMeta"></div>
+    <div class="post-modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ══ REVIEWS ══ -->
+<section id="reviews">
+  <div class="reviews-inner">
+    <div class="s-label reveal" style="color:var(--accent-x);">Reviews</div>
+    <h2 class="reviews-h2 reveal">고객의 소리</h2>
+    <div class="review-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"처음 건축을 준비하면서 어디서부터 시작해야 할지 막막했는데, 전문가가 직접 설명해주고 설계부터 시공까지 연결해줘서 정말 든든했습니다."</div>
+        <div><div class="review-name">김○○ 님</div><div class="review-meta">서산시 · 단독주택 신축</div></div>
+      </div>
+      <div class="review-card reveal reveal-delay-1">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"인테리어 업체를 직접 알아보다가 지쳐서 문의했는데, 검증된 업체 3곳 견적을 한 번에 비교할 수 있어서 너무 편했어요. 가격도 합리적이었습니다."</div>
+        <div><div class="review-name">이○○ 님</div><div class="review-meta">당진시 · 사무실 인테리어</div></div>
+      </div>
+      <div class="review-card reveal reveal-delay-2">
+        <div class="review-stars">★★★★☆</div>
+        <div class="review-text">"지붕 누수 문제로 연락했는데 빠르게 현장 확인 후 전문업체를 연결해줬습니다. 공사 결과도 만족스럽고, 사후 관리까지 꼼꼼하게 챙겨주셨어요."</div>
+        <div><div class="review-name">박○○ 님</div><div class="review-meta">홍성군 · 주택 집수리</div></div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <a href="platform_v11.html" class="btn-review-write" target="_blank">후기 작성하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo-area">
+      <div class="logo" style="margin-bottom:0.8rem;">
+        <div class="logo-mark">가치</div>
+        <div class="logo-text">
+          <div class="logo-name">가치<em>잇다</em><span class="logo-consulting">컨설팅</span></div>
+          <div class="logo-sub">건축의 가치를 바르게 잇다</div>
+        </div>
+      </div>
+      <div class="footer-desc">
+        사업자등록번호: 749942<br>
+        주소: 충남 서산시 덕지천로 331<br>
+        업종: 건축·부동산 컨설팅 / 인테리어 리모델링 / 미디어콘텐츠창작업<br><br>
+        📞 <a href="tel:0416683124" style="color:rgba(255,255,255,0.4);">041-668-3124</a>
+        &nbsp;|&nbsp; 📠 FAX 041-668-3125<br>
+        🕐 평일 09:00 – 18:00
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">메뉴</div>
+      <ul class="footer-links-list">
+        <li><a href="#about">회사소개</a></li>
+        <li><a href="#services">서비스</a></li>
+        <li><a href="#region">서비스 지역</a></li>
+        <li><a href="#gallery">사례</a></li>
+        <li><a href="#partners">협력업체</a></li>
+        <li><a href="#board">커뮤니티</a></li>
+        <li><a href="#reviews">고객후기</a></li>
+        <li><a href="platform_v11.html" target="_blank">견적 플랫폼</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">문의</div>
+      <ul class="footer-links-list">
+        <li><a href="https://blog.naver.com/7707fire" target="_blank">네이버 블로그</a></li>
+        <li><a href="tel:0416683124">📞 041-668-3124</a></li>
+        <li><a href="platform_v11.html" target="_blank">견적 신청 →</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">도구</div>
+      <ul class="footer-links-list">
+        <li><a href="feasibility.html" target="_blank">🏢 사업수지표</a></li>
+        <li><a href="platform_v11.html" target="_blank">📐 공사비 계산기</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 가치잇다컨설팅. All rights reserved.</span>
+    <span>건축의 가치를 바르게 잇다 · 충남 서산</span>
+    <span style="opacity:0.5;font-size:0.6rem;">사업자등록번호 749942 | 주식회사 가치잇다컨설팅 | 대표 안희찬</span>
+  </div>
+</footer>
+
+<script>
+// ══ 헤더 스크롤 효과 ══
+window.addEventListener('scroll', () => {
+  document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ══ 탭 전환 ══
+function switchTab(el, tabId) {
+  document.querySelectorAll('.svc-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.svc-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+// ══ 스크롤 reveal ══
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ══ 모바일 드로어 ══
+function openDrawer()  { document.getElementById('mobileDrawer').classList.add('open');  document.body.style.overflow='hidden'; }
+function closeDrawer() { document.getElementById('mobileDrawer').classList.remove('open'); document.body.style.overflow=''; }
+
+// ══ GALLERY ══
+const GALLERY_URL = 'https://script.google.com/macros/s/AKfycbxNtFJYq6dBtdcPGdSZPBSysoA2ePeYoe3gMNiPBAisVoGqzwAjR4PiiEpI4H0jLizn/exec';
+const BLOG_URL = 'https://blog.naver.com/7707fire';
+let galleryData = [];
+
+async function loadGallery() {
+  try {
+    const res = await fetch(GALLERY_URL + '?type=gallery&t=' + Date.now(), { mode: 'cors' });
+    const data = await res.json();
+    if (data && data.items && data.items.length > 0) { galleryData = data.items; renderGallery('전체'); return; }
+  } catch(e) {}
+  galleryData = [
+    { id:1, tag:'설계', title:'서산 단독주택 설계', desc:'3층 규모 단독주택 건축설계', thumb:'🏠', blogUrl: BLOG_URL },
+    { id:2, tag:'시공', title:'당진 상가 신축', desc:'1층 상가 신축 공사 감리', thumb:'🏗️', blogUrl: BLOG_URL },
+    { id:3, tag:'인테리어', title:'아산 아파트 인테리어', desc:'32평 아파트 풀 리모델링', thumb:'🛋️', blogUrl: BLOG_URL },
+    { id:4, tag:'집수리', title:'홍성 주택 누수 수리', desc:'지붕 방수 및 외벽 보수', thumb:'🔧', blogUrl: BLOG_URL },
+    { id:5, tag:'설계', title:'태안 펜션 설계', desc:'4동 규모 소형 펜션 설계', thumb:'🏕️', blogUrl: BLOG_URL },
+    { id:6, tag:'시공', title:'보령 창고 증축', desc:'기존 창고 200㎡ 증축', thumb:'🏭', blogUrl: BLOG_URL },
+  ];
+  renderGallery('전체');
+}
+
+function renderGallery(filter) {
+  const grid = document.getElementById('galleryGrid');
+  const filtered = filter === '전체' ? galleryData : galleryData.filter(i => i.tag === filter);
+  if (!filtered.length) { grid.innerHTML = '<div class="gallery-empty">해당 카테고리의 사례가 없습니다.</div>'; return; }
+  grid.innerHTML = filtered.map(item => `
+    <a class="gallery-card reveal" href="${item.blogUrl || BLOG_URL}" target="_blank">
+      <div class="gallery-thumb" style="background:var(--warm);">
+        <div class="gallery-thumb-icon">${item.thumb || '🏛️'}</div>
+      </div>
+      <div class="gallery-info">
+        <span class="gallery-tag">${item.tag}</span>
+        <div class="gallery-title">${escHtml(item.title)}</div>
+        <div class="gallery-desc">${escHtml(item.desc || '')}</div>
+      </div>
+    </a>`).join('') + `
+    <a class="gallery-card gallery-more" href="${BLOG_URL}" target="_blank">
+      <div class="gallery-more-inner">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">📖</div>
+        <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.3rem;">블로그에서 더 보기</div>
+        <div style="font-size:0.75rem;color:var(--mid);">네이버 블로그에서 더 많은 사례를 확인하세요</div>
+      </div>
+    </a>`;
+  grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+function filterGallery(btn, cat) {
+  document.querySelectorAll('.gf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGallery(cat);
+}
+
+// ══ PARTNERS ══
+let partnerData = [];
+async function loadPartners() {
+  try {
+    const res = await fetch(GALLERY_URL + '?type=partners&t=' + Date.now(), { mode: 'cors' });
+    const data = await res.json();
+    if (data && data.partners && data.partners.length > 0) { partnerData = data.partners; renderPartners('all'); renderNavPartners('all'); return; }
+  } catch(e) {}
+  partnerData = [];
+  renderPartners('all');
+  renderNavPartners('all');
+}
+
+const TYPE_ICONS = { architect:'📐', civil:'🗺️', legal:'⚖️', realestate:'🏢', construction:'🏗️', interior:'🛋️', electric:'⚡', plumbing:'🔧', repair:'🏠', material:'📦' };
+const TYPE_LABELS = { architect:'건축사', civil:'토목', legal:'법무사', realestate:'공인중개사', construction:'시공', interior:'인테리어', electric:'전기', plumbing:'설비', repair:'집수리', material:'자재' };
+
+function renderPartners(filter) {
+  const list = document.getElementById('partnerList');
+  const filtered = filter === 'all' ? partnerData : partnerData.filter(p => p.type === filter);
+  if (!filtered.length) {
+    list.innerHTML = `<div class="partner-recruiting"><div style="font-size:1.5rem;margin-bottom:0.5rem;">🤝</div><div style="font-weight:700;margin-bottom:0.3rem;">파트너 모집 중</div><div style="font-size:0.8rem;color:var(--mid);margin-bottom:1rem;">현재 등록된 협력업체가 없습니다. 파트너로 함께하세요!</div><a href="platform_v11.html" class="btn-partner-apply" target="_blank">협력업체 가입 신청 →</a></div>`;
+    return;
+  }
+  list.innerHTML = filtered.map(p => `
+    <div class="partner-card" onclick="openPartnerDetail('${p.id}')">
+      <div class="partner-avatar">${TYPE_ICONS[p.type] || '🏢'}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="partner-name">${escHtml(p.company)}</div>
+        <div class="partner-tags">
+          <span class="partner-tag type">${TYPE_LABELS[p.type] || p.type}</span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function filterPartners(btn, type) {
+  document.querySelectorAll('#partners .pf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPartners(type);
+}
+
+function renderNavPartners(filter) {
+  const grid = document.getElementById('navPartnerGrid');
+  if (!grid) return;
+  const filtered = filter === 'all' ? partnerData : partnerData.filter(p => p.type === filter);
+  if (!filtered.length) { grid.innerHTML = '<div class="nav-panel-empty">등록된 업체가 없습니다</div>'; return; }
+  grid.innerHTML = filtered.slice(0,8).map(p => `
+    <div class="nav-panel-card" onclick="openPartnerDetail('${p.id}')">
+      <div class="pc-icon">${TYPE_ICONS[p.type] || '🏢'}</div>
+      <div><div class="pc-name">${escHtml(p.company)}</div><div class="pc-type">${TYPE_LABELS[p.type] || p.type}</div></div>
+    </div>`).join('');
+}
+
+function navFilterPartners(btn, type) {
+  document.querySelectorAll('#navPartnerPanel .pf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderNavPartners(type);
+}
+
+function openPartnerDetail(id) {
+  const p = partnerData.find(x => String(x.id) === String(id));
+  if (!p) return;
+  document.getElementById('pdAvatar').textContent = TYPE_ICONS[p.type] || '🏢';
+  document.getElementById('pdCompany').textContent = p.company;
+  document.getElementById('pdType').textContent = TYPE_LABELS[p.type] || p.type;
+  document.getElementById('pdCeo').textContent = p.ceo || '-';
+  document.getElementById('pdPhone').textContent = p.phone || '-';
+  const addrRow = document.getElementById('pdAddrRow');
+  if (p.address) { document.getElementById('pdAddr').textContent = p.address; addrRow.style.display = 'flex'; }
+  else { addrRow.style.display = 'none'; }
+  document.getElementById('partnerDetailBg').classList.add('open');
+}
+function closePartnerDetail(e) {
+  if (e.target === document.getElementById('partnerDetailBg'))
+    document.getElementById('partnerDetailBg').classList.remove('open');
+}
+
+// ══ BOARD ══
+const BOARD_KEY = { free:'gachi_board_free', info:'gachi_board_info' };
+let boardCache = { free:[], info:[] };
+let boardPage = { free:1, info:1 };
+const PAGE_SIZE = 10;
+
+function switchBoard(tab) {
+  ['free','info'].forEach(t => {
+    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+    document.getElementById('panel-'+t).classList.toggle('active', t===tab);
+  });
+}
+
+async function loadBoard(type) {
+  try {
+    const res = await fetch(GALLERY_URL + '?type=board_read&board=' + type, { mode: 'cors' });
+    const data = await res.json();
+    if (data && data.posts && data.posts.length > 0) {
+      const sheetPosts = data.posts;
+      const localPosts = JSON.parse(localStorage.getItem(BOARD_KEY[type])||'[]');
+      const sheetIds = sheetPosts.map(p => String(p.id));
+      const merged = sheetPosts.concat(localPosts.filter(p => sheetIds.indexOf(String(p.id)) === -1));
+      renderBoard(type, merged); return;
+    }
+  } catch(ex) {}
+  renderBoard(type, JSON.parse(localStorage.getItem(BOARD_KEY[type])||'[]'));
+}
+
+function renderBoard(type, posts) {
+  boardCache[type] = posts;
+  const tbody = document.getElementById(type+'-board-body');
+  if (!posts.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="board-empty">등록된 게시글이 없습니다. 첫 번째 글을 작성해보세요!</td></tr>';
+    document.getElementById(type+'-pager').innerHTML = '';
+    return;
+  }
+  const page = boardPage[type];
+  const total = Math.ceil(posts.length / PAGE_SIZE);
+  const slice = posts.slice().reverse().slice((page-1)*PAGE_SIZE, page*PAGE_SIZE);
+  const startNum = posts.length - (page-1)*PAGE_SIZE;
+  tbody.innerHTML = slice.map((p, i) =>
+    `<tr class="board-row" data-type="${type}" data-id="${p.id}" style="cursor:pointer;">
+      <td class="board-num" style="text-align:center;">${startNum-i}</td>
+      <td class="board-category"><span class="board-cat-badge">${p.cat}</span></td>
+      <td class="board-title">${escHtml(p.title)}</td>
+      <td class="board-author">${escHtml(p.author)}</td>
+      <td class="board-date">${p.date}</td>
+      <td class="board-views" style="text-align:center;">${p.views}</td>
+    </tr>`).join('');
+  let pgHtml = '';
+  for (let pg = 1; pg <= total; pg++)
+    pgHtml += `<button class="board-page-btn${pg===page?' active':''} board-pg-btn" data-type="${type}" data-pg="${pg}">${pg}</button>`;
+  const pager = document.getElementById(type+'-pager');
+  pager.innerHTML = pgHtml;
+  pager.querySelectorAll('.board-pg-btn').forEach(btn =>
+    btn.addEventListener('click', function() { goPage(this.dataset.type, parseInt(this.dataset.pg)); }));
+}
+
+function goPage(type, pg) { boardPage[type] = pg; loadBoard(type); }
+
+function submitPost(type) {
+  const title  = (document.getElementById('wf-'+type+'-title')||{}).value?.trim();
+  const author = (document.getElementById('wf-'+type+'-author')||{}).value?.trim()||'익명';
+  const cat    = (document.getElementById('wf-'+type+'-cat')||{}).value||'일반';
+  const body   = (document.getElementById('wf-'+type+'-body')||{}).value?.trim();
+  if (!title) { alert('제목을 입력해주세요.'); return; }
+  if (!body)  { alert('내용을 입력해주세요.'); return; }
+  const posts = JSON.parse(localStorage.getItem(BOARD_KEY[type])||'[]');
+  const newId = Date.now();
+  posts.push({ id:newId, cat, title, author, body, date:today(), views:0 });
+  localStorage.setItem(BOARD_KEY[type], JSON.stringify(posts));
+  try {
+    const params = `type=board_write&board=${encodeURIComponent(type)}&cat=${encodeURIComponent(cat)}&title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&body=${encodeURIComponent(body)}&date=${encodeURIComponent(today())}&t=${Date.now()}`;
+    new Image().src = GALLERY_URL + '?' + params;
+  } catch(ex) {}
+  ['title','author','body'].forEach(f => { const el = document.getElementById('wf-'+type+'-'+f); if(el) el.value=''; });
+  closeWriteForm(type);
+  boardPage[type] = Math.ceil(posts.length/PAGE_SIZE);
+  loadBoard(type);
+  alert('등록되었습니다.');
+}
+
+function openPost(type, id) {
+  const post = (boardCache[type]||[]).find(p => String(p.id)===String(id));
+  if (!post) return;
+  const stored = JSON.parse(localStorage.getItem(BOARD_KEY[type])||'[]');
+  const lp = stored.find(p => String(p.id)===String(id));
+  if (lp) { lp.views = (lp.views||0)+1; localStorage.setItem(BOARD_KEY[type], JSON.stringify(stored)); }
+  document.getElementById('modalTitle').textContent = post.title;
+  document.getElementById('modalMeta').textContent  = post.cat+' · '+post.author+' · '+post.date;
+  const modalBodyEl = document.getElementById('modalBody');
+  const rawBody = post.body || '';
+  if (typeof marked !== 'undefined') {
+    modalBodyEl.innerHTML = marked.parse(rawBody);
+    modalBodyEl.querySelectorAll('a').forEach(a => { a.target='_blank'; a.rel='noopener'; });
+  } else {
+    modalBodyEl.innerHTML = rawBody.replace(/\n/g,'<br>');
+  }
+  document.getElementById('postModalBg').classList.add('open');
+}
+function closePostModal(e) {
+  if (e.target === document.getElementById('postModalBg'))
+    document.getElementById('postModalBg').classList.remove('open');
+}
+
+function openWriteForm(type)  { document.getElementById('write-form-'+type).style.display = 'block'; }
+function closeWriteForm(type) { document.getElementById('write-form-'+type).style.display = 'none'; }
+
+function mdPreview(type) {
+  const ta = document.getElementById('wf-'+type+'-body');
+  const preview = document.getElementById('md-preview-'+type);
+  if (!ta || !preview) return;
+  if (preview.classList.contains('show') && typeof marked !== 'undefined')
+    preview.innerHTML = marked.parse(ta.value || '');
+}
+function toggleMdPreview(type) {
+  const ta = document.getElementById('wf-'+type+'-body');
+  const preview = document.getElementById('md-preview-'+type);
+  const btn = preview ? preview.previousElementSibling : null;
+  if (!ta || !preview) return;
+  const isOpen = preview.classList.toggle('show');
+  if (btn) btn.textContent = isOpen ? '미리보기 ▴' : '미리보기 ▾';
+  if (isOpen && typeof marked !== 'undefined') preview.innerHTML = marked.parse(ta.value || '');
+}
+function loadMdFile(type) {
+  const input = document.createElement('input');
+  input.type = 'file'; input.accept = '.md,.txt';
+  input.onchange = e => {
+    const file = e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => { const ta = document.getElementById('wf-'+type+'-body'); if (ta) { ta.value = ev.target.result; mdPreview(type); } };
+    reader.readAsText(file, 'UTF-8');
+  };
+  input.click();
+}
+
+// ══ 게시판 클릭 이벤트 ══
+document.addEventListener('DOMContentLoaded', () => {
+  loadGallery();
+  loadPartners();
+  loadBoard('free');
+  loadBoard('info');
+  const boardSection = document.getElementById('board');
+  if (boardSection) {
+    boardSection.addEventListener('click', e => {
+      const tr = e.target.closest('tr.board-row');
+      if (!tr) return;
+      openPost(tr.dataset.type, tr.dataset.id);
+    });
+  }
+});
+
+// ══ UTILS ══
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function today() { return new Date().toLocaleDateString('ko-KR',{year:'2-digit',month:'2-digit',day:'2-digit'}).replace(/ /g,''); }
+</script>
+</body>
+</html>
