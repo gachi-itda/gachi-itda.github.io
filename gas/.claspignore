@@ -1,0 +1,4 @@
+# clasp push 시 GAS 프로젝트로 올릴 파일만 허용
+**/**
+!Code.gs
+!appsscript.json

@@ -1,0 +1,111 @@
+{
+  "version": "1.0",
+  "description": "가치잇다 표준시장단가 마스터 DB — Single Source of Truth",
+  "filePattern": "data/prices/{YYYY-Hx}.csv",
+  "encoding": "UTF-8 with BOM",
+  "delimiter": ",",
+  "columns": [
+    {
+      "name": "code",
+      "required": true,
+      "type": "string",
+      "example": "AA162.30350",
+      "note": "국토부 공종코드. MAT_* 는 시중 재료비(자체코드)"
+    },
+    {
+      "name": "group",
+      "required": true,
+      "type": "string",
+      "example": "A",
+      "note": "대분류 문자 (A~P, MAT). cat은 group-map.json으로 산출"
+    },
+    {
+      "name": "subGroup",
+      "required": false,
+      "type": "string",
+      "example": "AA",
+      "note": "PDF 공종군 코드 (AA, DA, DB …)"
+    },
+    {
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "example": "가설울타리 설치·해체",
+      "note": "공종명칭"
+    },
+    {
+      "name": "spec",
+      "required": false,
+      "type": "string",
+      "example": "EGI휀스, 지주높이 3.5m이하",
+      "note": "규격. 없으면 '-'"
+    },
+    {
+      "name": "unit",
+      "required": true,
+      "type": "string",
+      "example": "m",
+      "note": "원본 단위(m, m2, ton, 개소 …). build 시 M2/EA/TON 등으로 정규화"
+    },
+    {
+      "name": "price",
+      "required": true,
+      "type": "integer",
+      "example": 25288,
+      "note": "표준시장단가(원). 쉼표 없이 숫자만"
+    },
+    {
+      "name": "laborRate",
+      "required": true,
+      "type": "number",
+      "example": 0.95,
+      "note": "노무비율 0~1 (PDF 95% → 0.95)"
+    },
+    {
+      "name": "matExclude",
+      "required": true,
+      "type": "boolean",
+      "example": true,
+      "note": "TRUE=재료비 제외(노무비·경비만). FALSE=재료비 포함"
+    },
+    {
+      "name": "note",
+      "required": false,
+      "type": "string",
+      "example": "재료비·기초콘크리트 별도",
+      "note": "단가정의·할증·지역 보정 메모"
+    },
+    {
+      "name": "version",
+      "required": true,
+      "type": "string",
+      "example": "2026-H2",
+      "note": "적용 버전. templates/적산설정.csv VERSION 과 일치"
+    },
+    {
+      "name": "active",
+      "required": true,
+      "type": "string",
+      "example": "Y",
+      "note": "Y=사용, N=숨김(단종·대체)"
+    },
+    {
+      "name": "updatedAt",
+      "required": true,
+      "type": "date",
+      "example": "2026-05-07",
+      "note": "마지막 검수일 (ISO YYYY-MM-DD)"
+    }
+  ],
+  "derivedFields": {
+    "cat": "group-map.json[building][group]",
+    "displaySpec": "spec가 '-' 이면 name, 아니면 \"name (spec)\""
+  },
+  "annualWorkflow": [
+    "1. PDF 수령 → scripts/import_pdf.ps1 로 draft CSV 생성",
+    "2. draft 와 마스터 diff → price/laborRate 갱신",
+    "3. data/prices/2027-H1.csv 저장 (Git commit)",
+    "4. scripts/build_prices.ps1 → output/sheets_단가DB.csv + templates/단가DB.csv",
+    "5. Google Sheets 단가DB 탭 교체 + 적산설정 VERSION 변경"
+  ]
+}

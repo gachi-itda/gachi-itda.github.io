@@ -1,0 +1,6 @@
+﻿key,value,note
+VERSION,2026-H2,현재 적용 버전 (단가DB version 열과 일치)
+BASE_M2,230,공사비 계산기 기준 ㎡당 만원
+REGION_DEFAULT,1.0,기본 지역계수
+REGION_SEOSAN,1.03,서산시 지역 보정 (unit_prices?region=SEOSAN)
+SOURCE_NOTE,국토교통부 표준시장단가,출처 표기

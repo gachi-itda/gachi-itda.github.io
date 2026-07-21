@@ -1,0 +1,14 @@
+{
+  "name": "gachiitda-platform",
+  "private": true,
+  "description": "가치잇다컨설팅 — 정적 프론트 + GAS 백엔드",
+  "scripts": {
+    "build:prices": "powershell -NoProfile -File scripts/build_prices.ps1",
+    "sync:gas": "powershell -NoProfile -File scripts/sync-gas.ps1",
+    "gas:push": "powershell -NoProfile -File scripts/sync-gas.ps1 && clasp push --force",
+    "gas:deploy": "clasp deploy --deploymentId AKfycbxNtFJYq6dBtdcPGdSZPBSysoA2ePeYoe3gMNiPBAisVoGqzwAjR4PiiEpI4H0jLizn --description \"platform webapp\""
+  },
+  "devDependencies": {
+    "@google/clasp": "^2.4.2"
+  }
+}

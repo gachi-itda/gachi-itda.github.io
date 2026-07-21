@@ -1,0 +1,48 @@
+══════════════════════════════════════════════════════
+  가치잇다컨설팅 — 적산 단가DB Sheets 설정 가이드
+══════════════════════════════════════════════════════
+
+■ 1. Apps Script 배포
+  1) Google Sheets (ID: 18M8UivS6_RtPwXfgo_IP0pYTCp40u1gMLQivTXDUk4w) 열기
+  2) 확장 프로그램 → Apps Script → Code_final.gs 붙여넣기
+  3) 배포 → 새 배포 → 웹 앱 (모든 사용자)
+  4) 편집기에서 setupUnitPriceSheets() 선택 → 실행 (1회)
+
+■ 2. CSV / 시드 (택 1)
+
+  [방법 A] CSV 붙여넣기 (Node 설치 시 자동 생성)
+    node scripts/export-unit-db.mjs
+    → templates/단가DB.csv (147품목) 생성 후 단가DB 탭 A1에 붙여넣기
+
+  [방법 B] Apps Script 시드 (Node 없을 때)
+    1) platform_v11.html 브라우저 F12 콘솔:
+       copy(JSON.stringify(EST_BUILTIN_DB_FALLBACK))
+    2) Apps Script: setUnitPricesJsonProperty() 실행 → 붙여넣기
+    3) seedUnitPriceDb() 실행
+
+  공통:
+    templates/재료비율.csv   → [재료비율] 탭
+    templates/적산설정.csv   → [적산설정] 탭
+
+■ 3. 단가DB 컬럼 설명
+  id | version | cat | spec | unit | price | region_factor | active | note
+  ─────────────────────────────────────────────────────────────────────
+  price        : 원 단위 (표준시장단가)
+  version      : 2026-H1 등 — 적산설정 VERSION 과 맞출 것
+  active       : Y=사용, N=숨김
+  region_factor: 품목별 추가 계수 (보통 1.0)
+
+■ 4. 단가 갱신 (반기마다)
+  1) 국토교통부 표준시장단가 반영 → 단가DB 탭 price 수정
+  2) version 열 + 적산설정 VERSION 을 2026-H2 등으로 변경
+  3) platform → 공종별 적산 → [단가DB] 탭 → [Sheets에서 새로고침]
+
+■ 5. API 테스트 (브라우zer)
+  https://script.google.com/.../exec?type=unit_prices
+  https://script.google.com/.../exec?type=unit_prices&region=SEOSAN
+  https://script.google.com/.../exec?type=est_config
+
+■ 6. 전체 147품목 CSV 만들기
+  platform_v11.html 을 브라우저에서 열고 콘솔:
+    copy(EST_BUILTIN_DB_FALLBACK.map((r,i)=>({id:i+1,version:'2026-H1',...r,region_factor:1.0,active:'Y',note:''})))
+  → JSON을 Sheets에 import 하거나 CSV 변환

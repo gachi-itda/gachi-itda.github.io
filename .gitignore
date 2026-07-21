@@ -1,0 +1,16 @@
+# Local / clasp (scriptId는 개인별)
+.clasp.json
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# PDF·추출 원본 (용량)
+scripts/*_source.pdf
+scripts/*_source.txt
+scripts/standard_price_*.csv
+
+# Downloads 경로 산출물
+**/Downloads/*.csv

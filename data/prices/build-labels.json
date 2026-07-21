@@ -1,0 +1,5 @@
+{
+  "matExclude": "재료비제외",
+  "matInclude": "재료비포함",
+  "laborPrefix": "노무비율"
+}
